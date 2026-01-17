@@ -1,0 +1,9 @@
+
+✅ Usage Report:
+------------------
+Total Documents: 82
+Total Text Content Size: 0.88 MB (905.01 KB)
+Estimated Vector Size: ~164.00 KB (approx)
+------------------
+Note: This is an application-level estimate.
+Check Supabase Dashboard > Settings > Billing for exact DB size (wal + indexes).

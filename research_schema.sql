@@ -18,3 +18,31 @@ create table if not exists research_documents (
 alter table research_documents enable row level security;
 create policy "Public documents are viewable by everyone" on research_documents for select using ( true );
 create index if not exists research_docs_category_idx on research_documents(category);
+
+-- 4. Vector Search Function
+create or replace function match_documents (
+  query_embedding vector(768),
+  match_threshold float,
+  match_count int
+)
+returns table (
+  id bigint,
+  content text,
+  title text,
+  similarity float
+)
+language plpgsql
+as $$
+begin
+  return query
+  select
+    research_documents.id,
+    research_documents.content,
+    research_documents.title,
+    1 - (research_documents.embedding <=> query_embedding) as similarity
+  from research_documents
+  where 1 - (research_documents.embedding <=> query_embedding) > match_threshold
+  order by research_documents.embedding <=> query_embedding
+  limit match_count;
+end;
+$$;

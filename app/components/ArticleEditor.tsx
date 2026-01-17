@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import SeoAnalyzer from './SeoAnalyzer';
 
 interface ArticleEditorProps {
@@ -16,6 +16,54 @@ If your Antminer S19 Pro hashboard is not detected, it can be a major issue for 
 The main symptom is the kernel log showing "chain 0 found 0 asic". This means...
   `);
     const [keyword, setKeyword] = useState('hashboard not detected');
+
+    // AI State
+    const [isAiProcessing, setIsAiProcessing] = useState(false);
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+    const handleAiImprove = async (instruction: string) => {
+        if (!textareaRef.current) return;
+
+        const textarea = textareaRef.current;
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        const selectedText = content.substring(start, end);
+
+        // Use selected text or fallback to whole content (safe?) 
+        // Let's force selection for specific edits, or handle whole doc if nothing selected.
+        const textToProcess = selectedText || content;
+
+        if (!textToProcess.trim()) return;
+
+        setIsAiProcessing(true);
+        try {
+            const res = await fetch('/api/editor/ai', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    text: textToProcess,
+                    instruction: instruction
+                })
+            });
+
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error);
+
+            // Replace text
+            if (selectedText) {
+                const newContent = content.substring(0, start) + data.rewritten + content.substring(end);
+                setContent(newContent);
+            } else {
+                setContent(data.rewritten);
+            }
+
+        } catch (err) {
+            console.error(err);
+            alert('AI Error: Could not process text. Check API limits.');
+        } finally {
+            setIsAiProcessing(false);
+        }
+    };
 
     return (
         <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '24px', height: 'calc(100vh - 100px)' }}>
@@ -40,13 +88,63 @@ The main symptom is the kernel log showing "chain 0 found 0 asic". This means...
                         />
                     </div>
 
+                    {/* AI Toolbar */}
+                    <div style={{
+                        padding: '10px',
+                        background: 'linear-gradient(90deg, #f8fafc 0%, #eff6ff 100%)',
+                        border: '1px solid var(--border-subtle)',
+                        borderBottom: 'none',
+                        borderTopLeftRadius: '8px',
+                        borderTopRightRadius: '8px',
+                        display: 'flex',
+                        gap: '8px',
+                        alignItems: 'center'
+                    }}>
+                        <span style={{ fontSize: '0.9rem', fontWeight: 'bold', color: '#4f46e5', marginRight: '8px' }}>✨ God Mode:</span>
+
+                        {[
+                            { label: '🧹 Fix Grammar', prompt: 'Fix grammar and spelling errors' },
+                            { label: '👔 Professional', prompt: 'Make the tone professional and technical' },
+                            { label: '📝 Expand', prompt: 'Expand this significantly with more detail' },
+                            { label: '✂️ Summarize', prompt: 'Summarize this concisely' },
+                        ].map(action => (
+                            <button
+                                key={action.label}
+                                onClick={() => handleAiImprove(action.prompt)}
+                                disabled={isAiProcessing}
+                                style={{
+                                    background: 'white',
+                                    border: '1px solid #cbd5e1',
+                                    borderRadius: '6px',
+                                    padding: '4px 10px',
+                                    fontSize: '0.8rem',
+                                    cursor: isAiProcessing ? 'wait' : 'pointer',
+                                    transition: 'all 0.2s',
+                                    boxShadow: '0 1px 2px rgba(0,0,0,0.05)'
+                                }}
+                            >
+                                {action.label}
+                            </button>
+                        ))}
+
+                        {isAiProcessing && <span style={{ fontSize: '0.8rem', color: '#64748b' }}>Processing...</span>}
+                    </div>
+
                     <div className="form-group" style={{ flex: 1 }}>
-                        <label className="form-label">Content (Markdown)</label>
                         <textarea
+                            ref={textareaRef}
                             className="form-textarea"
-                            style={{ flex: 1, resize: 'none', height: '100%', fontFamily: 'monospace' }}
+                            style={{
+                                flex: 1,
+                                resize: 'none',
+                                height: '100%',
+                                fontFamily: 'monospace',
+                                borderTopLeftRadius: 0,
+                                borderTopRightRadius: 0
+                            }}
                             value={content}
                             onChange={(e) => setContent(e.target.value)}
+                            placeholder="Write your article here... Highlight text to use AI tools."
                         />
                     </div>
                 </div>
