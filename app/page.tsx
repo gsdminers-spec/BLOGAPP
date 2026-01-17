@@ -44,7 +44,7 @@ export default function Home() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    const validPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'admin123';
+    const validPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'Palan@744';
 
     if (password === validPassword) {
       setIsLoggedIn(true);
@@ -86,7 +86,7 @@ export default function Home() {
             <button type="submit" className="btn btn-primary" style={{ justifyContent: 'center' }}>Login</button>
           </form>
           <div style={{ marginTop: '20px', textAlign: 'center', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-            Default: admin123
+            Default: Palan@744
           </div>
         </div>
       </div>
