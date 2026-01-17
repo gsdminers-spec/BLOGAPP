@@ -408,13 +408,84 @@ body {
   color: var(--text-secondary);
 }
 
+/* Mobile Responsiveness */
+.mobile-menu-toggle {
+  display: none;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  padding: 8px;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+}
+
 @media (max-width: 768px) {
+  .mobile-menu-toggle {
+    display: block;
+  }
+
+  .app-container {
+    flex-direction: column;
+  }
+
   .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 280px;
+    z-index: 999;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    border-right: 1px solid var(--glass-border);
+    background: #0a0a0f;
+    /* Solid background for overlay */
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Overlay backdrop when sidebar is open */
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 998;
+    backdrop-filter: blur(2px);
     display: none;
   }
 
+  .sidebar-overlay.visible {
+    display: block;
+  }
+
+  .main-content {
+    padding: var(--spacing-md);
+    padding-top: 60px;
+    /* Space for hamburger */
+    width: 100%;
+  }
+
   .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
+    /* Stack vertically on mobile */
+    gap: var(--spacing-sm);
+  }
+
+  .card {
+    padding: var(--spacing-md);
   }
 
   .form-row {
@@ -423,5 +494,37 @@ body {
 
   .file-browser {
     grid-template-columns: 1fr;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .file-tree {
+    width: 100%;
+    height: 200px;
+    border-right: none;
+    border-bottom: 1px solid var(--glass-border);
+  }
+
+  /* Responsive Tables */
+  .card {
+    overflow-x: auto;
+    /* Allow horizontal scroll for cards with tables */
+  }
+
+  .data-table {
+    min-width: 600px;
+    /* Force scroll */
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .page-header .btn {
+    width: 100%;
+    justify-content: center;
   }
 }

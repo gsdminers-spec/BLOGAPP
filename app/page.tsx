@@ -29,33 +29,50 @@ const sampleArticles: Article[] = [
 
 export default function Home() {
   const [activePage, setActivePage] = useState<Page>('dashboard');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <div className="app-container">
+      {/* Mobile Menu Toggle */}
+      <button
+        className="mobile-menu-toggle"
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+      >
+        {isMobileMenuOpen ? '✕' : '☰'}
+      </button>
+
+      {/* Sidebar Overlay */}
+      <div
+        className={`sidebar-overlay ${isMobileMenuOpen ? 'visible' : ''}`}
+        onClick={() => setIsMobileMenuOpen(false)}
+      ></div>
+
       {/* Sidebar */}
-      <aside className="sidebar">
-        <div className="sidebar-logo">⚡ ASICREPAIR ADMIN</div>
+      <aside className={`sidebar ${isMobileMenuOpen ? 'open' : ''}`}>
+        <div className="sidebar-logo" style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <span>⚡ ASICREPAIR ADMIN</span>
+        </div>
         <nav className="nav-menu">
-          <button className={`nav-item ${activePage === 'dashboard' ? 'active' : ''}`} onClick={() => setActivePage('dashboard')}>
+          <button className={`nav-item ${activePage === 'dashboard' ? 'active' : ''}`} onClick={() => { setActivePage('dashboard'); setIsMobileMenuOpen(false); }}>
             <span className="nav-icon">🏠</span> Dashboard
           </button>
-          <button className={`nav-item ${activePage === 'articles' ? 'active' : ''}`} onClick={() => setActivePage('articles')}>
+          <button className={`nav-item ${activePage === 'articles' ? 'active' : ''}`} onClick={() => { setActivePage('articles'); setIsMobileMenuOpen(false); }}>
             <span className="nav-icon">📝</span> Articles
           </button>
-          <button className={`nav-item ${activePage === 'generate' ? 'active' : ''}`} onClick={() => setActivePage('generate')}>
+          <button className={`nav-item ${activePage === 'generate' ? 'active' : ''}`} onClick={() => { setActivePage('generate'); setIsMobileMenuOpen(false); }}>
             <span className="nav-icon">✨</span> Generate
           </button>
-          <button className={`nav-item ${activePage === 'research' ? 'active' : ''}`} onClick={() => setActivePage('research')}>
+          <button className={`nav-item ${activePage === 'research' ? 'active' : ''}`} onClick={() => { setActivePage('research'); setIsMobileMenuOpen(false); }}>
             <span className="nav-icon">🔬</span> Research
           </button>
-          <button className={`nav-item ${activePage === 'tree' ? 'active' : ''}`} onClick={() => setActivePage('tree')}>
+          <button className={`nav-item ${activePage === 'tree' ? 'active' : ''}`} onClick={() => { setActivePage('tree'); setIsMobileMenuOpen(false); }}>
             <span className="nav-icon">🌳</span> Blog Tree
           </button>
-          <button className={`nav-item ${activePage === 'keywords' ? 'active' : ''}`} onClick={() => setActivePage('keywords')}>
+          <button className={`nav-item ${activePage === 'keywords' ? 'active' : ''}`} onClick={() => { setActivePage('keywords'); setIsMobileMenuOpen(false); }}>
             <span className="nav-icon">🔑</span> Keywords
           </button>
           <div style={{ margin: '12px 0', borderTop: '1px solid var(--glass-border)' }}></div>
-          <button className={`nav-item ${activePage === 'publish' ? 'active' : ''}`} onClick={() => setActivePage('publish')}>
+          <button className={`nav-item ${activePage === 'publish' ? 'active' : ''}`} onClick={() => { setActivePage('publish'); setIsMobileMenuOpen(false); }}>
             <span className="nav-icon">🚀</span> Publish Hub
           </button>
         </nav>
