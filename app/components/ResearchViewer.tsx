@@ -3,10 +3,12 @@ import { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
 // Initialize Supabase Client (CLIENT SIDE - uses Anon Key)
-const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
-);
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+const supabase = (supabaseUrl && supabaseKey)
+    ? createClient(supabaseUrl, supabaseKey)
+    : null;
 
 interface ResearchDoc {
     id: number;
@@ -27,6 +29,12 @@ export default function ResearchViewer() {
 
     const fetchDocs = async () => {
         try {
+            if (!supabase) {
+                console.warn('Supabase credentials missing');
+                setDocs([]);
+                return;
+            }
+
             const { data, error } = await supabase
                 .from('research_documents')
                 .select('*')
