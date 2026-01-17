@@ -5,10 +5,11 @@ import PromptStudio from './components/PromptStudio';
 import ArticleEditor from './components/ArticleEditor';
 import KeywordTracker from './components/KeywordTracker';
 import ResearchViewer from './components/ResearchViewer';
+import ResearchWorkspace from './components/ResearchWorkspace';
 
 
 // Types
-type Page = 'dashboard' | 'articles' | 'generate' | 'research' | 'tree' | 'publish' | 'editor' | 'keywords';
+type Page = 'dashboard' | 'articles' | 'generate' | 'research' | 'tree' | 'publish' | 'editor' | 'keywords' | 'workspace';
 type Status = 'ready' | 'draft' | 'pending';
 
 interface Article {
@@ -134,6 +135,9 @@ export default function Home() {
           </button>
           <button className={`nav-item ${activePage === 'generate' ? 'active' : ''}`} onClick={() => { setActivePage('generate'); setIsMobileMenuOpen(false); }}>
             <span className="nav-icon">✨</span> Generate
+          </button>
+          <button className={`nav-item ${activePage === 'workspace' ? 'active' : ''}`} onClick={() => { setActivePage('workspace'); setIsMobileMenuOpen(false); }}>
+            <span className="nav-icon">🔄</span> Workflow
           </button>
           <button className={`nav-item ${activePage === 'research' ? 'active' : ''}`} onClick={() => { setActivePage('research'); setIsMobileMenuOpen(false); }}>
             <span className="nav-icon">🔬</span> Research
@@ -393,6 +397,16 @@ export default function Home() {
         {/* Keywords */}
         {activePage === 'keywords' && (
           <KeywordTracker />
+        )}
+
+        {/* Workflow Workspace */}
+        {activePage === 'workspace' && (
+          <>
+            <div className="page-header">
+              <h1 className="page-title">🔄 Research Workflow</h1>
+            </div>
+            <ResearchWorkspace />
+          </>
         )}
 
         {/* Publish Hub */}
