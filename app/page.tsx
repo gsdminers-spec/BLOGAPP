@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PromptStudio from './components/PromptStudio';
 import ArticleEditor from './components/ArticleEditor';
 import KeywordTracker from './components/KeywordTracker';
@@ -31,16 +31,27 @@ export default function Home() {
   const [activePage, setActivePage] = useState<Page>('dashboard');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAuthChecking, setIsAuthChecking] = useState(true);
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  // Check login status on mount
-  useState(() => {
-    if (typeof window !== 'undefined') {
-      const loggedIn = localStorage.getItem('isLoggedIn');
-      if (loggedIn === 'true') setIsLoggedIn(true);
+  // Check login status on mount (client-only)
+  useEffect(() => {
+    const loggedIn = localStorage.getItem('isLoggedIn');
+    if (loggedIn === 'true') {
+      setIsLoggedIn(true);
     }
-  });
+    setIsAuthChecking(false);
+  }, []);
+
+  // Show loading state while checking auth to prevent hydration mismatch
+  if (isAuthChecking) {
+    return (
+      <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f3f6fc', color: '#64748b' }}>
+        Loading...
+      </div>
+    );
+  }
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
