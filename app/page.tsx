@@ -1,9 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import PromptStudio from './components/PromptStudio';
 
 // Types
-type Page = 'dashboard' | 'articles' | 'generate' | 'research' | 'tree';
+type Page = 'dashboard' | 'articles' | 'generate' | 'research' | 'tree' | 'publish';
 type Status = 'ready' | 'draft' | 'pending';
 
 interface Article {
@@ -22,70 +23,8 @@ const sampleArticles: Article[] = [
   { id: 3, title: 'S21 Low Hashrate Fix', brand: 'Antminer', model: 'S21', status: 'pending', words: 0 },
 ];
 
-// Miner data for prompt generation
-const minerData: Record<string, Record<string, { chips: string; power: string; ambient: string }>> = {
-  'Antminer': {
-    'S19 Pro': { chips: 'BM1397AG (7nm)', power: '3250W', ambient: '40°C' },
-    'S19 XP': { chips: 'BM1397AH (5nm)', power: '3010W', ambient: '40°C' },
-    'S21': { chips: 'BM1397AH (3nm)', power: '3500W', ambient: '47°C' },
-    'L7': { chips: 'BM1485 (Scrypt)', power: '3425W', ambient: '35°C' },
-  },
-  'WhatsMiner': {
-    'M30S': { chips: 'Samsung 8nm', power: '3268W', ambient: '40°C' },
-    'M50': { chips: 'Samsung 5nm', power: '3536W', ambient: '45°C' },
-  },
-  'Avalon': {
-    '1246': { chips: 'A3206 (16nm)', power: '3420W', ambient: '40°C' },
-  },
-};
-
 export default function Home() {
   const [activePage, setActivePage] = useState<Page>('dashboard');
-  const [selectedBrand, setSelectedBrand] = useState('Antminer');
-  const [selectedModel, setSelectedModel] = useState('S19 Pro');
-  const [selectedType, setSelectedType] = useState('hashboard-not-detected');
-  const [claudeResponse, setClaudeResponse] = useState('');
-
-  const models = Object.keys(minerData[selectedBrand] || {});
-  const specs = minerData[selectedBrand]?.[selectedModel] || { chips: '', power: '', ambient: '' };
-
-  const generatePrompt = () => {
-    const typeLabels: Record<string, string> = {
-      'hashboard-not-detected': 'Hashboard Not Detected - Troubleshooting Guide',
-      'overheating': 'Overheating Issues - Prevention & Solutions',
-      'low-hashrate': 'Low Hashrate - Diagnosis & Fixes',
-    };
-
-    return `You are an expert ASIC repair technician and technical writer for ASICREPAIR.IN, India's premier ASIC miner repair service.
-
-Write a comprehensive 2000-word article about:
-"${selectedBrand} ${selectedModel} ${typeLabels[selectedType]}"
-
-## Technical Data to Use:
-- Model: ${selectedBrand} ${selectedModel}
-- Chips: ${specs.chips}
-- Power: ${specs.power} at wall
-- Ambient limit: ${specs.ambient} (CRITICAL for India)
-- Common failures: VRM 15%, chip 20%, connector 35%
-
-## Article Requirements:
-1. Start with problem introduction
-2. List common causes with explanations
-3. Provide step-by-step troubleshooting
-4. Include when to seek professional help
-5. End with ASICREPAIR.IN contact CTA
-
-## Target Audience:
-Indian mining farm operators and home miners
-
-## Tone:
-Professional, helpful, technically accurate`;
-  };
-
-  const copyPrompt = async () => {
-    await navigator.clipboard.writeText(generatePrompt());
-    alert('Prompt copied! Paste in Claude.ai');
-  };
 
   return (
     <div className="app-container">
@@ -107,6 +46,10 @@ Professional, helpful, technically accurate`;
           </button>
           <button className={`nav-item ${activePage === 'tree' ? 'active' : ''}`} onClick={() => setActivePage('tree')}>
             <span className="nav-icon">🌳</span> Blog Tree
+          </button>
+          <div style={{ margin: '12px 0', borderTop: '1px solid var(--glass-border)' }}></div>
+          <button className={`nav-item ${activePage === 'publish' ? 'active' : ''}`} onClick={() => setActivePage('publish')}>
+            <span className="nav-icon">🚀</span> Publish Hub
           </button>
         </nav>
       </aside>
@@ -220,92 +163,7 @@ Professional, helpful, technically accurate`;
 
         {/* Generate */}
         {activePage === 'generate' && (
-          <>
-            <div className="page-header">
-              <h1 className="page-title">✨ Generate Article</h1>
-            </div>
-
-            <div className="card">
-              <h3 className="card-title" style={{ marginBottom: '16px' }}>Step 1: Select Topic</h3>
-              <div className="form-row">
-                <div className="form-group">
-                  <label className="form-label">Article Type</label>
-                  <select className="form-select" value={selectedType} onChange={(e) => setSelectedType(e.target.value)}>
-                    <option value="hashboard-not-detected">Hashboard Not Detected</option>
-                    <option value="overheating">Overheating Issues</option>
-                    <option value="low-hashrate">Low Hashrate</option>
-                  </select>
-                </div>
-                <div className="form-group">
-                  <label className="form-label">Brand</label>
-                  <select className="form-select" value={selectedBrand} onChange={(e) => { setSelectedBrand(e.target.value); setSelectedModel(Object.keys(minerData[e.target.value])[0]); }}>
-                    {Object.keys(minerData).map(brand => (
-                      <option key={brand} value={brand}>{brand}</option>
-                    ))}
-                  </select>
-                </div>
-                <div className="form-group">
-                  <label className="form-label">Model</label>
-                  <select className="form-select" value={selectedModel} onChange={(e) => setSelectedModel(e.target.value)}>
-                    {models.map(model => (
-                      <option key={model} value={model}>{model}</option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div className="card">
-              <h3 className="card-title" style={{ marginBottom: '16px' }}>Step 2: Attached Research Data</h3>
-              <div className="research-list">
-                <div className="research-item">
-                  <span>✅</span>
-                  <div>
-                    <strong>Technical Specifications</strong>
-                    <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>{specs.chips}, {specs.power}</div>
-                  </div>
-                </div>
-                <div className="research-item">
-                  <span>✅</span>
-                  <div>
-                    <strong>Failure Patterns</strong>
-                    <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>VRM 15%, chip 20%, connector 35%</div>
-                  </div>
-                </div>
-                <div className="research-item">
-                  <span>✅</span>
-                  <div>
-                    <strong>India Context</strong>
-                    <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Repair costs ₹15,000-45,000</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="card">
-              <h3 className="card-title" style={{ marginBottom: '16px' }}>Step 3: Your Prompt (Ready for Claude!)</h3>
-              <div className="prompt-area">{generatePrompt()}</div>
-              <div className="prompt-actions">
-                <button className="btn btn-primary" onClick={copyPrompt}>📋 Copy Prompt</button>
-                <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">🔗 Open Claude.ai</a>
-              </div>
-            </div>
-
-            <div className="card">
-              <h3 className="card-title" style={{ marginBottom: '16px' }}>Step 4: Paste Claude&apos;s Response</h3>
-              <textarea
-                className="form-textarea"
-                style={{ width: '100%', minHeight: '200px' }}
-                placeholder="Paste Claude's generated article here..."
-                value={claudeResponse}
-                onChange={(e) => setClaudeResponse(e.target.value)}
-              />
-              <div className="prompt-actions">
-                <button className="btn btn-secondary">💾 Save as Draft</button>
-                <button className="btn btn-primary">✅ Save as Ready</button>
-              </div>
-            </div>
-          </>
+          <PromptStudio />
         )}
 
         {/* Research */}
@@ -452,6 +310,25 @@ Professional, helpful, technically accurate`;
                 <span><span style={{ display: 'inline-block', width: '10px', height: '10px', borderRadius: '50%', background: 'var(--success)', marginRight: '6px' }}></span> Ready</span>
                 <span><span style={{ display: 'inline-block', width: '10px', height: '10px', borderRadius: '50%', background: 'var(--warning)', marginRight: '6px' }}></span> Draft</span>
                 <span><span style={{ display: 'inline-block', width: '10px', height: '10px', borderRadius: '50%', background: 'var(--text-muted)', marginRight: '6px' }}></span> Pending</span>
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* Publish Hub */}
+        {activePage === 'publish' && (
+          <>
+            <div className="page-header">
+              <h1 className="page-title">🚀 Publish Hub</h1>
+            </div>
+
+            <div className="card">
+              <div className="card-header">
+                <h3 className="card-title">Ready to Publish (12)</h3>
+                <button className="btn btn-primary">Publish All</button>
+              </div>
+              <div style={{ padding: '24px', textAlign: 'center', color: 'var(--text-muted)' }}>
+                Select articles to export or publish to your website.
               </div>
             </div>
           </>
