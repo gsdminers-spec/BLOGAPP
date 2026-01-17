@@ -30,6 +30,68 @@ const sampleArticles: Article[] = [
 export default function Home() {
   const [activePage, setActivePage] = useState<Page>('dashboard');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  // Check login status on mount
+  useState(() => {
+    if (typeof window !== 'undefined') {
+      const loggedIn = localStorage.getItem('isLoggedIn');
+      if (loggedIn === 'true') setIsLoggedIn(true);
+    }
+  });
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    const validPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'admin123';
+
+    if (password === validPassword) {
+      setIsLoggedIn(true);
+      localStorage.setItem('isLoggedIn', 'true');
+      setError('');
+    } else {
+      setPassword('');
+      setError('Invalid password');
+    }
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem('isLoggedIn');
+  };
+
+  if (!isLoggedIn) {
+    return (
+      <div style={{
+        height: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: '#0a0a0f',
+        color: 'white'
+      }}>
+        <div className="card" style={{ width: '100%', maxWidth: '400px', padding: '40px' }}>
+          <h2 style={{ textAlign: 'center', marginBottom: '24px', fontSize: '1.5rem' }}>🔒 Admin Access</h2>
+          <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <input
+              type="password"
+              className="form-input"
+              placeholder="Enter Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              autoFocus
+            />
+            {error && <div style={{ color: 'var(--danger)', fontSize: '0.9rem', textAlign: 'center' }}>{error}</div>}
+            <button type="submit" className="btn btn-primary" style={{ justifyContent: 'center' }}>Login</button>
+          </form>
+          <div style={{ marginTop: '20px', textAlign: 'center', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+            Default: admin123
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="app-container">
@@ -74,6 +136,12 @@ export default function Home() {
           <div style={{ margin: '12px 0', borderTop: '1px solid var(--glass-border)' }}></div>
           <button className={`nav-item ${activePage === 'publish' ? 'active' : ''}`} onClick={() => { setActivePage('publish'); setIsMobileMenuOpen(false); }}>
             <span className="nav-icon">🚀</span> Publish Hub
+          </button>
+
+          <div style={{ flex: 1 }}></div>
+
+          <button className="nav-item" onClick={handleLogout} style={{ marginTop: 'auto', color: 'var(--danger)' }}>
+            <span className="nav-icon">🚪</span> Logout
           </button>
         </nav>
       </aside>
