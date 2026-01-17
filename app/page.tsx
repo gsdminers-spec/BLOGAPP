@@ -4,6 +4,8 @@ import { useState } from 'react';
 import PromptStudio from './components/PromptStudio';
 import ArticleEditor from './components/ArticleEditor';
 import KeywordTracker from './components/KeywordTracker';
+import ResearchViewer from './components/ResearchViewer';
+
 
 // Types
 type Page = 'dashboard' | 'articles' | 'generate' | 'research' | 'tree' | 'publish' | 'editor' | 'keywords';
@@ -183,40 +185,7 @@ export default function Home() {
               <h1 className="page-title">🔬 Research Data</h1>
               <button className="btn btn-primary">📥 Import Data</button>
             </div>
-
-            <div className="card">
-              <div className="file-browser">
-                <div className="file-tree">
-                  <div className="folder">
-                    <span className="folder-name">▼ Knowledge Base</span>
-                    <div className="file-item active">📄 ASIC_FAILURE_KNOWLEDGE_BASE.md</div>
-                    <div className="file-item">📄 brands_data.json</div>
-                    <div className="file-item">📄 india_context.md</div>
-                  </div>
-                  <div className="folder">
-                    <span className="folder-name">▶ Raw Data</span>
-                  </div>
-                  <div className="folder">
-                    <span className="folder-name">▶ Model Specs</span>
-                  </div>
-                </div>
-                <div className="file-content">
-                  {`# ASIC Failure Knowledge Base
-
-## Antminer S19 Series
-
-### Common Failure Patterns
-- VRM failures: 15-20%
-- Chip degradation: 10-15%
-- Connector issues: 25-35%
-
-### India-Specific Data
-- Summer failures: +40% increase
-- Repair cost: ₹15,000-45,000
-- Power fluctuation damage common`}
-                </div>
-              </div>
-            </div>
+            <ResearchViewer />
           </>
         )}
 
