@@ -10,7 +10,7 @@ type QueueItem = PublishItem & { articles: Article };
 export default function PublishHub() {
     const [queue, setQueue] = useState<QueueItem[]>([]);
     const [loading, setLoading] = useState(true);
-    const [dateInputs, setDateInputs] = useState<Record<string, { date: string, time: string }>>({});
+    const [dateInputs, setDateInputs] = useState<Record<string, { date: string, time: string, isScheduling?: boolean }>>({});
 
     useEffect(() => {
         loadQueue();
@@ -21,7 +21,7 @@ export default function PublishHub() {
         const data = await fetchPublishQueue();
         setQueue(data);
         // Pre-fill existing dates
-        const inputs: Record<string, { date: string, time: string }> = {};
+        const inputs: Record<string, { date: string, time: string, isScheduling?: boolean }> = {};
         data.forEach(item => {
             inputs[item.id] = {
                 date: item.scheduled_date || '',
@@ -96,48 +96,72 @@ export default function PublishHub() {
                     </div>
                 )}
 
-                {pendingItems.map(item => (
-                    <div key={item.id} className="card border-l-4 border-l-blue-500 shadow-sm hover:shadow-md transition-shadow">
-                        <h4 className="font-bold text-slate-800 mb-1">{item.articles?.title || 'Untitled'}</h4>
-                        <p className="text-xs text-slate-500 mb-4">{item.articles?.category || 'Uncategorized'}</p>
+                {pendingItems.map(item => {
+                    const isScheduling = dateInputs[item.id]?.isScheduling || false;
 
-                        <div className="bg-slate-50 p-3 rounded-md mb-3 grid grid-cols-2 gap-2">
-                            <div>
-                                <label className="text-xs font-semibold text-slate-500 block mb-1">Date</label>
-                                <input
-                                    type="date"
-                                    className="form-input text-xs py-1"
-                                    value={dateInputs[item.id]?.date || ''}
-                                    onChange={e => handleUpdateInput(item.id, 'date', e.target.value)}
-                                />
-                            </div>
-                            <div>
-                                <label className="text-xs font-semibold text-slate-500 block mb-1">Time</label>
-                                <input
-                                    type="time"
-                                    className="form-input text-xs py-1"
-                                    value={dateInputs[item.id]?.time || ''}
-                                    onChange={e => handleUpdateInput(item.id, 'time', e.target.value)}
-                                />
-                            </div>
-                        </div>
+                    return (
+                        <div key={item.id} className="card border-l-4 border-l-blue-500 shadow-sm hover:shadow-md transition-shadow">
+                            <h4 className="font-bold text-slate-800 mb-1">{item.articles?.title || 'Untitled'}</h4>
+                            <p className="text-xs text-slate-500 mb-4">{item.articles?.category || 'Uncategorized'}</p>
 
-                        <div className="flex gap-2 justify-end">
-                            <button
-                                className="btn btn-secondary text-xs"
-                                onClick={() => handleSchedule(item.id)}
-                            >
-                                ⏰ Schedule
-                            </button>
-                            <button
-                                className="btn btn-primary text-xs"
-                                onClick={() => handlePublishNow(item)}
-                            >
-                                🚀 Publish Now
-                            </button>
+                            <div className="mb-3">
+                                <label className="flex items-center gap-2 text-sm text-slate-600 cursor-pointer">
+                                    <input
+                                        type="checkbox"
+                                        className="form-checkbox h-4 w-4 text-blue-600 rounded"
+                                        checked={isScheduling}
+                                        onChange={e => setDateInputs(prev => ({
+                                            ...prev,
+                                            [item.id]: { ...prev[item.id], isScheduling: e.target.checked }
+                                        }))}
+                                    />
+                                    <span>Schedule for later?</span>
+                                </label>
+                            </div>
+
+                            {isScheduling ? (
+                                <div className="bg-slate-50 p-3 rounded-md mb-3 grid grid-cols-2 gap-2 animate-in fade-in slide-in-from-top-2">
+                                    <div>
+                                        <label className="text-xs font-semibold text-slate-500 block mb-1">Date</label>
+                                        <input
+                                            type="date"
+                                            className="form-input text-xs py-1 w-full"
+                                            value={dateInputs[item.id]?.date || ''}
+                                            onChange={e => handleUpdateInput(item.id, 'date', e.target.value)}
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="text-xs font-semibold text-slate-500 block mb-1">Time</label>
+                                        <input
+                                            type="time"
+                                            className="form-input text-xs py-1 w-full"
+                                            value={dateInputs[item.id]?.time || ''}
+                                            onChange={e => handleUpdateInput(item.id, 'time', e.target.value)}
+                                        />
+                                    </div>
+                                    <div className="col-span-2 flex justify-end mt-2">
+                                        <button
+                                            className="btn btn-secondary text-xs w-full"
+                                            onClick={() => handleSchedule(item.id)}
+                                        >
+                                            ⏰ Confirm Schedule
+                                        </button>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="bg-emerald-50 p-3 rounded-md mb-3 border border-emerald-100 text-center">
+                                    <p className="text-xs text-emerald-700 font-medium mb-2">Ready to go live immediately</p>
+                                    <button
+                                        className="btn btn-primary text-xs w-full shadow-emerald-200 shadow-sm"
+                                        onClick={() => handlePublishNow(item)}
+                                    >
+                                        🚀 Publish Now
+                                    </button>
+                                </div>
+                            )}
                         </div>
-                    </div>
-                ))}
+                    );
+                })}
             </div>
 
             {/* Right Col: Scheduled Queue */}

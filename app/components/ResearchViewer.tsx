@@ -16,15 +16,17 @@ export default function ResearchViewer({ results }: { results: SearchResult[] })
                                 {item.title}
                             </a>
                         </h4>
-                        <span className="text-xs bg-slate-100 text-slate-500 px-2 py-1 rounded">Src #{i + 1}</span>
+                        <span className="text-xs bg-slate-100 text-slate-500 px-2 py-1 rounded capitalize">
+                            {item.source || `Src #${i + 1}`}
+                        </span>
                     </div>
                     <p className="text-sm text-slate-600 mt-2 line-clamp-3">
-                        {item.snippet}
+                        {item.content}
                     </p>
                     <div className="mt-3 flex justify-end">
                         <button
                             className="text-xs text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1"
-                            onClick={() => navigator.clipboard.writeText(item.snippet)}
+                            onClick={() => navigator.clipboard.writeText(item.content)}
                         >
                             📋 Copy Snippet
                         </button>
