@@ -1,7 +1,7 @@
 import { SearchResult } from './types';
 
 interface ProviderResult {
-    provider: 'tavily' | 'brave' | 'serper';
+    provider: 'tavily' | 'brave' | 'serper' | 'gemini';
     results: SearchResult[];
     error?: string;
 }
@@ -92,5 +92,42 @@ export async function searchSerper(query: string, apiKey: string): Promise<Provi
     } catch (e: any) {
         console.error('Serper Search Failed:', e.message);
         return { provider: 'serper', results: [], error: e.message };
+    }
+}
+
+// --- GEMINI GROUNDING ---
+import { GoogleGenerativeAI } from '@google/generative-ai';
+
+export async function searchGemini(query: string, apiKey: string): Promise<ProviderResult> {
+    try {
+        const genAI = new GoogleGenerativeAI(apiKey);
+        const model = genAI.getGenerativeModel({
+            model: "gemini-2.0-flash-exp", // Verify if 2.0 is available, otherwise 1.5-flash
+            tools: [{ googleSearchRetrieval: {} }]
+        });
+
+        const prompt = `Perform a google search for: "${query}".
+        Return a JSON object with a key "results" which is an array of the top 5 search results.
+        Each result must have:
+        - "title": string
+        - "url": string
+        - "content": string (a brief summary or snippet of the page info)
+        Ensure the output is raw JSON only, no markdown formatting.`;
+
+        const result = await model.generateContent(prompt);
+        const text = result.response.text();
+        const jsonStr = text.replace(/```json/g, '').replace(/```/g, '').trim();
+        const data = JSON.parse(jsonStr);
+
+        const results: SearchResult[] = (data.results || []).map((r: any) => ({
+            title: r.title,
+            url: r.url,
+            content: r.content,
+        }));
+
+        return { provider: 'gemini', results };
+    } catch (e: any) {
+        console.error('Gemini Search Failed:', e.message);
+        return { provider: 'gemini', results: [], error: e.message };
     }
 }

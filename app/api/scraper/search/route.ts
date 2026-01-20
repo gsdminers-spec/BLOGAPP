@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { searchTavily, searchBrave, searchSerper } from '@/lib/researchProviders';
+import { searchTavily, searchBrave, searchSerper, searchGemini } from '@/lib/researchProviders';
 import { SearchResult } from '@/lib/types';
 
 export async function POST(req: Request) {
@@ -23,6 +23,8 @@ export async function POST(req: Request) {
         if (tavilyKey) promises.push(searchTavily(topic, tavilyKey));
         if (braveKey) promises.push(searchBrave(topic, braveKey));
         if (serperKey) promises.push(searchSerper(topic, serperKey));
+        // Use Gemini Grounding as a search provider if key exists
+        if (geminiKey) promises.push(searchGemini(topic, geminiKey));
 
         if (promises.length === 0) {
             return NextResponse.json({ error: 'No search providers configured' }, { status: 500 });
