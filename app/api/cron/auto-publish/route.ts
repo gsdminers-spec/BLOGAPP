@@ -1,6 +1,21 @@
 import { supabase } from '@/lib/supabase';
 import { marked } from 'marked';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+
+// Type for the joined query result
+interface QueueItemWithArticle {
+    id: string;
+    article_id: string;
+    scheduled_date: string;
+    scheduled_time: string;
+    status: string;
+    articles: {
+        id: string;
+        title: string;
+        content: string;
+        category: string;
+    } | null;
+}
 
 /**
  * Auto-publish cron endpoint
@@ -11,7 +26,7 @@ import { NextResponse } from 'next/server';
  * GET /api/cron/auto-publish
  * Optional: Add ?secret=YOUR_SECRET for security
  */
-export async function GET(request) {
+export async function GET(request: NextRequest) {
     try {
         // Optional: Verify cron secret for security
         const { searchParams } = new URL(request.url);
@@ -63,8 +78,11 @@ export async function GET(request) {
             });
         }
 
+        // Cast to typed array
+        const typedItems = dueItems as unknown as QueueItemWithArticle[];
+
         // Filter items where scheduled time has passed
-        const readyToPublish = dueItems.filter(item => {
+        const readyToPublish = typedItems.filter(item => {
             if (item.scheduled_date < currentDate) return true;
             if (item.scheduled_date === currentDate && item.scheduled_time <= currentTime) return true;
             return false;
@@ -78,8 +96,8 @@ export async function GET(request) {
             });
         }
 
-        const published = [];
-        const errors = [];
+        const published: { id: string; title: string; slug: string; scheduled: string }[] = [];
+        const errors: { id: string; title?: string; error: string }[] = [];
 
         for (const item of readyToPublish) {
             try {
@@ -141,8 +159,9 @@ export async function GET(request) {
 
                 console.log(`[Auto-Publish] ✅ Published: ${article.title}`);
 
-            } catch (err) {
-                errors.push({ id: item.id, error: err.message });
+            } catch (err: unknown) {
+                const errorMessage = err instanceof Error ? err.message : 'Unknown error';
+                errors.push({ id: item.id, error: errorMessage });
             }
         }
 
@@ -157,8 +176,9 @@ export async function GET(request) {
             checked_at: `${currentDate} ${currentTime} IST`
         });
 
-    } catch (error) {
+    } catch (error: unknown) {
         console.error('[Auto-Publish] Fatal error:', error);
-        return NextResponse.json({ error: error.message }, { status: 500 });
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        return NextResponse.json({ error: errorMessage }, { status: 500 });
     }
 }
