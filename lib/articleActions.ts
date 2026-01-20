@@ -123,48 +123,20 @@ export async function moveToPublish(
 // Unpublish article - removes from public blog but keeps in admin
 export async function unpublishArticle(articleId: string): Promise<{ success: boolean; error?: string }> {
     try {
-        // 1. Get the article to find its slug
-        const { data: article, error: fetchError } = await supabase
-            .from('articles')
-            .select('title')
-            .eq('id', articleId)
-            .single();
+        const response = await fetch('/api/articles/unpublish', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ articleId })
+        });
 
-        if (fetchError || !article) {
-            return { success: false, error: 'Article not found' };
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.error || 'Failed to unpublish');
         }
-
-        // Generate slug (same logic as publishing)
-        const slug = article.title
-            .toLowerCase()
-            .replace(/[^\w\s-]/g, '')
-            .replace(/\s+/g, '-');
-
-        // 2. Delete from blog_articles (public blog)
-        const { error: deleteError } = await supabase
-            .from('blog_articles')
-            .delete()
-            .eq('slug', slug);
-
-        if (deleteError) {
-            console.error('Error removing from blog_articles:', deleteError);
-            // Continue anyway - might not exist
-        }
-
-        // 3. Update article status back to 'ready'
-        await supabase
-            .from('articles')
-            .update({ status: 'ready', publish_date: null })
-            .eq('id', articleId);
-
-        // 4. Remove from publish_queue if exists
-        await supabase
-            .from('publish_queue')
-            .delete()
-            .eq('article_id', articleId);
 
         // Log activity
-        await import('./logger').then(l => l.logActivity('UPDATE', 'Article', `Unpublished article: ${article.title}`));
+        await import('./logger').then(l => l.logActivity('UPDATE', 'Article', `Unpublished article ID: ${articleId}`));
 
         return { success: true };
     } catch (err: any) {
@@ -176,48 +148,20 @@ export async function unpublishArticle(articleId: string): Promise<{ success: bo
 // Delete article completely - removes from admin, queue, and public blog
 export async function deleteArticle(articleId: string): Promise<{ success: boolean; error?: string }> {
     try {
-        // 1. Get the article to find its slug and title
-        const { data: article, error: fetchError } = await supabase
-            .from('articles')
-            .select('title')
-            .eq('id', articleId)
-            .single();
+        const response = await fetch('/api/articles/delete', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ articleId })
+        });
 
-        if (fetchError || !article) {
-            return { success: false, error: 'Article not found' };
-        }
+        const result = await response.json();
 
-        // Generate slug
-        const slug = article.title
-            .toLowerCase()
-            .replace(/[^\w\s-]/g, '')
-            .replace(/\s+/g, '-');
-
-        // 2. Delete from blog_articles (public blog) if published
-        await supabase
-            .from('blog_articles')
-            .delete()
-            .eq('slug', slug);
-
-        // 3. Delete from publish_queue
-        await supabase
-            .from('publish_queue')
-            .delete()
-            .eq('article_id', articleId);
-
-        // 4. Delete the article itself
-        const { error: deleteError } = await supabase
-            .from('articles')
-            .delete()
-            .eq('id', articleId);
-
-        if (deleteError) {
-            console.error('Error deleting article:', deleteError);
-            return { success: false, error: deleteError.message };
+        if (!response.ok) {
+            throw new Error(result.error || 'Failed to delete');
         }
 
         // Log activity
-        await import('./logger').then(l => l.logActivity('DELETE', 'Article', `Deleted article: ${article.title}`));
+        await import('./logger').then(l => l.logActivity('DELETE', 'Article', `Deleted article ID: ${articleId}`));
 
         return { success: true };
     } catch (err: any) {
