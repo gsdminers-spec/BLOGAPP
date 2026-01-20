@@ -2,7 +2,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { fetchArticles, moveToPublish } from '@/lib/articleActions';
+import { fetchArticles, moveToPublish, unpublishArticle, deleteArticle } from '@/lib/articleActions';
 import { publishNow } from '@/lib/publishActions';
 import { Article } from '@/lib/supabase';
 import { Skeleton, TableRowSkeleton } from './ui/Skeleton';
@@ -92,6 +92,35 @@ export default function ArticlesManager({ onNavigateToPublish }: { onNavigateToP
         window.print();
     };
 
+    // Unpublish - remove from public blog but keep in admin
+    const handleUnpublish = async (article: Article) => {
+        if (!confirm(`Unpublish "${article.title}"? This will remove it from the public blog.`)) return;
+
+        const result = await unpublishArticle(article.id);
+        if (result.success) {
+            alert(`${article.title} has been unpublished!`);
+            setViewingArticle(null);
+            loadArticles();
+        } else {
+            alert(result.error || 'Failed to unpublish');
+        }
+    };
+
+    // Delete - remove completely from everywhere
+    const handleDelete = async (article: Article) => {
+        if (!confirm(`DELETE "${article.title}"? This will permanently remove it from admin AND the public blog.`)) return;
+        if (!confirm('Are you SURE? This cannot be undone!')) return;
+
+        const result = await deleteArticle(article.id);
+        if (result.success) {
+            alert(`${article.title} has been deleted!`);
+            setViewingArticle(null);
+            loadArticles();
+        } else {
+            alert(result.error || 'Failed to delete');
+        }
+    };
+
     const formatDate = (dateStr?: string) => {
         if (!dateStr) return 'N/A';
         return new Date(dateStr).toLocaleDateString();
@@ -122,19 +151,35 @@ export default function ArticlesManager({ onNavigateToPublish }: { onNavigateToP
                     </button>
 
                     <div className="card h-full flex flex-col p-6">
-                        <div className="flex justify-between items-start border-b border-slate-100 pb-4 mb-4">
+                        <div className="flex flex-wrap justify-between items-start border-b border-slate-100 pb-4 mb-4 gap-2">
                             <div>
                                 <h2 className="text-xl font-bold text-slate-800">{viewingArticle.title}</h2>
                                 <span className="text-sm text-slate-500">
                                     {viewingArticle.category || 'Uncategorized'} • {formatDate(viewingArticle.created_at)}
+                                    {viewingArticle.status === 'published' && <span className="badge badge-green ml-2">Published</span>}
+                                    {viewingArticle.status === 'scheduled' && <span className="badge badge-blue ml-2">Scheduled</span>}
                                 </span>
                             </div>
-                            <div className="flex gap-2 no-print">
+                            <div className="flex flex-wrap gap-2 no-print">
                                 <button className="btn btn-secondary" onClick={handlePrint}>🖨️ PDF</button>
                                 <button className="btn btn-secondary" onClick={() => handleCopy(viewingArticle.content)}>📋 Copy</button>
                                 {viewingArticle.status !== 'scheduled' && viewingArticle.status !== 'published' && (
                                     <button className="btn btn-primary" onClick={() => handlePublishClick(viewingArticle)}>🚀 Move to Publish</button>
                                 )}
+                                {viewingArticle.status === 'published' && (
+                                    <button
+                                        className="btn btn-secondary text-orange-600 border-orange-200 hover:bg-orange-50"
+                                        onClick={() => handleUnpublish(viewingArticle)}
+                                    >
+                                        🔙 Unpublish
+                                    </button>
+                                )}
+                                <button
+                                    className="btn btn-secondary text-red-600 border-red-200 hover:bg-red-50"
+                                    onClick={() => handleDelete(viewingArticle)}
+                                >
+                                    🗑️ Delete
+                                </button>
                             </div>
                         </div>
                         <div className="prose prose-sm max-w-none flex-1 overflow-y-auto custom-scrollbar p-2 bg-slate-50 rounded">
