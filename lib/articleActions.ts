@@ -67,8 +67,12 @@ export async function fetchArticles(): Promise<Article[]> {
     return data || [];
 }
 
-// Move article to publish queue
-export async function moveToPublish(articleId: string): Promise<{ success: boolean; error?: string }> {
+// Move article to publish queue with optional scheduling
+export async function moveToPublish(
+    articleId: string,
+    scheduledDate?: string,
+    scheduledTime?: string
+): Promise<{ success: boolean; error?: string }> {
     // Check if already in queue
     const { data: existing } = await supabase
         .from('publish_queue')
@@ -80,16 +84,25 @@ export async function moveToPublish(articleId: string): Promise<{ success: boole
         return { success: false, error: 'Article already in publish queue' };
     }
 
-    // Set default scheduled date to tomorrow
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
+    // Default to tomorrow 09:00 IST if not provided
+    let dateToUse = scheduledDate;
+    let timeToUse = scheduledTime || '09:00:00';
+
+    if (!dateToUse) {
+        // Calculate tomorrow in IST (GMT+5:30)
+        const now = new Date();
+        const istOffset = 5.5 * 60 * 60 * 1000; // 5h 30m in ms
+        const istNow = new Date(now.getTime() + istOffset);
+        istNow.setDate(istNow.getDate() + 1); // Tomorrow
+        dateToUse = istNow.toISOString().split('T')[0];
+    }
 
     const { error } = await supabase
         .from('publish_queue')
         .insert({
             article_id: articleId,
-            scheduled_date: tomorrow.toISOString().split('T')[0],
-            scheduled_time: '09:00:00',
+            scheduled_date: dateToUse,
+            scheduled_time: timeToUse,
             status: 'scheduled'
         });
 
@@ -102,7 +115,7 @@ export async function moveToPublish(articleId: string): Promise<{ success: boole
     await supabase.from('articles').update({ status: 'scheduled' }).eq('id', articleId);
 
     // Log activity
-    await import('./logger').then(l => l.logActivity('UPDATE', 'Article', `Moved article to publish queue: ${articleId}`));
+    await import('./logger').then(l => l.logActivity('UPDATE', 'Article', `Scheduled article for publishing: ${articleId}`));
 
     return { success: true };
 }
