@@ -20,9 +20,10 @@ export interface ArticlePreviewProps {
     onUnpublish: (article: Article) => void;
     onDelete: (article: Article) => void;
     onCopy: (content: string) => void;
+    onEdit: (article: Article) => void;
 }
 
-export default function ArticlePreview({ article, onClose, onPublish, onUnpublish, onDelete, onCopy }: ArticlePreviewProps) {
+export default function ArticlePreview({ article, onClose, onPublish, onUnpublish, onDelete, onCopy, onEdit }: ArticlePreviewProps) {
     const htmlContent = useMemo(() => {
         return marked.parse(article.content) as string;
     }, [article.content]);
@@ -61,6 +62,13 @@ export default function ArticlePreview({ article, onClose, onPublish, onUnpublis
                         className="px-3 py-1.5 text-xs font-medium text-gray-300 hover:text-white bg-white/5 hover:bg-white/10 rounded-md border border-white/10 transition-all"
                     >
                         📋 Copy
+                    </button>
+
+                    <button
+                        onClick={() => onEdit(article)}
+                        className="px-3 py-1.5 text-xs font-medium text-blue-400 border border-blue-400/30 hover:bg-blue-400/10 rounded-md transition-all"
+                    >
+                        ✏️ Edit
                     </button>
 
                     {article.status !== 'scheduled' && article.status !== 'published' && (

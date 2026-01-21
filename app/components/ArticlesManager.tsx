@@ -2,7 +2,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { fetchArticles, moveToPublish, unpublishArticle, deleteArticle } from '@/lib/articleActions';
+import { fetchArticles, moveToPublish, unpublishArticle, deleteArticle, updateArticle } from '@/lib/articleActions';
 import { publishNow } from '@/lib/publishActions';
 import { Article } from '@/lib/supabase';
 import { Skeleton, TableRowSkeleton } from './ui/Skeleton';
@@ -32,13 +32,18 @@ export default function ArticlesManager({ onNavigateToPublish }: { onNavigateToP
     const [scheduleDate, setScheduleDate] = useState('');
     const [scheduleTime, setScheduleTime] = useState('09:00');
 
+    // Editing State
+    const [editingArticle, setEditingArticle] = useState<Article | null>(null);
+    const [editTitle, setEditTitle] = useState('');
+    const [editContent, setEditContent] = useState('');
+
     useEffect(() => {
         loadArticles();
     }, []);
 
     const loadArticles = async () => {
         setLoading(true);
-        const data = await fetchArticles();
+        const data = await fetchArticles(); // Re-import maybe needed but it is same file
         setArticles(data);
         setLoading(false);
     };
@@ -130,6 +135,41 @@ export default function ArticlesManager({ onNavigateToPublish }: { onNavigateToP
         }
     };
 
+    // Edit Handlers
+    const handleEditClick = (article: Article) => {
+        setEditingArticle(article);
+        setEditTitle(article.title);
+        setEditContent(article.content);
+        // If we are in preview mode, we might want to keep viewing it or close it?
+        // Let's keep viewing it, but the modal will overlay.
+    };
+
+    const handleSaveEdit = async () => {
+        if (!editingArticle) return;
+
+        const result = await updateArticle(editingArticle.id, editTitle, editContent);
+
+        if (result.success) {
+            alert('Article updated successfully!');
+
+            // Update local state to reflect changes immediately
+            setArticles(articles.map(a =>
+                a.id === editingArticle.id
+                    ? { ...a, title: editTitle, content: editContent }
+                    : a
+            ));
+
+            // If viewing this article, update it too
+            if (viewingArticle?.id === editingArticle.id) {
+                setViewingArticle({ ...viewingArticle, title: editTitle, content: editContent });
+            }
+
+            setEditingArticle(null);
+        } else {
+            alert(result.error || 'Failed to update article');
+        }
+    };
+
     const formatDate = (dateStr?: string) => {
         if (!dateStr) return 'N/A';
         return new Date(dateStr).toLocaleDateString();
@@ -159,6 +199,7 @@ export default function ArticlesManager({ onNavigateToPublish }: { onNavigateToP
                         onUnpublish={handleUnpublish}
                         onDelete={handleDelete}
                         onCopy={handleCopy}
+                        onEdit={handleEditClick}
                     />
                 </div>
             ) : (
@@ -339,6 +380,55 @@ export default function ArticlesManager({ onNavigateToPublish }: { onNavigateToP
                                 onClick={handlePublishNowFromModal}
                             >
                                 🚀 Publish Now Instead
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+            {/* Edit Modal */}
+            {editingArticle && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[60] animate-in fade-in">
+                    <div className="bg-white rounded-xl shadow-2xl flex flex-col w-full max-w-4xl max-h-[90vh] mx-4 animate-in zoom-in-95">
+                        <div className="p-4 border-b border-slate-200 flex justify-between items-center bg-slate-50 rounded-t-xl">
+                            <h3 className="text-lg font-bold text-slate-800">✏️ Edit Article</h3>
+                            <button onClick={() => setEditingArticle(null)} className="text-slate-400 hover:text-slate-600">
+                                ✕
+                            </button>
+                        </div>
+
+                        <div className="p-6 flex-1 overflow-y-auto">
+                            <div className="mb-4">
+                                <label className="block text-sm font-semibold text-slate-700 mb-2">Title</label>
+                                <input
+                                    type="text"
+                                    className="form-input w-full text-lg font-medium"
+                                    value={editTitle}
+                                    onChange={e => setEditTitle(e.target.value)}
+                                />
+                            </div>
+
+                            <div className="h-full min-h-[400px]">
+                                <label className="block text-sm font-semibold text-slate-700 mb-2">Content (Markdown)</label>
+                                <textarea
+                                    className="form-input w-full h-[400px] font-mono text-sm leading-relaxed"
+                                    value={editContent}
+                                    onChange={e => setEditContent(e.target.value)}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="p-4 border-t border-slate-200 bg-slate-50 rounded-b-xl flex justify-end gap-3">
+                            <button
+                                className="btn btn-secondary"
+                                onClick={() => setEditingArticle(null)}
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                className="btn btn-primary min-w-[100px]"
+                                onClick={handleSaveEdit}
+                            >
+                                💾 Save Changes
                             </button>
                         </div>
                     </div>

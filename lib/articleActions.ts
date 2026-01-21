@@ -171,3 +171,28 @@ export async function deleteArticle(articleId: string): Promise<{ success: boole
         return { success: false, error: err.message };
     }
 }
+
+// Update article content/title
+export async function updateArticle(articleId: string, title: string, content: string): Promise<{ success: boolean; error?: string }> {
+    try {
+        const { error } = await supabase
+            .from('articles')
+            .update({
+                title,
+                content,
+                // If it was published/ready, maybe we should keep status? 
+                // For now, let's assume editing doesn't unpublish unless specified.
+            })
+            .eq('id', articleId);
+
+        if (error) throw error;
+
+        // Log activity
+        await import('./logger').then(l => l.logActivity('UPDATE', 'Article', `Updated article: ${title}`));
+
+        return { success: true };
+    } catch (err: any) {
+        console.error('Error updating article:', err);
+        return { success: false, error: err.message };
+    }
+}
