@@ -1,6 +1,6 @@
 import { supabase } from './supabase';
 import { PublishItem, Article } from './supabase';
-import { marked } from 'marked';
+
 
 // Fetch publish queue with article details
 export async function fetchPublishQueue(): Promise<(PublishItem & { articles: Article })[]> {
@@ -37,76 +37,26 @@ export async function updateSchedule(id: string, date: string, time: string): Pr
     return { success: true };
 }
 
-// Publish immediately
+// Publish immediately (via Server API to bypass RLS)
 export async function publishNow(queueId: string, articleId: string): Promise<{ success: boolean; error?: string }> {
-    // Update publish_queue status
-    const { error: queueError } = await supabase
-        .from('publish_queue')
-        .update({ status: 'published' })
-        .eq('id', queueId);
-
-    if (queueError) {
-        console.error('Error updating queue:', queueError);
-        return { success: false, error: queueError.message };
-    }
-
-    // Update article status
-    const { data: articleData, error: articleError } = await supabase
-        .from('articles')
-        .update({
-            status: 'published',
-            publish_date: new Date().toISOString()
-        })
-        .eq('id', articleId)
-        .select('*')
-        .single();
-
-    if (articleError || !articleData) {
-        console.error('Error updating article:', articleError);
-        return { success: false, error: articleError?.message || 'Article not found' };
-    }
-
-    // --- SYNC TO PUBLIC BLOG ---
     try {
+        const response = await fetch('/api/publish', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ queueId, articleId })
+        });
 
-        // Generate Slug (simple slugify)
-        const slug = articleData.title
-            .toLowerCase()
-            .replace(/[^\w\s-]/g, '')
-            .replace(/\s+/g, '-');
+        const result = await response.json();
 
-        // Convert Markdown to HTML
-        const contentHtml = marked.parse(articleData.content || '');
-
-        const { error: syncError } = await supabase
-            .from('blog_articles')
-            .upsert({
-                title: articleData.title,
-                slug: slug,
-                content: articleData.content,
-                content_html: contentHtml,
-                category: articleData.category || 'Uncategorized',
-                is_published: true,
-                published_date: new Date().toISOString(),
-                updated_date: new Date().toISOString()
-            }, { onConflict: 'slug' });
-
-        if (syncError) {
-            console.error('Error syncing to public blog:', syncError);
-            return { success: false, error: 'Published locally but failed to sync to public site: ' + syncError.message };
+        if (!response.ok) {
+            return { success: false, error: result.error || 'Failed to publish via API' };
         }
 
-    } catch (err) {
-        console.error('Error in sync process:', err);
-        return { success: false, error: 'Published locally but sync failed.' };
+        return { success: true };
+    } catch (err: any) {
+        console.error('Error calling publish API:', err);
+        return { success: false, error: err.message };
     }
-
-    if (articleError) {
-        console.error('Error updating article:', articleError);
-        // Queue was updated but article failed - partial success
-    }
-
-    return { success: true };
 }
 
 // Cancel scheduling

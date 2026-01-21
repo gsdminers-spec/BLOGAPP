@@ -75,14 +75,22 @@ export default function ArticlesManager({ onNavigateToPublish }: { onNavigateToP
 
         // First move to queue, then publish immediately
         const moveResult = await moveToPublish(schedulingArticle.id);
-        if (!moveResult.success) {
-            alert(moveResult.error || 'Failed to move to publish');
+        if (!moveResult.success || !moveResult.queueId) {
+            alert(moveResult.error || 'Failed to move to publish queue');
             return;
         }
 
-        // The article is now in queue, we need to publish it
-        // For simplicity, we'll use the existing flow
-        alert(`${schedulingArticle.title} moved to Publish Hub! Go there to publish immediately.`);
+        // Immediately publish using the new queueId
+        const publishResult = await publishNow(moveResult.queueId, schedulingArticle.id);
+
+        if (publishResult.success) {
+            alert(`${schedulingArticle.title} has been successfully PUBLISHED! 🚀`);
+            setSchedulingArticle(null);
+            loadArticles();
+            onNavigateToPublish();
+        } else {
+            alert(`Moved to queue, but immediate publish failed: ${publishResult.error}`);
+        }
         setSchedulingArticle(null);
         loadArticles();
         onNavigateToPublish();

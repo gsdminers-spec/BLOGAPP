@@ -72,7 +72,7 @@ export async function moveToPublish(
     articleId: string,
     scheduledDate?: string,
     scheduledTime?: string
-): Promise<{ success: boolean; error?: string }> {
+): Promise<{ success: boolean; error?: string; queueId?: string }> {
     // Check if already in queue
     const { data: existing } = await supabase
         .from('publish_queue')
@@ -97,14 +97,16 @@ export async function moveToPublish(
         dateToUse = istNow.toISOString().split('T')[0];
     }
 
-    const { error } = await supabase
+    const { data, error } = await supabase
         .from('publish_queue')
         .insert({
             article_id: articleId,
             scheduled_date: dateToUse,
             scheduled_time: timeToUse,
             status: 'scheduled'
-        });
+        })
+        .select('id')
+        .single();
 
     if (error) {
         console.error('Error moving to publish:', error);
@@ -117,7 +119,7 @@ export async function moveToPublish(
     // Log activity
     await import('./logger').then(l => l.logActivity('UPDATE', 'Article', `Scheduled article for publishing: ${articleId}`));
 
-    return { success: true };
+    return { success: true, queueId: data.id };
 }
 
 // Unpublish article - removes from public blog but keeps in admin
