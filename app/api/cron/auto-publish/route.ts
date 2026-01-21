@@ -2,6 +2,8 @@ import { supabase } from '@/lib/supabase';
 import { marked } from 'marked';
 import { NextRequest, NextResponse } from 'next/server';
 
+export const dynamic = 'force-dynamic';
+
 // Type for the joined query result
 interface QueueItemWithArticle {
     id: string;
