@@ -56,3 +56,6 @@ graph TD
 ## Why this setup?
 *   **Security:** You can write messy drafts without breaking the live site.
 *   **Control:** You can unpublish or edit privately before "going live" again.
+
+---
+*Last Updated: Deployment Trigger Test*
