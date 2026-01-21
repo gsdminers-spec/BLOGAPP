@@ -6,6 +6,7 @@ import { fetchArticles, moveToPublish, unpublishArticle, deleteArticle } from '@
 import { publishNow } from '@/lib/publishActions';
 import { Article } from '@/lib/supabase';
 import { Skeleton, TableRowSkeleton } from './ui/Skeleton';
+import ArticlePreview from './ArticlePreview';
 
 // IST Timezone Helpers (GMT+5:30)
 const getISTDateString = () => {
@@ -149,51 +150,12 @@ export default function ArticlesManager({ onNavigateToPublish }: { onNavigateToP
         <div className="flex flex-col h-full gap-6">
 
             {viewingArticle ? (
-                // DETAIL VIEW
-                <div className="flex flex-col h-full">
-                    <button
-                        className="btn btn-secondary self-start mb-4 no-print"
-                        onClick={() => setViewingArticle(null)}
-                    >
-                        ← Back to List
-                    </button>
-
-                    <div className="card h-full flex flex-col p-6">
-                        <div className="flex flex-wrap justify-between items-start border-b border-slate-100 pb-4 mb-4 gap-2">
-                            <div>
-                                <h2 className="text-xl font-bold text-slate-800">{viewingArticle.title}</h2>
-                                <span className="text-sm text-slate-500">
-                                    {viewingArticle.category || 'Uncategorized'} • {formatDate(viewingArticle.created_at)}
-                                    {viewingArticle.status === 'published' && <span className="badge badge-green ml-2">Published</span>}
-                                    {viewingArticle.status === 'scheduled' && <span className="badge badge-blue ml-2">Scheduled</span>}
-                                </span>
-                            </div>
-                            <div className="flex flex-wrap gap-2 no-print">
-                                <button className="btn btn-secondary" onClick={handlePrint}>🖨️ PDF</button>
-                                <button className="btn btn-secondary" onClick={() => handleCopy(viewingArticle.content)}>📋 Copy</button>
-                                {viewingArticle.status !== 'scheduled' && viewingArticle.status !== 'published' && (
-                                    <button className="btn btn-primary" onClick={() => handlePublishClick(viewingArticle)}>🚀 Move to Publish</button>
-                                )}
-                                {viewingArticle.status === 'published' && (
-                                    <button
-                                        className="btn btn-secondary text-orange-600 border-orange-200 hover:bg-orange-50"
-                                        onClick={() => handleUnpublish(viewingArticle)}
-                                    >
-                                        🔙 Unpublish
-                                    </button>
-                                )}
-                                <button
-                                    className="btn btn-secondary text-red-600 border-red-200 hover:bg-red-50"
-                                    onClick={() => handleDelete(viewingArticle)}
-                                >
-                                    🗑️ Delete
-                                </button>
-                            </div>
-                        </div>
-                        <div className="prose prose-sm max-w-none flex-1 overflow-y-auto custom-scrollbar p-2 bg-slate-50 rounded">
-                            <pre className="whitespace-pre-wrap font-mono text-sm">{viewingArticle.content}</pre>
-                        </div>
-                    </div>
+                // PREVIEW MODE (Full Screen Overlay Style)
+                <div className="fixed inset-0 z-50 bg-[#0E1116] flex flex-col">
+                    <ArticlePreview
+                        article={viewingArticle}
+                        onClose={() => setViewingArticle(null)}
+                    />
                 </div>
             ) : (
                 // ARTICLE LIST VIEW

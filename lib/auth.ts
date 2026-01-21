@@ -1,7 +1,11 @@
 import { SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
 
-const SECRET_KEY = new TextEncoder().encode(process.env.JWT_SECRET || 'default-secret-key-change-this');
+if (!process.env.JWT_SECRET) {
+    throw new Error('FATAL: JWT_SECRET is not defined in environment variables.');
+}
+
+const SECRET_KEY = new TextEncoder().encode(process.env.JWT_SECRET);
 
 export async function createSession() {
     // 1-day expiration
