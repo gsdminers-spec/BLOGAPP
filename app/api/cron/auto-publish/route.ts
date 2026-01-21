@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@supabase/supabase-js';
 import { marked } from 'marked';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -27,6 +27,17 @@ interface QueueItemWithArticle {
  * Optional: Add ?secret=YOUR_SECRET for security
  */
 export async function GET(request: NextRequest) {
+    // --- INIT ADMIN CLIENT ---
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+    if (!supabaseUrl || !supabaseServiceKey) {
+        console.error('[Auto-Publish] Missing Supabase Service Key');
+        return NextResponse.json({ error: 'Server configuration error' }, { status: 500 });
+    }
+
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
     try {
         // Optional: Verify cron secret for security
         const { searchParams } = new URL(request.url);
