@@ -79,6 +79,41 @@ export async function POST(request: Request) {
             throw new Error('Sync to public blog failed: ' + syncError.message);
         }
 
+        // 4. Trigger GitHub Actions Website Rebuild (Automated Deployment)
+        const githubToken = process.env.GITHUB_PAT;
+        const repoOwner = process.env.GITHUB_REPO_OWNER || 'gsdminers-spec';
+        const repoName = process.env.GITHUB_REPO_NAME || 'asicrepair.test1';
+        const workflowFile = 'deploy.yml';
+
+        if (githubToken) {
+            try {
+                // We don't await this to keep the UI snappy - fire and forget (or await if you want confirmation)
+                // Better to await to catch errors, but keep it inside this try/catch block so DB success isn't blocked.
+                const deployResponse = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/actions/workflows/${workflowFile}/dispatches`, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Authorization': `Bearer ${githubToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        ref: 'main', // The branch to deploy
+                    }),
+                });
+
+                if (deployResponse.ok) {
+                    console.log(`🚀 Deployment triggered successfully for ${repoOwner}/${repoName}`);
+                } else {
+                    const errorText = await deployResponse.text();
+                    console.error(`⚠️ Failed to trigger deployment: ${deployResponse.status} ${errorText}`);
+                }
+            } catch (deployError) {
+                console.error('⚠️ Deployment trigger exception:', deployError);
+            }
+        } else {
+            console.log('ℹ️ GITHUB_PAT not found. Skipping automated deployment trigger.');
+        }
+
         return NextResponse.json({ success: true, slug });
 
     } catch (error: any) {
