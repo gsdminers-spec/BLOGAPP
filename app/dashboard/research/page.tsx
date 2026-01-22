@@ -59,15 +59,28 @@ function ResearchLabContent() {
             addLog(`Found ${json.data.rawSources.length} sources.`);
             addLog("Mimo V2 Analysis Complete.");
 
-            setSources(json.data.rawSources);
-            setFactSheet(json.data.factSheet);
-            setReasoning(json.data.reasoning);
+            const safeFactSheet = typeof json.data.factSheet === 'string'
+                ? json.data.factSheet
+                : typeof json.data.factSheet === 'object'
+                    ? JSON.stringify(json.data.factSheet, null, 2)
+                    : String(json.data.factSheet || '');
+
+            const safeReasoning = typeof json.data.reasoning === 'string'
+                ? json.data.reasoning
+                : typeof json.data.reasoning === 'object'
+                    ? JSON.stringify(json.data.reasoning, null, 2)
+                    : String(json.data.reasoning || '');
+
+            setSources(Array.isArray(json.data.rawSources) ? json.data.rawSources : []);
+            setFactSheet(safeFactSheet);
+            setReasoning(safeReasoning);
             setStatus('Research Complete. Ready to Draft.');
 
         } catch (e: any) {
             console.error(e);
-            setStatus('Error: ' + e.message);
-            addLog(`ERROR: ${e.message}`);
+            const errorMessage = typeof e.message === 'string' ? e.message : 'Unknown Error';
+            setStatus('Error: ' + errorMessage);
+            addLog(`ERROR: ${errorMessage}`);
         } finally {
             setIsLoading(false);
         }
@@ -99,7 +112,7 @@ function ResearchLabContent() {
                     <p className="text-sm text-slate-500">Mimo V2 • Llama 3.3 • Chimera R1 • Gemini 2.5</p>
                 </div>
                 <div className={`px-3 py-1 rounded text-xs font-mono ${isLoading ? 'bg-yellow-100 text-yellow-700 animate-pulse' : 'bg-slate-100 text-slate-600'}`}>
-                    STATUS: {status}
+                    STATUS: {typeof status === 'string' ? status : 'Status Unknown'}
                 </div>
             </div>
 
@@ -150,7 +163,7 @@ function ResearchLabContent() {
                     <div className="bg-black rounded-xl p-4 font-mono text-xs text-green-400 h-48 overflow-y-auto">
                         <div className="opacity-50 mb-2">// SYSTEM LOGS</div>
                         {logs.map((log, i) => (
-                            <div key={i}>{log}</div>
+                            <div key={i}>{typeof log === 'string' ? log : JSON.stringify(log)}</div>
                         ))}
                     </div>
                 </div>
