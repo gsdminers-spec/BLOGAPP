@@ -47,7 +47,7 @@ export async function mimoResearch(query: string, context: string): Promise<Rese
                 "X-Title": "ASIC Admin Researcher"
             },
             body: JSON.stringify({
-                "model": "google/gemini-2.0-flash-lite-preview-02-05:free",
+                "model": "xiaomi/mimo-v2-flash:free",
                 "messages": [
                     {
                         "role": "user",
