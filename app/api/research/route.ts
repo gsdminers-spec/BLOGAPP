@@ -33,6 +33,14 @@ export async function POST(req: Request) {
             // 3. Mimo Analysis
             const researcher = await mimoResearch(topic, rawData);
 
+            if (researcher.error || !researcher.content) {
+                console.error("Researcher Agent Error:", researcher.error);
+                return NextResponse.json({
+                    success: false,
+                    error: researcher.error || "Researcher returned empty content."
+                });
+            }
+
             return NextResponse.json({
                 success: true,
                 data: {
