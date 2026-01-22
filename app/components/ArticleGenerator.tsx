@@ -47,7 +47,7 @@ export default function ArticleGenerator({ initialData }: { initialData?: Prompt
             {/* Input Column */}
             <div className="flex flex-col gap-6">
                 <div className="card">
-                    <h3 className="card-title mb-4">✨ Draft Configuration</h3>
+                    <h3 className="card-title mb-4">✨ Writer Studio</h3>
 
                     <div className="mb-4">
                         <label className="block text-sm font-medium mb-1">Target Topic</label>

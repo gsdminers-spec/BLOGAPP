@@ -1,30 +1,184 @@
 'use client';
 
-import ResearchWorkspace from '@/app/components/ResearchWorkspace';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { Suspense } from 'react';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import ReactMarkdown from 'react-markdown';
 
-function ResearchWrapper() {
+export default function ResearchLab() {
     const router = useRouter();
-    const searchParams = useSearchParams();
-    const initialTopic = searchParams.get('topic') || '';
+    const [topic, setTopic] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [status, setStatus] = useState('Ready');
+
+    // Research Results
+    const [factSheet, setFactSheet] = useState('');
+    const [reasoning, setReasoning] = useState('');
+    const [sources, setSources] = useState<any[]>([]);
+
+    // Committee Logs (Visualizer)
+    const [logs, setLogs] = useState<string[]>([]);
+
+    const addLog = (msg: string) => setLogs(prev => [...prev, `> ${msg}`]);
+
+    const handleResearch = async () => {
+        if (!topic) return;
+        setIsLoading(true);
+        setStatus('Initializing Deep Research...');
+        setLogs([]);
+        setFactSheet('');
+        setReasoning('');
+
+        try {
+            addLog(`Starting Tri-Engine Search for: "${topic}"`);
+
+            // Call API Action: Research
+            const res = await fetch('/api/research', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'research', topic })
+            });
+
+            const json = await res.json();
+
+            if (!json.success) throw new Error(json.error);
+
+            addLog("Tri-Engine Search Complete.");
+            addLog(`Found ${json.data.rawSources.length} sources.`);
+            addLog("Mimo V2 Analysis Complete.");
+
+            setSources(json.data.rawSources);
+            setFactSheet(json.data.factSheet);
+            setReasoning(json.data.reasoning);
+            setStatus('Research Complete. Ready to Draft.');
+
+        } catch (e: any) {
+            console.error(e);
+            setStatus('Error: ' + e.message);
+            addLog(`ERROR: ${e.message}`);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const handleDraft = () => {
+        // Save state to Session Storage for the Writer Studio
+        sessionStorage.setItem('activeResearchTopic', topic);
+        sessionStorage.setItem('activeResearchContext', `
+FACSHEET:
+${factSheet}
+
+SOURCE METADATA:
+${JSON.stringify(sources.map(s => s.title))}
+        `);
+
+        router.push('/dashboard/generate');
+    };
 
     return (
-        <ResearchWorkspace
-            initialTopic={initialTopic}
-            onNavigateToPrompt={(data) => {
-                // Navigate to prompt studio with topic
-                // Data is already saved to DB by ResearchWorkspace, so we just pass the topic
-                router.push(`/dashboard/generate?topic=${encodeURIComponent(data.topic)}`);
-            }}
-        />
-    );
-}
+        <div className="h-full flex flex-col p-6 gap-6 max-w-7xl mx-auto">
+            {/* HEADER */}
+            <div className="flex justify-between items-center">
+                <div>
+                    <h1 className="text-2xl font-bold text-slate-800">🔬 Intelligence Lab</h1>
+                    <p className="text-sm text-slate-500">Mimo V2 • Llama 3.3 • Chimera R1 • Gemini 2.5</p>
+                </div>
+                <div className={`px-3 py-1 rounded text-xs font-mono ${isLoading ? 'bg-yellow-100 text-yellow-700 animate-pulse' : 'bg-slate-100 text-slate-600'}`}>
+                    STATUS: {status}
+                </div>
+            </div>
 
-export default function ResearchPage() {
-    return (
-        <Suspense fallback={<div>Loading...</div>}>
-            <ResearchWrapper />
-        </Suspense>
+            {/* MAIN GRID */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 min-h-0">
+
+                {/* LEFT COLUMN: Controls & Logs (4 cols) */}
+                <div className="lg:col-span-4 flex flex-col gap-4">
+                    {/* INPUT CARD */}
+                    <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                        <label className="text-sm font-semibold text-slate-700 mb-2 block">Research Topic</label>
+                        <div className="flex gap-2">
+                            <input
+                                type="text"
+                                className="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"
+                                placeholder="e.g. ASIC Repair Guide"
+                                value={topic}
+                                onChange={(e) => setTopic(e.target.value)}
+                                onKeyDown={(e) => e.key === 'Enter' && handleResearch()}
+                            />
+                            <button
+                                onClick={handleResearch}
+                                disabled={isLoading || !topic}
+                                className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-medium transition-colors disabled:opacity-50"
+                            >
+                                {isLoading ? 'Running...' : 'Run'}
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* SOURCE LIST */}
+                    <div className="bg-slate-50 rounded-xl border border-slate-200 flex-1 flex flex-col min-h-0 overflow-hidden">
+                        <div className="p-3 border-b border-slate-200 bg-slate-100 font-semibold text-xs text-slate-600">
+                            DATA SOURCES ({sources.length})
+                        </div>
+                        <div className="p-2 overflow-y-auto flex-1 space-y-2">
+                            {sources.length === 0 && <div className="text-center text-slate-400 text-xs py-4">No sources yet. Run research.</div>}
+                            {sources.map((s, i) => (
+                                <a key={i} href={s.url} target="_blank" className="block p-2 bg-white rounded border border-slate-100 hover:border-indigo-300 transition-colors text-xs text-slate-700 truncate">
+                                    <span className="font-bold text-indigo-600 mr-2">[{i + 1}]</span>
+                                    {s.title}
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* SYSTEM LOGS */}
+                    <div className="bg-black rounded-xl p-4 font-mono text-xs text-green-400 h-48 overflow-y-auto">
+                        <div className="opacity-50 mb-2">// SYSTEM LOGS</div>
+                        {logs.map((log, i) => (
+                            <div key={i}>{log}</div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* RIGHT COLUMN: Output (8 cols) */}
+                <div className="lg:col-span-8 flex flex-col gap-4">
+                    {/* RESULTS VIEWER */}
+                    <div className="bg-white rounded-xl shadow-sm border border-slate-200 flex-1 flex flex-col overflow-hidden relative">
+                        {/* Reasoning Drawer (Collapsible-ish) */}
+                        {reasoning && (
+                            <div className="bg-amber-50 border-b border-amber-100 p-4 max-h-48 overflow-y-auto">
+                                <h3 className="text-xs font-bold text-amber-800 mb-1">🤖 MIMO REASONING TRACE</h3>
+                                <p className="text-xs text-amber-700 whitespace-pre-wrap">{reasoning}</p>
+                            </div>
+                        )}
+
+                        <div className="flex-1 overflow-y-auto p-8 prose prose-slate max-w-none">
+                            {factSheet ? (
+                                <ReactMarkdown>{factSheet}</ReactMarkdown>
+                            ) : (
+                                <div className="h-full flex items-center justify-center text-slate-300">
+                                    <div className="text-center">
+                                        <div className="text-4xl mb-4">🧬</div>
+                                        <p>The Lab is empty.</p>
+                                        <p className="text-sm">Enter a topic to activate the Tri-Engine.</p>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* ACTION BAR */}
+                        <div className="p-4 border-t border-slate-200 bg-slate-50 flex justify-end">
+                            <button
+                                onClick={handleDraft}
+                                disabled={!factSheet}
+                                className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-lg font-bold shadow-lg shadow-emerald-200 transition-all transform hover:-translate-y-1 disabled:opacity-50 disabled:translate-y-0 disabled:shadow-none"
+                            >
+                                <span>Continue to Studio</span>
+                                <span>👉</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 }

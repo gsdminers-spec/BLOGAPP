@@ -22,7 +22,7 @@ export async function searchTavily(query: string, apiKey: string): Promise<Provi
             body: JSON.stringify({
                 api_key: apiKey,
                 query: query,
-                search_depth: "basic",
+                search_depth: "advanced", // UPDATED: Advanced depth for deep context
                 include_answer: true,
                 max_results: 5
             }),
@@ -31,7 +31,6 @@ export async function searchTavily(query: string, apiKey: string): Promise<Provi
         if (!response.ok) throw new Error(`Tavily error: ${response.statusText}`);
         const data = await response.json();
 
-        // Tavily gives specific answer, we'll attach it to the first result or handle upstream
         const results = (data.results || []).map((r: any) => ({
             title: r.title,
             url: r.url,
@@ -65,7 +64,7 @@ export async function searchBrave(query: string, apiKey: string): Promise<Provid
             title: r.title,
             url: r.url,
             content: r.content,
-            description: r.description || r.snippet || '', // Brave uses 'description' often
+            description: r.description || r.snippet || '',
         }));
 
         return { provider: 'brave', results };
@@ -90,11 +89,31 @@ export async function searchSerper(query: string, apiKey: string): Promise<Provi
         if (!response.ok) throw new Error(`Serper error: ${response.statusText}`);
         const data = await response.json();
 
+        // 1. Organic Results
         const results: SearchResult[] = (data.organic || []).map((r: any) => ({
             title: r.title,
             url: r.link,
             content: r.snippet || '',
         }));
+
+        // 2. Knowledge Graph (Extract if available)
+        if (data.knowledgeGraph) {
+            results.unshift({
+                title: `[Knowledge Graph] ${data.knowledgeGraph.title || query}`,
+                url: data.knowledgeGraph.website || 'https://google.com',
+                content: `${data.knowledgeGraph.description || ''} ${data.knowledgeGraph.attributes ? JSON.stringify(data.knowledgeGraph.attributes) : ''}`
+            });
+        }
+
+        // 3. People Also Ask (Extract definitions/facts)
+        if (data.peopleAlsoAsk && data.peopleAlsoAsk.length > 0) {
+            const paaContent = data.peopleAlsoAsk.map((p: any) => `Q: ${p.question} A: ${p.snippet}`).join(' | ');
+            results.push({
+                title: '[People Also Ask] Related Questions',
+                url: 'https://google.com',
+                content: paaContent
+            });
+        }
 
         return { provider: 'serper', results };
     } catch (e: any) {

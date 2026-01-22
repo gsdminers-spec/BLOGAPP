@@ -13,9 +13,11 @@ function ArticleGeneratorWrapper() {
     const [loading, setLoading] = useState(!!topic);
 
     useEffect(() => {
+        // Method 1: Check URL Param (Direct Navigation)
         if (topic) {
-            // Try to recover from session storage
+            setLoading(true);
             try {
+                // Try old method
                 const stored = sessionStorage.getItem(`researchData_${topic}`);
                 if (stored) {
                     const data = JSON.parse(stored);
@@ -25,15 +27,29 @@ function ArticleGeneratorWrapper() {
                         aiSummary: data.summary
                     });
                 } else {
-                    // Fallback or just set topic
                     setInitialData({ topic });
                 }
             } catch (e) {
-                console.error("Session load error", e);
                 setInitialData({ topic });
             } finally {
                 setLoading(false);
             }
+            return;
+        }
+
+        // Method 2: Check Active Session (From Research Lab)
+        const activeTopic = sessionStorage.getItem('activeResearchTopic');
+        const activeContext = sessionStorage.getItem('activeResearchContext');
+
+        if (activeTopic && activeContext) {
+            setInitialData({
+                topic: activeTopic,
+                aiSummary: activeContext
+            });
+            // Clear it so it doesn't persist forever
+            sessionStorage.removeItem('activeResearchTopic');
+            sessionStorage.removeItem('activeResearchContext');
+            setLoading(false);
         } else {
             setLoading(false);
         }
