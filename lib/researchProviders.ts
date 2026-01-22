@@ -102,9 +102,10 @@ export async function searchGemini(query: string, apiKey: string): Promise<Provi
 
     try {
         const genAI = new GoogleGenerativeAI(apiKey);
-        // Fallback to 1.5-flash as it is essentially stable for grounding now.
+        // Fallback to 1.5-flash failing (404), so retry 2.0-flash-exp which exists.
+        // With robust parsing, this should now work.
         const model = genAI.getGenerativeModel({
-            model: "gemini-1.5-flash",
+            model: "gemini-2.0-flash-exp",
             tools: [{ googleSearchRetrieval: {} }]
         });
 
