@@ -7,12 +7,18 @@ import ReactMarkdown from 'react-markdown';
 function ResearchLabContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const initialTopic = searchParams.get('topic') || '';
 
-    // Initialize topic from URL if present
-    const [topic, setTopic] = useState(initialTopic);
+    // Fix: Initialize with empty string to avoid Hydration Mismatch
+    const [topic, setTopic] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [status, setStatus] = useState('Ready');
+
+    useEffect(() => {
+        const urlTopic = searchParams.get('topic');
+        if (urlTopic) {
+            setTopic(urlTopic);
+        }
+    }, [searchParams]);
 
     // Research Results
     const [factSheet, setFactSheet] = useState('');
