@@ -1,12 +1,12 @@
 'use client';
 
-import PromptStudio from '@/app/components/PromptStudio';
+import ArticleGenerator from '@/app/components/ArticleGenerator';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState, Suspense } from 'react';
-import { getTopicResearch } from '@/lib/researchActions';
+
 import { PromptData } from '@/lib/types';
 
-function PromptStudioWrapper() {
+function ArticleGeneratorWrapper() {
     const searchParams = useSearchParams();
     const topic = searchParams.get('topic') || '';
     const [initialData, setInitialData] = useState<PromptData | null>(null);
@@ -14,20 +14,28 @@ function PromptStudioWrapper() {
 
     useEffect(() => {
         if (topic) {
-            // Fetch the saved research data for this topic
-            getTopicResearch(topic).then(({ data }) => {
-                if (data?.research_data) {
+            // Try to recover from session storage
+            try {
+                const stored = sessionStorage.getItem(`researchData_${topic}`);
+                if (stored) {
+                    const data = JSON.parse(stored);
                     setInitialData({
                         topic: topic,
-                        results: data.research_data.results,
-                        aiSummary: data.research_data.summary
+                        results: data.results,
+                        aiSummary: data.summary
                     });
                 } else {
-                    // No data found, just set topic
+                    // Fallback or just set topic
                     setInitialData({ topic });
                 }
+            } catch (e) {
+                console.error("Session load error", e);
+                setInitialData({ topic });
+            } finally {
                 setLoading(false);
-            });
+            }
+        } else {
+            setLoading(false);
         }
     }, [topic]);
 
@@ -36,14 +44,14 @@ function PromptStudioWrapper() {
     }
 
     return (
-        <PromptStudio initialData={initialData} />
+        <ArticleGenerator initialData={initialData} />
     );
 }
 
 export default function GeneratePage() {
     return (
         <Suspense fallback={<div>Loading...</div>}>
-            <PromptStudioWrapper />
+            <ArticleGeneratorWrapper />
         </Suspense>
     );
 }

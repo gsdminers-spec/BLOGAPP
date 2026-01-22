@@ -19,7 +19,7 @@ export default function ResearchWorkspace({ initialTopic = '', onNavigateToPromp
     const [keyFindings, setKeyFindings] = useState<string[]>([]);
     const [isSaved, setIsSaved] = useState(false);
 
-    // Initial Load - Check if topic has data
+    // Initial Load - Check if topic has data locally
     useEffect(() => {
         if (initialTopic) {
             checkExistingResearch(initialTopic);
@@ -27,16 +27,20 @@ export default function ResearchWorkspace({ initialTopic = '', onNavigateToPromp
     }, [initialTopic]);
 
     const checkExistingResearch = async (title: string) => {
-        const { data } = await getTopicResearch(title);
-        if (data?.research_data) {
-            // Load existing
-            const rd = data.research_data;
-            if (rd.results?.length > 0) {
-                setResults(rd.results);
-                setAiSummary(rd.summary || '');
-                setKeyFindings(rd.keyFindings || []);
-                setIsSaved(true);
+        // Try to load from session storage
+        try {
+            const stored = sessionStorage.getItem(`researchData_${title}`);
+            if (stored) {
+                const data = JSON.parse(stored);
+                if (data.results?.length > 0 || data.summary) {
+                    setResults(data.results || []);
+                    setAiSummary(data.summary || '');
+                    setKeyFindings(data.keyFindings || []);
+                    setIsSaved(true);
+                }
             }
+        } catch (e) {
+            console.error("Failed to load session research", e);
         }
     };
 
@@ -60,17 +64,20 @@ export default function ResearchWorkspace({ initialTopic = '', onNavigateToPromp
                 setAiSummary(data.aiSummary || '');
                 setKeyFindings(data.keyFindings || []);
 
-                // Auto-save to database
-                await saveTopicResearch(topic, {
+                // Save to SESSION STORAGE (Temporary)
+                const sessionData = {
                     results: data.results || [],
                     summary: data.aiSummary || '',
                     keyFindings: data.keyFindings || [],
                     lastUpdated: new Date().toISOString()
-                });
+                };
+                sessionStorage.setItem(`researchData_${topic}`, JSON.stringify(sessionData));
+
                 setIsSaved(true);
             } else {
                 alert('Search failed: ' + data.error);
             }
+
         } catch (e) {
             console.error('Search failed', e);
             alert('Search failed. See console.');
@@ -132,7 +139,7 @@ ${results.map((r, i) => `${i + 1}. ${r.title} - ${r.url}`).join('\n')}
             </div>
 
             {/* Results Area */}
-            {results.length > 0 && (
+            {(results.length > 0 || aiSummary) && (
                 <div className="grid md:grid-cols-3 gap-6 flex-1 min-h-0">
 
                     {/* Left Col: Key Findings + Sources */}
@@ -143,14 +150,18 @@ ${results.map((r, i) => `${i + 1}. ${r.title} - ${r.url}`).join('\n')}
                             <h3 className="font-bold text-amber-900 text-sm mb-3 flex items-center gap-2">
                                 📊 Key Findings
                             </h3>
-                            <ul className="space-y-2">
-                                {keyFindings.map((finding, i) => (
-                                    <li key={i} className="text-sm text-amber-800 flex items-start gap-2">
-                                        <span className="text-amber-600">•</span>
-                                        {finding}
-                                    </li>
-                                ))}
-                            </ul>
+                            {keyFindings.length > 0 ? (
+                                <ul className="space-y-2">
+                                    {keyFindings.map((finding, i) => (
+                                        <li key={i} className="text-sm text-amber-800 flex items-start gap-2">
+                                            <span className="text-amber-600">•</span>
+                                            {finding}
+                                        </li>
+                                    ))}
+                                </ul>
+                            ) : (
+                                <p className="text-sm text-amber-800 italic">No key findings extracted.</p>
+                            )}
                         </div>
 
                         {/* SOURCES */}
@@ -158,7 +169,11 @@ ${results.map((r, i) => `${i + 1}. ${r.title} - ${r.url}`).join('\n')}
                             <h3 className="font-bold text-slate-800 mb-3 flex items-center gap-2">
                                 📚 Sources ({results.length} found)
                             </h3>
-                            <ResearchViewer results={results} />
+                            {results.length > 0 ? (
+                                <ResearchViewer results={results} />
+                            ) : (
+                                <p className="text-sm text-slate-500 italic">No sources returned from search providers.</p>
+                            )}
                         </div>
                     </div>
 
@@ -194,7 +209,7 @@ ${results.map((r, i) => `${i + 1}. ${r.title} - ${r.url}`).join('\n')}
                                     className="btn w-full bg-indigo-600 hover:bg-indigo-700 text-white border-none text-sm"
                                     onClick={() => onNavigateToPrompt?.({ topic, results, aiSummary })}
                                 >
-                                    ➡️ Push to Prompt Studio
+                                    ➡️ Draft Article
                                 </button>
                             </div>
                         </div>

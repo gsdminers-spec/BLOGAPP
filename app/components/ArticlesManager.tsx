@@ -207,7 +207,7 @@ export default function ArticlesManager({ onNavigateToPublish }: { onNavigateToP
                 <div className="card p-0 overflow-hidden">
                     {articles.length === 0 ? (
                         <div className="p-8 text-center text-slate-500">
-                            No articles yet. Save articles from Claude Output to see them here.
+                            No articles yet. Save articles from Final Output to see them here.
                         </div>
                     ) : (
                         <>

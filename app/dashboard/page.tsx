@@ -82,7 +82,7 @@ export default function DashboardPage() {
                             🔑 Review Keywords
                         </Link>
                         <Link href="/dashboard/claude" className="btn btn-secondary text-left">
-                            📋 Paste Article
+                            📋 Final Output
                         </Link>
                     </div>
                 </div>

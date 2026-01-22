@@ -89,7 +89,7 @@ export default function ClaudeOutput() {
                 <div>
                     <h3 className="font-bold text-indigo-900 text-sm">Step: Paste & Save Article</h3>
                     <p className="text-sm text-indigo-700 mt-1">
-                        After generating the article in Claude, copy the Markdown content and paste it here.
+                        After generating the article in Final Output, copy the Markdown content and paste it here.
                         This will save the article to the database.
                     </p>
                 </div>
