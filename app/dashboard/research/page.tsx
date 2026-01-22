@@ -1,12 +1,16 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, Suspense, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 
-export default function ResearchLab() {
+function ResearchLabContent() {
     const router = useRouter();
-    const [topic, setTopic] = useState('');
+    const searchParams = useSearchParams();
+    const initialTopic = searchParams.get('topic') || '';
+
+    // Initialize topic from URL if present
+    const [topic, setTopic] = useState(initialTopic);
     const [isLoading, setIsLoading] = useState(false);
     const [status, setStatus] = useState('Ready');
 
@@ -19,6 +23,9 @@ export default function ResearchLab() {
     const [logs, setLogs] = useState<string[]>([]);
 
     const addLog = (msg: string) => setLogs(prev => [...prev, `> ${msg}`]);
+
+    // Auto-run if topic came from URL? 
+    // For now, we pre-fill it. User clicks Run.
 
     const handleResearch = async () => {
         if (!topic) return;
@@ -61,17 +68,20 @@ export default function ResearchLab() {
     };
 
     const handleDraft = () => {
-        // Save state to Session Storage for the Writer Studio
-        sessionStorage.setItem('activeResearchTopic', topic);
-        sessionStorage.setItem('activeResearchContext', `
-FACSHEET:
-${factSheet}
+        // Save using the standard format expected by ArticleGenerator
+        const payload = {
+            results: sources,
+            summary: factSheet + (reasoning ? `\n\n### Reasoning Trace\n${reasoning}` : "")
+        };
 
-SOURCE METADATA:
-${JSON.stringify(sources.map(s => s.title))}
-        `);
-
-        router.push('/dashboard/generate');
+        try {
+            sessionStorage.setItem(`researchData_${topic}`, JSON.stringify(payload));
+            // Navigate WITH topic param to trigger the robust "Method 1" loading logic
+            router.push(`/dashboard/generate?topic=${encodeURIComponent(topic)}`);
+        } catch (e) {
+            console.error("Session Save Failed", e);
+            alert("Failed to save research data. Storage might be full.");
+        }
     };
 
     return (
@@ -172,7 +182,7 @@ ${JSON.stringify(sources.map(s => s.title))}
                                 disabled={!factSheet}
                                 className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-lg font-bold shadow-lg shadow-emerald-200 transition-all transform hover:-translate-y-1 disabled:opacity-50 disabled:translate-y-0 disabled:shadow-none"
                             >
-                                <span>Continue to Studio</span>
+                                <span>Enter Writer Studio</span>
                                 <span>👉</span>
                             </button>
                         </div>
@@ -180,5 +190,13 @@ ${JSON.stringify(sources.map(s => s.title))}
                 </div>
             </div>
         </div>
+    );
+}
+
+export default function ResearchLab() {
+    return (
+        <Suspense fallback={<div className="p-8 text-center text-slate-400">Loading Research Lab...</div>}>
+            <ResearchLabContent />
+        </Suspense>
     );
 }
