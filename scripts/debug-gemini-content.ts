@@ -18,7 +18,7 @@ async function testGeminiContent() {
                 "model": "google/gemini-2.0-flash-lite-preview-02-05:free",
                 "messages": [{
                     "role": "user",
-                    "content": "Write a 3 sentence summary about Bitcoin Mining."
+                    "content": `Context: ${"A".repeat(20000)}\n\nTask: Summarize the context.`
                 }]
                 // REMOVED REASONING PARAM
             })

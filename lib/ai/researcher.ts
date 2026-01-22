@@ -16,11 +16,17 @@ export async function mimoResearch(query: string, context: string): Promise<Rese
     const apiKey = process.env.OPENROUTER_API_KEY;
     if (!apiKey) throw new Error("Missing OPENROUTER_API_KEY");
 
+    // Safety Truncation: Limit context to avoid hitting token limits (Gemini Lite has limits)
+    const MAX_CONTEXT = 30000;
+    const safeContext = context.length > MAX_CONTEXT
+        ? context.substring(0, MAX_CONTEXT) + "\n...(Truncated)..."
+        : context;
+
     const prompt = `
     QUERY: ${query}
 
     CONTEXT (Search Results):
-    ${context}
+    ${safeContext}
 
     TASK:
     You are an Expert Technical Researcher.
@@ -37,7 +43,6 @@ export async function mimoResearch(query: string, context: string): Promise<Rese
     `;
 
     try {
-        // First API call with reasoning enabled (User provided pattern)
         const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
             method: "POST",
             headers: {
@@ -53,28 +58,27 @@ export async function mimoResearch(query: string, context: string): Promise<Rese
                         "role": "user",
                         "content": prompt
                     }
-                ],
+                ]
             })
         });
 
         if (!response.ok) {
             const err = await response.text();
-            throw new Error(`Mimo API Error: ${err}`);
+            throw new Error(`Gemini API Error: ${err}`);
         }
 
         const result = await response.json();
         const choice = result.choices?.[0]?.message;
 
-        if (!choice) throw new Error("No output from Mimo");
+        if (!choice || !choice.content) throw new Error("Received empty output from Researcher Model");
 
-        // We capture both the content AND the reasoning details
         return {
             content: choice.content,
-            reasoning: choice.reasoning_details || "No reasoning details provided by model."
+            reasoning: choice.reasoning_details || ""
         };
 
     } catch (error: any) {
-        console.error("Mimo Research Failed:", error);
+        console.error("Research Agent Failed:", error);
         return { content: "", error: error.message };
     }
 }

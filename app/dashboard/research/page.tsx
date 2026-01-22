@@ -57,7 +57,7 @@ function ResearchLabContent() {
 
             addLog("Tri-Engine Search Complete.");
             addLog(`Found ${json.data.rawSources.length} sources.`);
-            addLog("Mimo V2 Analysis Complete.");
+            addLog("Gemini Lite Analysis Complete.");
 
             const safeFactSheet = typeof json.data.factSheet === 'string'
                 ? json.data.factSheet
