@@ -99,9 +99,9 @@ export async function searchSerper(query: string, apiKey: string): Promise<Provi
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 // --- GEMINI GROUNDING ---
-import { GoogleGenerativeAI } from '@google/generative-ai';
 
 export async function searchGemini(query: string, apiKey: string): Promise<ProviderResult> {
+
     try {
         const genAI = new GoogleGenerativeAI(apiKey);
         // Fallback to 1.5-flash as it is essentially stable for grounding now.
