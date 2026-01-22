@@ -22,17 +22,20 @@ interface ModelPair {
 }
 
 // Map Roles to Specific Free Models
+// Map Roles to Verified Free Models (Audited)
 const AGENT_ROSTER: Record<AgentRole, ModelPair> = {
     RESEARCHER: {
-        primary: "google/gemini-2.0-flash-exp:free", // 1M Context for reading search results
-        alternate: "google/gemini-2.0-pro-exp-02-05:free"
+        primary: "google/gemini-2.0-flash-exp:free", // Verified Working (1M Context)
+        alternate: "google/gemini-2.0-pro-exp-02-05:free" // Good backup
     },
     REASONER: {
-        primary: "openai/gpt-oss-120b:free", // Deep Reasoning logic
-        alternate: "deepseek/deepseek-r1:free" // Strong reasoning fallback
+        // GPT-OSS might be flaky, switching to DeepSeek R1 as Primary (Strongest Free Reasoner)
+        primary: "deepseek/deepseek-r1:free",
+        alternate: "nvidia/llama-3.1-nemotron-70b-instruct:free" // Very strong alternative
     },
     OUTLINER: {
-        primary: "meta-llama/llama-3-8b-instruct:free", // Good structural adherence
+        // Upgrading to Llama 3.1 8B (Better instruction following)
+        primary: "meta-llama/llama-3.1-8b-instruct:free",
         alternate: "mistralai/mistral-7b-instruct:free"
     },
     WRITER: {
