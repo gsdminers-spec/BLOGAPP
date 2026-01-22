@@ -46,7 +46,8 @@ export async function mimoResearch(query: string, context: string): Promise<Rese
 
     try {
         const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp" });
+        // Switching to 1.5 Flash (Stable) to avoid 429 Rate Limits on 2.0-Exp
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
         const result = await model.generateContent(prompt);
         const text = result.response.text();
