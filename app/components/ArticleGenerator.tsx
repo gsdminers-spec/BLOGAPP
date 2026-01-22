@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { PromptData } from '@/lib/types';
 
 export default function ArticleGenerator({ initialData }: { initialData?: PromptData | null }) {
@@ -8,6 +8,14 @@ export default function ArticleGenerator({ initialData }: { initialData?: Prompt
     const [preferences, setPreferences] = useState('');
     const [generatedArticle, setGeneratedArticle] = useState('');
     const [loading, setLoading] = useState(false);
+
+    // FIX: Sync state when initialData arrives from parent (e.g. after async session load)
+    useEffect(() => {
+        if (initialData?.topic) {
+            setTopic(initialData.topic);
+            console.log("Syncing Topic:", initialData.topic);
+        }
+    }, [initialData]);
 
     const handleGenerate = async () => {
         if (!topic) return;

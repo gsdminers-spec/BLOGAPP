@@ -23,7 +23,7 @@ export default function DashboardLayout({
         { href: '/dashboard', icon: '🏠', label: 'Dashboard', exact: true },
         { href: '/dashboard/tree', icon: '🌳', label: 'Blog Tree' },
         { href: '/dashboard/research', icon: '🔬', label: 'Research' },
-        { href: '/dashboard/generate', icon: '✨', label: 'Draft Article' },
+        { href: '/dashboard/generate', icon: '✨', label: 'Writer Studio' },
         { href: '/dashboard/claude', icon: '📋', label: 'Final Output' },
         { href: '/dashboard/articles', icon: '📝', label: 'Articles' },
         { href: '/dashboard/publish', icon: '🚀', label: 'Publish Hub' },
