@@ -39,8 +39,12 @@ export async function POST(req: Request) {
         // 2. AGGREGATE & DEDUPLICATE
         let allResults: SearchResult[] = [];
         const seenUrls = new Set<string>();
+        const errors: string[] = [];
 
         providerResults.forEach(p => {
+            if (p.error) {
+                errors.push(`${p.provider}: ${p.error}`);
+            }
             if (p.results) {
                 p.results.forEach(r => {
                     if (!seenUrls.has(r.url)) {
@@ -91,10 +95,16 @@ export async function POST(req: Request) {
             });
 
         } else {
+            // NO RESULTS FOUND - RETURN DEBUG INFO
+            let debugMsg = "No search results found.";
+            if (errors.length > 0) {
+                debugMsg += "\n\n⚠️ DEBUG ERRORS:\n" + errors.join('\n');
+            }
+
             return NextResponse.json({
                 success: true,
                 results: [],
-                aiSummary: "No search results found.",
+                aiSummary: debugMsg,
                 keyFindings: [],
                 sources: []
             });
