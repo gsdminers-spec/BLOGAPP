@@ -4,6 +4,7 @@ export interface SearchResult {
     url: string;
     content: string;
     source?: string;
+    score?: number;
 }
 
 export interface PromptData {
