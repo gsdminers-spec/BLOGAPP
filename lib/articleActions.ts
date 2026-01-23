@@ -2,18 +2,34 @@ import { supabase } from './supabase';
 import { Topic, Article } from './supabase';
 
 // Fetch recent topics (History + Pending) for the Claude Output dropdown
+// Fetch topics for the dropdown: ALL Pending/In-Progress + Last 50 History
 export async function fetchRecentTopics(): Promise<Topic[]> {
-    const { data, error } = await supabase
+    // 1. Fetch ALL pending/in-progress
+    const { data: pendingData, error: pendingError } = await supabase
         .from('topics')
         .select('*')
-        .order('created_at', { ascending: false })
-        .limit(50); // Fetch last 50 items
+        .in('status', ['pending', 'in-progress'])
+        .order('created_at', { ascending: false });
 
-    if (error) {
-        console.error('Error fetching recent topics:', error);
+    if (pendingError) {
+        console.error('Error fetching pending topics:', pendingError);
         return [];
     }
-    return data || [];
+
+    // 2. Fetch last 50 'done' (History)
+    const { data: historyData, error: historyError } = await supabase
+        .from('topics')
+        .select('*')
+        .eq('status', 'done')
+        .order('created_at', { ascending: false })
+        .limit(50);
+
+    if (historyError) {
+        console.error('Error fetching history topics:', historyError);
+    }
+
+    // 3. Combine
+    return [...(pendingData || []), ...(historyData || [])];
 }
 
 // Keep this for compatibility if needed, or deprecate
