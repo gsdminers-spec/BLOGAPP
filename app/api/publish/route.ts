@@ -64,7 +64,7 @@ export async function POST(request: Request) {
                 title: articleData.title,
                 slug: slug,
                 content: articleData.content,
-                // content_html: contentHtml, // REMOVED: Optimizing storage, generate HTML on frontend/build
+                content_html: contentHtml,
                 id: articleData.id, // Ensure we map ID if schema allows, or let it auto-gen/match by slug
                 // Note: If blog_articles schema has different ID, remove this line.
                 // Assuming upsert on 'slug' handles it.
