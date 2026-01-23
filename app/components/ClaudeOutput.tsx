@@ -1,8 +1,8 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
-import { fetchPendingTopics, saveArticle } from '@/lib/articleActions';
+import { useState, useEffect, useRef } from 'react';
+import { fetchRecentTopics, saveArticle, uploadImage } from '@/lib/articleActions';
 import { Topic } from '@/lib/supabase';
 import { Skeleton } from './ui/Skeleton';
 
@@ -44,7 +44,7 @@ export default function ClaudeOutput() {
 
     const loadTopics = async () => {
         setStatus('loading');
-        const data = await fetchPendingTopics();
+        const data = await fetchRecentTopics();
         setTopics(data);
         setStatus('idle');
     };
@@ -111,9 +111,18 @@ export default function ClaudeOutput() {
                         onChange={(e) => handleTopicChange(e.target.value)}
                     >
                         <option value="">-- Choose a Topic --</option>
-                        {topics.map(t => (
-                            <option key={t.id} value={t.id}>{t.title}</option>
-                        ))}
+
+                        <optgroup label="Pending / In Progress">
+                            {topics.filter(t => ['pending', 'in-progress'].includes(t.status)).map(t => (
+                                <option key={t.id} value={t.id}>[{t.status.toUpperCase()}] {t.title}</option>
+                            ))}
+                        </optgroup>
+
+                        <optgroup label="Recent History">
+                            {topics.filter(t => !['pending', 'in-progress'].includes(t.status)).map(t => (
+                                <option key={t.id} value={t.id}>[{t.status.toUpperCase()}] {t.title}</option>
+                            ))}
+                        </optgroup>
                     </select>
                 )}
             </div>
@@ -135,11 +144,13 @@ Content goes here..."
             </div>
 
             {/* Error Message */}
-            {status === 'error' && (
-                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
-                    {errorMessage}
-                </div>
-            )}
+            {
+                status === 'error' && (
+                    <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+                        {errorMessage}
+                    </div>
+                )
+            }
 
             {/* Step 3: Action */}
             <div className="card sticky bottom-4 shadow-xl border-t-2 border-indigo-500">
@@ -147,15 +158,50 @@ Content goes here..."
                     <div className="text-sm text-gray-500">
                         {content.length > 0 ? `${content.split(' ').length} words detected` : 'Waiting for content...'}
                     </div>
-                    <button
-                        className={`btn ${status === 'saved' ? 'badge-green text-green-800' : 'btn-primary'} min-w-[200px]`}
-                        onClick={handleSave}
-                        disabled={!selectedTopicId || !content || status === 'saving'}
-                    >
-                        {status === 'saving' ? '💾 Saving...' : status === 'saved' ? '✅ Saved Successfully!' : '✅ Add to Articles'}
-                    </button>
+
+                    <div className="flex gap-3">
+                        {/* Image Upload Button */}
+                        <div className="relative">
+                            <input
+                                type="file"
+                                accept="image/*"
+                                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                onChange={async (e) => {
+                                    const file = e.target.files?.[0];
+                                    if (!file) return;
+
+                                    if (file.size > 5 * 1024 * 1024) {
+                                        alert("File size too large. Max 5MB.");
+                                        return;
+                                    }
+
+                                    setStatus('saving'); // Re-use saving status for feedback
+                                    const { success, url, error } = await uploadImage(file);
+                                    setStatus('idle');
+
+                                    if (success && url) {
+                                        const markdownImage = `\n![${file.name}](${url})\n`;
+                                        setContent(prev => prev + markdownImage);
+                                    } else {
+                                        alert(`Upload Failed: ${error}`);
+                                    }
+                                }}
+                            />
+                            <button className="btn btn-secondary flex items-center gap-2">
+                                <span>📷</span> Add Photo
+                            </button>
+                        </div>
+
+                        <button
+                            className={`btn ${status === 'saved' ? 'badge-green text-green-800' : 'btn-primary'} min-w-[200px]`}
+                            onClick={handleSave}
+                            disabled={!selectedTopicId || !content || status === 'saving'}
+                        >
+                            {status === 'saving' ? '💾 Saving...' : status === 'saved' ? '✅ Saved Successfully!' : '✅ Add to Articles'}
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }

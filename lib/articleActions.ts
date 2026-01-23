@@ -1,19 +1,24 @@
 import { supabase } from './supabase';
 import { Topic, Article } from './supabase';
 
-// Fetch pending topics for the Claude Output dropdown
-export async function fetchPendingTopics(): Promise<Topic[]> {
+// Fetch recent topics (History + Pending) for the Claude Output dropdown
+export async function fetchRecentTopics(): Promise<Topic[]> {
     const { data, error } = await supabase
         .from('topics')
         .select('*')
-        .in('status', ['pending', 'in-progress'])
-        .order('created_at', { ascending: false });
+        .order('created_at', { ascending: false })
+        .limit(50); // Fetch last 50 items
 
     if (error) {
-        console.error('Error fetching pending topics:', error);
+        console.error('Error fetching recent topics:', error);
         return [];
     }
     return data || [];
+}
+
+// Keep this for compatibility if needed, or deprecate
+export async function fetchPendingTopics(): Promise<Topic[]> {
+    return fetchRecentTopics();
 }
 
 // Save article from Claude Output and update topic status
@@ -193,6 +198,44 @@ export async function updateArticle(articleId: string, title: string, content: s
         return { success: true };
     } catch (err: any) {
         console.error('Error updating article:', err);
+        return { success: false, error: err.message };
+    }
+}
+// Check if a bucket exists
+export async function checkBucketExists(bucketName: string): Promise<boolean> {
+    const { data, error } = await supabase.storage.getBucket(bucketName);
+    return !error && !!data;
+}
+
+// Upload image to Supabase Storage
+export async function uploadImage(file: File): Promise<{ success: boolean; url?: string; error?: string }> {
+    try {
+        const bucketName = 'blog-assets'; // Standardizing on 'blog-assets'
+
+        // Generate unique filename
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 15)}.${fileExt}`;
+        const filePath = `uploads/${fileName}`;
+
+        // Upload
+        const { error: uploadError } = await supabase.storage
+            .from(bucketName)
+            .upload(filePath, file);
+
+        if (uploadError) {
+            console.error('Upload error:', uploadError);
+            return { success: false, error: uploadError.message };
+        }
+
+        // Get Public URL
+        const { data } = supabase.storage
+            .from(bucketName)
+            .getPublicUrl(filePath);
+
+        return { success: true, url: data.publicUrl };
+
+    } catch (err: any) {
+        console.error('Unexpected upload error:', err);
         return { success: false, error: err.message };
     }
 }
