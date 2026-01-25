@@ -50,6 +50,39 @@ export async function POST(request: NextRequest) {
             .delete()
             .eq('article_id', articleId);
 
+        // 5. Trigger GitHub Actions Website Rebuild (to remove article from static site)
+        const githubToken = process.env.GITHUB_PAT;
+        const repoOwner = process.env.GITHUB_REPO_OWNER || 'gsdminers-spec';
+        const repoName = process.env.GITHUB_REPO_NAME || 'asicrepair.test1';
+        const workflowFile = 'deploy.yml';
+
+        if (githubToken) {
+            try {
+                const deployResponse = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/actions/workflows/${workflowFile}/dispatches`, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Authorization': `Bearer ${githubToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        ref: 'main',
+                    }),
+                });
+
+                if (deployResponse.ok) {
+                    console.log(`🚀 Rebuild triggered after unpublishing: ${article.title}`);
+                } else {
+                    const errorText = await deployResponse.text();
+                    console.error(`⚠️ Failed to trigger rebuild after unpublish: ${deployResponse.status} ${errorText}`);
+                }
+            } catch (deployError) {
+                console.error('⚠️ Deployment trigger exception on unpublish:', deployError);
+            }
+        } else {
+            console.log('ℹ️ GITHUB_PAT not found. Skipping automated rebuild trigger after unpublish.');
+        }
+
         return NextResponse.json({ success: true, message: `Unpublished: ${article.title}` });
 
     } catch (error: any) {
