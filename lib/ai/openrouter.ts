@@ -75,20 +75,21 @@ async function callGroqDirect(prompt: string, systemInstruction?: string): Promi
 
     try {
         const groq = new Groq({ apiKey });
-        const messages: any[] = [];
-        if (systemInstruction) messages.push({ role: "system", content: systemInstruction });
-        messages.push({ role: "user", content: prompt });
+        const messages = [];
+        if (systemInstruction) messages.push({ role: "system" as const, content: systemInstruction });
+        messages.push({ role: "user" as const, content: prompt });
 
         const completion = await groq.chat.completions.create({
-            messages: messages,
+            messages: messages as any, // Groq SDK type compatibility
             model: "llama-3.3-70b-versatile",
             temperature: 0.7,
             max_completion_tokens: 4096
         });
 
         return completion.choices[0]?.message?.content || "";
-    } catch (error: any) {
-        console.warn("⚠️ Groq Bridge Failed:", error.message);
+    } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        console.warn("⚠️ Groq Bridge Failed:", errorMessage);
         throw error;
     }
 }
@@ -150,9 +151,10 @@ export async function smartGenerate(
     // ATTEMPT 1: Primary Model (OpenRouter)
     try {
         return await callOpenRouterRaw(models.primary, prompt, systemInstruction);
-    } catch (error: any) {
+    } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
         console.warn(`⚠️ [${role}] Primary (${models.primary}) failed. Switching to Groq...`);
-        if (error.message.includes('RATE_LIMIT')) await sleep(1000);
+        if (errorMessage.includes('RATE_LIMIT')) await sleep(1000);
     }
 
     // ATTEMPT 2: The Groq Bridge (Llama 3.3)
@@ -160,14 +162,14 @@ export async function smartGenerate(
         const groqResult = await callGroqDirect(prompt, systemInstruction);
         console.log(`✅ [${role}] Saved by Groq Bridge.`);
         return groqResult;
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.warn(`⚠️ [${role}] Groq Bridge failed. Switching to Alternate OpenRouter...`);
     }
 
     // ATTEMPT 3: Alternate Model (OpenRouter)
     try {
         return await callOpenRouterRaw(models.alternate, prompt, systemInstruction);
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error(`🚨 [${role}] Alternate (${models.alternate}) failed. ACTIVATING GEMINI FLOOR.`);
     }
 
@@ -176,7 +178,8 @@ export async function smartGenerate(
         const floorResult = await callGeminiDirect(prompt, systemInstruction);
         console.log(`✅ [${role}] Saved by Gemini Floor.`);
         return floorResult;
-    } catch (fatalError: any) {
-        return `SYSTEM_ERROR: Unable to generate content. Details: ${fatalError.message}`;
+    } catch (fatalError: unknown) {
+        const errorMessage = fatalError instanceof Error ? fatalError.message : 'Unknown error';
+        return `SYSTEM_ERROR: Unable to generate content. Details: ${errorMessage}`;
     }
 }

@@ -77,3 +77,24 @@ export async function cancelSchedule(queueId: string, articleId: string): Promis
 
     return { success: true };
 }
+
+// Trigger GitHub Deployment
+export async function triggerDeployment(): Promise<{ success: boolean; message?: string; error?: string }> {
+    try {
+        const response = await fetch('/api/deploy', {
+            method: 'POST',
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            return { success: false, error: result.error || 'Failed to trigger deployment' };
+        }
+
+        return { success: true, message: result.message };
+    } catch (err: unknown) {
+        const errorMessage = err instanceof Error ? err.message : 'Unknown error';
+        console.error('Error triggering deployment:', errorMessage);
+        return { success: false, error: errorMessage };
+    }
+}

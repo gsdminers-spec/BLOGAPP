@@ -40,9 +40,12 @@ export async function POST(req: Request) {
 
         return NextResponse.json({ success: true, prompt: generatedPrompt });
 
-    } catch (error: any) {
-        console.error('Prompt Generation CRASH:', error);
-        console.error('Stack:', error.stack);
-        return NextResponse.json({ error: error.message || 'Failed to generate prompt' }, { status: 500 });
+    } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        console.error('Prompt Generation CRASH:', errorMessage);
+        if (error instanceof Error) {
+            console.error('Stack:', error.stack);
+        }
+        return NextResponse.json({ error: errorMessage || 'Failed to generate prompt' }, { status: 500 });
     }
 }

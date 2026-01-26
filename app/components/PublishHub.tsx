@@ -12,10 +12,7 @@ export default function PublishHub() {
     const [loading, setLoading] = useState(true);
     const [dateInputs, setDateInputs] = useState<Record<string, { date: string, time: string, isScheduling?: boolean }>>({});
 
-    useEffect(() => {
-        loadQueue();
-    }, []);
-
+    // Fix: Move function declaration before useEffect to avoid React Hook violation
     const loadQueue = async () => {
         setLoading(true);
         const data = await fetchPublishQueue();
@@ -31,6 +28,10 @@ export default function PublishHub() {
         setDateInputs(inputs);
         setLoading(false);
     };
+
+    useEffect(() => {
+        loadQueue();
+    }, []);
 
     const scheduledItems = queue.filter(q => q.status === 'scheduled');
     const pendingItems = queue.filter(q => q.status !== 'scheduled' && q.status !== 'published');

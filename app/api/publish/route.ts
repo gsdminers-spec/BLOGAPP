@@ -82,7 +82,7 @@ export async function POST(request: Request) {
         // 4. Trigger GitHub Actions Website Rebuild (Automated Deployment)
         const githubToken = process.env.GITHUB_PAT;
         const repoOwner = process.env.GITHUB_REPO_OWNER || 'gsdminers-spec';
-        const repoName = process.env.GITHUB_REPO_NAME || 'asicrepair.test1';
+        const repoName = process.env.GITHUB_REPO_NAME || 'asicrepair.in';
         const workflowFile = 'deploy.yml';
 
         if (githubToken) {
@@ -116,8 +116,9 @@ export async function POST(request: Request) {
 
         return NextResponse.json({ success: true, slug });
 
-    } catch (error: any) {
-        console.error('Publish API Error:', error);
-        return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        console.error('Publish API Error:', errorMessage);
+        return NextResponse.json({ success: false, error: errorMessage }, { status: 500 });
     }
 }

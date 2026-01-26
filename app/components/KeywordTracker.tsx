@@ -13,16 +13,17 @@ export default function KeywordTracker() {
     const [newCategory, setNewCategory] = useState('');
     const [expandedId, setExpandedId] = useState<string | null>(null);
 
-    useEffect(() => {
-        loadKeywords();
-    }, []);
-
+    // Fix: Move function declaration before useEffect to avoid React Hook violation
     const loadKeywords = async () => {
         setLoading(true);
         const data = await fetchKeywords();
         setKeywords(data);
         setLoading(false);
     };
+
+    useEffect(() => {
+        loadKeywords();
+    }, []);
 
     const handleAdd = async () => {
         if (!newPhrase.trim()) {

@@ -10,7 +10,7 @@ import { logActivity } from '@/lib/logger';
 // But for simplicity in this demo, we'll compare string directly OR compute hash.
 // Let's do simple string compare for now per user request context (admin tool).
 // Ideally: Use bcrypt/argon2.
-const CORRECT_PASSWORD = 'Ashmira@143';
+const CORRECT_PASSWORD = process.env.ADMIN_PASSWORD || 'Ashmira@143';
 
 export async function POST(request: Request) {
     try {
@@ -25,7 +25,7 @@ export async function POST(request: Request) {
         await logActivity('ERROR', 'System', 'Failed login attempt');
         return NextResponse.json({ success: false, error: 'Invalid password' }, { status: 401 });
 
-    } catch (e) {
+    } catch {
         return NextResponse.json({ success: false, error: 'Server error' }, { status: 500 });
     }
 }

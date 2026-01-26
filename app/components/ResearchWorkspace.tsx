@@ -4,7 +4,6 @@
 import { useState, useEffect } from 'react';
 import ResearchViewer from './ResearchViewer';
 import { SearchResult } from '@/lib/types';
-import { saveTopicResearch, getTopicResearch } from '@/lib/researchActions';
 
 interface ResearchWorkspaceProps {
     initialTopic?: string;

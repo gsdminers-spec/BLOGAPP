@@ -3,9 +3,9 @@
 
 import { useState, useEffect } from 'react';
 import { fetchArticles, moveToPublish, unpublishArticle, deleteArticle, updateArticle } from '@/lib/articleActions';
-import { publishNow } from '@/lib/publishActions';
+import { publishNow, triggerDeployment } from '@/lib/publishActions';
 import { Article } from '@/lib/supabase';
-import { Skeleton, TableRowSkeleton } from './ui/Skeleton';
+import { TableRowSkeleton } from './ui/Skeleton';
 import ArticlePreview from './ArticlePreview';
 
 // IST Timezone Helpers (GMT+5:30)
@@ -16,11 +16,7 @@ const getISTDateString = () => {
     return istTime.toISOString().split('T')[0];
 };
 
-const getISTTimeString = () => {
-    const now = new Date();
-    const istTime = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }));
-    return istTime.toTimeString().slice(0, 5);
-};
+
 
 export default function ArticlesManager({ onNavigateToPublish }: { onNavigateToPublish: () => void }) {
     const [articles, setArticles] = useState<Article[]>([]);
@@ -37,16 +33,17 @@ export default function ArticlesManager({ onNavigateToPublish }: { onNavigateToP
     const [editTitle, setEditTitle] = useState('');
     const [editContent, setEditContent] = useState('');
 
-    useEffect(() => {
-        loadArticles();
-    }, []);
-
+    // Fix: Move function declaration before useEffect to avoid React Hook violation
     const loadArticles = async () => {
         setLoading(true);
-        const data = await fetchArticles(); // Re-import maybe needed but it is same file
+        const data = await fetchArticles();
         setArticles(data);
         setLoading(false);
     };
+
+    useEffect(() => {
+        loadArticles();
+    }, []);
 
     const handleCopy = (content: string) => {
         navigator.clipboard.writeText(content);
@@ -100,10 +97,6 @@ export default function ArticlesManager({ onNavigateToPublish }: { onNavigateToP
         setSchedulingArticle(null);
         loadArticles();
         onNavigateToPublish();
-    };
-
-    const handlePrint = () => {
-        window.print();
     };
 
     // Unpublish - remove from public blog but keep in admin
@@ -167,6 +160,20 @@ export default function ArticlesManager({ onNavigateToPublish }: { onNavigateToP
             setEditingArticle(null);
         } else {
             alert(result.error || 'Failed to update article');
+        }
+    };
+
+    // Deploy to Live Site
+    const handleDeploy = async () => {
+        if (!confirm('🚀 Are you sure you want to PUBLISH LIVE?\n\nThis will trigger the automated robot to build the website and upload it to Hostinger.\n\nIt takes about 2-3 minutes to complete.')) return;
+
+        alert('Initializing deployment robot... 🤖');
+        const result = await triggerDeployment();
+
+        if (result.success) {
+            alert('✅ Deployment Signal Sent!\n\nThe robot is now building your site. Check asicrepair.in in 3 minutes.');
+        } else {
+            alert(`❌ Failed to trigger robot: ${result.error}`);
         }
     };
 
@@ -259,6 +266,14 @@ export default function ArticlesManager({ onNavigateToPublish }: { onNavigateToP
                             </div>
 
                             {/* Desktop Table View */}
+                            <div className="flex justify-end mb-4 px-4 w-full">
+                                <button
+                                    onClick={handleDeploy}
+                                    className="btn btn-primary bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-lg shadow-indigo-200 transform hover:scale-105 transition-all text-sm font-bold flex items-center gap-2"
+                                >
+                                    🚀 Publish Live to Hostinger
+                                </button>
+                            </div>
                             <table className="hidden md:table w-full text-left text-sm">
                                 <thead className="bg-slate-50 border-b border-slate-200">
                                     <tr>

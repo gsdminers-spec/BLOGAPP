@@ -116,8 +116,9 @@ export async function POST(req: Request) {
 
         return NextResponse.json({ success: true, article: finalArticle, debug: { p1: phase1Result, p2: phase2Result, p3: phase3Result } });
 
-    } catch (error: any) {
-        console.error('Deep Consensus Error:', error);
-        return NextResponse.json({ error: error.message || 'Failed to generate article' }, { status: 500 });
+    } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        console.error('Deep Consensus Error:', errorMessage);
+        return NextResponse.json({ error: errorMessage || 'Failed to generate article' }, { status: 500 });
     }
 }

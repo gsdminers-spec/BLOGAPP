@@ -37,17 +37,18 @@ export default function ClaudeOutput() {
         }
     }, [selectedTopicId]);
 
-    // Fetch pending topics on mount
-    useEffect(() => {
-        loadTopics();
-    }, []);
-
+    // Fix: Move function declaration before useEffect to avoid React Hook violation
     const loadTopics = async () => {
         setStatus('loading');
         const data = await fetchRecentTopics();
         setTopics(data);
         setStatus('idle');
     };
+
+    // Fetch pending topics on mount
+    useEffect(() => {
+        loadTopics();
+    }, []);
 
     const handleTopicChange = (topicId: string) => {
         setSelectedTopicId(topicId);

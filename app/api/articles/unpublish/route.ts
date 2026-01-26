@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
         // 5. Trigger GitHub Actions Website Rebuild (to remove article from static site)
         const githubToken = process.env.GITHUB_PAT;
         const repoOwner = process.env.GITHUB_REPO_OWNER || 'gsdminers-spec';
-        const repoName = process.env.GITHUB_REPO_NAME || 'asicrepair.test1';
+        const repoName = process.env.GITHUB_REPO_NAME || 'asicrepair.in';
         const workflowFile = 'deploy.yml';
 
         if (githubToken) {
@@ -85,8 +85,9 @@ export async function POST(request: NextRequest) {
 
         return NextResponse.json({ success: true, message: `Unpublished: ${article.title}` });
 
-    } catch (error: any) {
-        console.error('Unpublish error:', error);
-        return NextResponse.json({ error: error.message }, { status: 500 });
+    } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        console.error('Unpublish error:', errorMessage);
+        return NextResponse.json({ error: errorMessage }, { status: 500 });
     }
 }

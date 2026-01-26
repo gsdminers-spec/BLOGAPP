@@ -30,6 +30,11 @@ export default function ArticlePreview({ article, onClose, onPublish, onUnpublis
 
     const readingTime = getReadingTime(article.content);
 
+    // Fix: Move date calculation to useMemo to avoid impure function during render
+    const createdDate = useMemo(() => {
+        return new Date(article.created_at || new Date().toISOString());
+    }, [article.created_at]);
+
     return (
         <div
             className="h-full flex flex-col overflow-y-auto custom-scrollbar selection:bg-cyan-500/30 selection:text-cyan-200 bg-[#0a0a0a] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"
@@ -106,7 +111,7 @@ export default function ArticlePreview({ article, onClose, onPublish, onUnpublis
                         <div className="flex flex-wrap items-center gap-6 mb-8 text-gray-400 text-sm font-medium">
                             <div className="flex items-center gap-2">
                                 <Calendar className="w-4 h-4" />
-                                <span>{new Date(article.created_at || Date.now()).toLocaleDateString('en-US', {
+                                <span>{createdDate.toLocaleDateString('en-US', {
                                     year: 'numeric',
                                     month: 'long',
                                     day: 'numeric'

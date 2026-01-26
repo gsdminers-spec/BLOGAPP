@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import { searchTavily, searchSerper } from '@/lib/researchProviders';
-import { mimoResearch } from '@/lib/ai/researcher';
 import { runCommittee } from '@/lib/ai/committee';
 
 // Allow long running processes (up to 5 mins)
@@ -9,7 +8,7 @@ export const maxDuration = 300;
 export async function POST(req: Request) {
     try {
         const body = await req.json();
-        const { action, topic, researchContext, outline, verification } = body;
+        const { action, topic, researchContext } = body;
 
         // --- STEP 1: RESEARCH (The Lab) ---
         if (action === 'research') {
@@ -98,8 +97,9 @@ export async function POST(req: Request) {
 
         return NextResponse.json({ error: "Invalid action" }, { status: 400 });
 
-    } catch (e: any) {
-        console.error("API Error:", e);
-        return NextResponse.json({ error: e.message || "Internal Server Error" }, { status: 500 });
+    } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        console.error("API Error:", errorMessage);
+        return NextResponse.json({ error: errorMessage || "Internal Server Error" }, { status: 500 });
     }
 }
