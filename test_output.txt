@@ -1,0 +1,14 @@
+🔑 API Key Found: AIzaS...
+📡 Connecting to Google AI Studio...
+🤖 Testing Model: gemini-2.5-flash
+❌ FAILURE with gemini-2.5-flash!
+----------- FULL ERROR -----------
+Message: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent: [403 Forbidden] Your API key was reported as leaked. Please use another API key.
+{
+  "status": 403,
+  "statusText": "Forbidden"
+}
+
+🔄 Attempting Fallback: gemini-1.5-flash ...
+❌ FALLBACK FAILED TOO.
+Message: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent: [404 Not Found] models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
