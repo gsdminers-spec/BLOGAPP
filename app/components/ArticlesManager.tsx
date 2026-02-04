@@ -7,11 +7,8 @@ import { publishNow, triggerDeployment } from '@/lib/publishActions';
 import { Article } from '@/lib/supabase';
 import { TableRowSkeleton } from './ui/Skeleton';
 import ArticlePreview from './ArticlePreview';
-<<<<<<< HEAD
 import LinkStudio from './LinkStudio';
 import ImageUploader from './ImageUploader';
-=======
->>>>>>> 8f3af1a51694bed3d4ee2f37fcda16d3f224384b
 
 // IST Timezone Helpers (GMT+5:30)
 const getISTDateString = () => {
@@ -38,10 +35,7 @@ export default function ArticlesManager({ onNavigateToPublish }: { onNavigateToP
     const [editingArticle, setEditingArticle] = useState<Article | null>(null);
     const [editTitle, setEditTitle] = useState('');
     const [editContent, setEditContent] = useState('');
-<<<<<<< HEAD
     const [showImageUploader, setShowImageUploader] = useState(false);
-=======
->>>>>>> 8f3af1a51694bed3d4ee2f37fcda16d3f224384b
 
     // Fix: Move function declaration before useEffect to avoid React Hook violation
     const loadArticles = async () => {
@@ -461,7 +455,6 @@ export default function ArticlesManager({ onNavigateToPublish }: { onNavigateToP
                                 />
                             </div>
 
-<<<<<<< HEAD
                             {/* Image Uploader Toggle */}
                             <div className="mb-4">
                                 <button
@@ -483,9 +476,6 @@ export default function ArticlesManager({ onNavigateToPublish }: { onNavigateToP
                                     </div>
                                 )}
                             </div>
-
-=======
->>>>>>> 8f3af1a51694bed3d4ee2f37fcda16d3f224384b
                             <div className="h-full min-h-[400px]">
                                 <label className="block text-sm font-semibold text-slate-700 mb-2">Content (Markdown)</label>
                                 <textarea
