@@ -6,7 +6,10 @@ import { fetchRecentTopics, saveArticle, uploadImage } from '@/lib/articleAction
 import { fetchFullBlogTree } from '@/lib/blogTreeActions';
 import { Topic } from '@/lib/supabase';
 import { Skeleton } from './ui/Skeleton';
+<<<<<<< HEAD
 import imageCompression from 'browser-image-compression';
+=======
+>>>>>>> 8f3af1a51694bed3d4ee2f37fcda16d3f224384b
 
 export default function ClaudeOutput() {
     const [topics, setTopics] = useState<Topic[]>([]);
@@ -210,6 +213,7 @@ Content goes here..."
                                     const startPos = textareaRef.current?.selectionStart || content.length;
                                     const endPos = textareaRef.current?.selectionEnd || startPos;
 
+<<<<<<< HEAD
                                     // COMPRESSION LOGIC (Mobile Optimized)
                                     const options = {
                                         maxSizeMB: 0.1,          // 100KB Goal
@@ -255,6 +259,31 @@ Content goes here..."
                                         console.error('Image processing error:', err);
                                         alert('Failed to process image');
                                         setStatus('idle');
+=======
+                                    setStatus('saving');
+                                    const { success, url, error } = await uploadImage(file);
+                                    setStatus('idle');
+
+                                    if (success && url) {
+                                        // Logical Insertion: Add newlines before and after to ensure block separation
+                                        const markdownImage = `\n\n![${file.name}](${url})\n\n`;
+
+                                        const newContent = content.substring(0, startPos) + markdownImage + content.substring(endPos);
+
+                                        setContent(newContent);
+
+                                        // Restore focus and cursor position
+                                        setTimeout(() => {
+                                            if (textareaRef.current) {
+                                                textareaRef.current.focus();
+                                                const newCursorPos = startPos + markdownImage.length;
+                                                textareaRef.current.setSelectionRange(newCursorPos, newCursorPos);
+                                            }
+                                        }, 0);
+
+                                    } else {
+                                        alert(`Upload Failed: ${error}`);
+>>>>>>> 8f3af1a51694bed3d4ee2f37fcda16d3f224384b
                                     }
                                 }}
                             />

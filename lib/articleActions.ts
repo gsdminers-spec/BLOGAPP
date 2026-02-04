@@ -236,7 +236,11 @@ export async function checkBucketExists(bucketName: string): Promise<boolean> {
 // Upload image to Supabase Storage
 export async function uploadImage(file: File): Promise<{ success: boolean; url?: string; error?: string }> {
     try {
+<<<<<<< HEAD
         const bucketName = 'blog-images'; // Using the bucket user created
+=======
+        const bucketName = 'blog-assets'; // Standardizing on 'blog-assets'
+>>>>>>> 8f3af1a51694bed3d4ee2f37fcda16d3f224384b
 
         // Generate unique filename
         const fileExt = file.name.split('.').pop();
