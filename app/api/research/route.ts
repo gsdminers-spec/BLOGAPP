@@ -80,18 +80,27 @@ export async function POST(req: Request) {
         if (action === 'draft') {
             if (!topic || !researchContext) return NextResponse.json({ error: "Topic and Context required" }, { status: 400 });
 
-            console.log(`✍️ [Draft] Starting Committee for: ${topic}`);
+            // Article type defaults to 'model_problem' if not specified
+            const articleType = body.articleType || 'model_problem';
 
-            // Execute the Writer Committee
-            const result = await runCommittee(topic, researchContext);
+            console.log(`✍️ [Draft] Starting Production Blog Brain v3.0 for: ${topic} (Type: ${articleType})`);
 
-            if (result.error) {
+            // Execute the Writer Committee with section-by-section generation
+            const result = await runCommittee(topic, researchContext, articleType);
+
+            if (result.error && !result.finalArticle) {
                 return NextResponse.json({ success: false, error: result.error });
             }
 
             return NextResponse.json({
                 success: true,
-                data: result
+                data: {
+                    ...result,
+                    // Explicit SEO fields for frontend
+                    seoTitle: result.seoMeta?.title,
+                    seoH1: result.seoMeta?.h1,
+                    seoMetaDescription: result.seoMeta?.metaDescription,
+                }
             });
         }
 

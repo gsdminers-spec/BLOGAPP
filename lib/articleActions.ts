@@ -38,17 +38,33 @@ export async function fetchPendingTopics(): Promise<Topic[]> {
 }
 
 // Save article from Claude Output and update topic status
-export async function saveArticle(topicId: string, title: string, content: string, category?: string): Promise<{ success: boolean; articleId?: string; error?: string }> {
-    // 1. Insert article
+// Now supports optional SEO fields for Production Blog Brain v3.0
+export async function saveArticle(
+    topicId: string,
+    title: string,
+    content: string,
+    category?: string,
+    seoMeta?: { title?: string; h1?: string; metaDescription?: string }
+): Promise<{ success: boolean; articleId?: string; error?: string }> {
+    // 1. Insert article with optional SEO fields
+    const insertData: any = {
+        topic_id: topicId,
+        title,
+        content,
+        category,
+        status: 'ready'
+    };
+
+    // Add SEO fields if provided
+    if (seoMeta) {
+        if (seoMeta.title) insertData.seo_title = seoMeta.title;
+        if (seoMeta.h1) insertData.seo_h1 = seoMeta.h1;
+        if (seoMeta.metaDescription) insertData.seo_meta_description = seoMeta.metaDescription;
+    }
+
     const { data: articleData, error: articleError } = await supabase
         .from('articles')
-        .insert({
-            topic_id: topicId,
-            title,
-            content,
-            category,
-            status: 'ready'
-        })
+        .insert(insertData)
         .select()
         .single();
 
@@ -73,6 +89,24 @@ export async function saveArticle(topicId: string, title: string, content: strin
 
     return { success: true, articleId: articleData.id };
 }
+
+// Convenience wrapper for v3.0 pipeline with explicit SEO params
+export async function saveArticleWithSEO(
+    topicId: string,
+    title: string,
+    content: string,
+    seoTitle: string,
+    seoH1: string,
+    seoMetaDescription: string,
+    category?: string
+): Promise<{ success: boolean; articleId?: string; error?: string }> {
+    return saveArticle(topicId, title, content, category, {
+        title: seoTitle,
+        h1: seoH1,
+        metaDescription: seoMetaDescription
+    });
+}
+
 
 // Fetch all articles
 export async function fetchArticles(): Promise<Article[]> {

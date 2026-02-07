@@ -7,6 +7,8 @@ import { publishNow, triggerDeployment } from '@/lib/publishActions';
 import { Article } from '@/lib/supabase';
 import { TableRowSkeleton } from './ui/Skeleton';
 import ArticlePreview from './ArticlePreview';
+import LinkStudio from './LinkStudio';
+import ImageUploader from './ImageUploader';
 
 // IST Timezone Helpers (GMT+5:30)
 const getISTDateString = () => {
@@ -32,6 +34,8 @@ export default function ArticlesManager({ onNavigateToPublish }: { onNavigateToP
     const [editingArticle, setEditingArticle] = useState<Article | null>(null);
     const [editTitle, setEditTitle] = useState('');
     const [editContent, setEditContent] = useState('');
+    const [showImageUploader, setShowImageUploader] = useState(false);
+    const [showLinkStudio, setShowLinkStudio] = useState(false);
 
     // Fix: Move function declaration before useEffect to avoid React Hook violation
     const loadArticles = async () => {
@@ -419,6 +423,48 @@ export default function ArticlesManager({ onNavigateToPublish }: { onNavigateToP
                                     value={editTitle}
                                     onChange={e => setEditTitle(e.target.value)}
                                 />
+                            </div>
+
+                            {/* Image Uploader Toggle */}
+                            <div className="mb-4">
+                                <button
+                                    className="text-sm font-semibold text-[#F7931A] hover:text-[#E8870E] flex items-center gap-2 mb-2"
+                                    onClick={() => setShowImageUploader(!showImageUploader)}
+                                >
+                                    {showImageUploader ? '▼ Hide Image Uploader' : '▶ Add Image to Article'}
+                                </button>
+
+                                {showImageUploader && (
+                                    <div className="bg-[#0d1117] p-4 rounded-xl border border-[#30363D] mb-4">
+                                        <ImageUploader
+                                            onImageUploaded={(url) => {
+                                                const imageMarkdown = `\n![Image Description](${url})\n`;
+                                                setEditContent(prev => prev + imageMarkdown);
+                                                alert('Image added to content! scroll down to see it.');
+                                            }}
+                                        />
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Link Studio Toggle */}
+                            <div className="mb-4">
+                                <button
+                                    className="text-sm font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-2 mb-2"
+                                    onClick={() => setShowLinkStudio(!showLinkStudio)}
+                                >
+                                    {showLinkStudio ? '▼ Hide Link Studio' : '▶ Open Link Studio (Internal Links & CTAs)'}
+                                </button>
+
+                                {showLinkStudio && (
+                                    <div className="mb-4">
+                                        <LinkStudio
+                                            articleContent={editContent}
+                                            onUpdate={setEditContent}
+                                            onSave={() => setShowLinkStudio(false)}
+                                        />
+                                    </div>
+                                )}
                             </div>
 
                             <div className="h-full min-h-[400px]">

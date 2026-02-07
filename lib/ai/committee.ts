@@ -1,192 +1,361 @@
 import { Groq } from 'groq-sdk';
-import { GoogleGenerativeAI } from '@google/generative-ai';
 
 /**
- * THE WRITER COMMITTEE
+ * PRODUCTION BLOG BRAIN v3.0 (Peak Edition - FULL SPEC)
  * 
- * Orchestrates the 3-Step Writing Process:
- * 1. SEO ARCHITECT (Llama 3.3 via Groq)
- * 2. FACT VERIFIER (Chimera R1 via OpenRouter)
- * 3. FINAL WRITER (Gemini 2.5 Flash via Google)
+ * HARD RULES (NON-NEGOTIABLE):
+ * - Do NOT explain repair steps
+ * - Do NOT mention tools, equipment, temperatures, soldering, reflow, microscopes, IPC standards
+ * - Do NOT give DIY advice or "what to try"
+ * - Do NOT decode logs line by line
+ * - Do NOT mention money, profit, ROI, revenue, or cost figures
+ * - Do NOT use sales language (free quote, best, guaranteed)
+ * - Do NOT add FAQs, tips, summaries, conclusions, or extra sections
+ * 
+ * WORD COUNT MODE: DEPTH-FIRST (MANDATORY)
+ * - Target UPPER-MIDDLE of allowed range
+ * - Treat lower bound as INVALID
+ * - Writing close to minimum is a failure
+ * 
+ * GOVERNING PRINCIPLE:
+ * If an article helps someone fix a miner, it is WRONG.
+ * If it helps someone decide to seek repair, it is CORRECT.
  */
+
+// --- TYPE DEFINITIONS ---
+export type ArticleType = 'model_problem' | 'support' | 'environmental' | 'repair_decision';
+
+interface SectionDefinition {
+    id: number;
+    name: string;
+    h2: string;
+    promptFocus: string;
+    minWords: number; // Section minimum word count
+}
 
 interface CommitteeOutput {
     seoOutline: string;
-    verificationNotes: string;
+    seoMeta: {
+        title: string;
+        h1: string;
+        metaDescription: string;
+    };
+    sections: string[];
     finalArticle: string;
     error?: string;
 }
 
+// --- WORD COUNT TARGETS (DEPTH-FIRST MODE) ---
+// Target: UPPER-MIDDLE of range, Hard reject: minimum threshold
+export const WORD_TARGETS: Record<ArticleType, { target: { min: number; max: number }; hardReject: number }> = {
+    model_problem: { target: { min: 900, max: 1050 }, hardReject: 850 },
+    support: { target: { min: 1000, max: 1200 }, hardReject: 900 },
+    environmental: { target: { min: 1100, max: 1300 }, hardReject: 1000 },
+    repair_decision: { target: { min: 800, max: 950 }, hardReject: 750 },
+};
+
+// --- LOCKED 6-SECTION STRUCTURE WITH MINIMUM WORD COUNTS ---
+const SECTION_DEFINITIONS: Record<ArticleType, SectionDefinition[]> = {
+    model_problem: [
+        { id: 1, name: 'problem_meaning', h2: 'What the Problem Means', promptFocus: 'Explain the issue at a system level. Describe communication, detection, or stability failure. Make it clear this is not a normal software issue. Do NOT declare complete or final failure. Do NOT diagnose specific components.', minWords: 180 },
+        { id: 2, name: 'symptoms', h2: 'Symptoms You May Observe', promptFocus: 'Describe what the miner owner actually sees: missing hashboard, low hashrate, restarts, instability. No fixes, no advice, no numbers.', minWords: 140 },
+        { id: 3, name: 'root_causes', h2: 'Why This Happens', promptFocus: 'Explain causes at a concept level only. Examples: heat stress, power instability, electrical wear, environment. Do NOT name specific chips or board components unless unavoidable. Do NOT explain how damage is repaired.', minWords: 220 },
+        { id: 4, name: 'consequences', h2: 'What Happens If Ignored', promptFocus: 'Explain how the problem worsens over time. Describe increased instability, wider damage risk, and downtime. Use calm urgency. No fear tactics and no money figures.', minWords: 150 },
+        { id: 5, name: 'professional_repair', h2: 'When Professional Repair Is Required', promptFocus: 'Clearly define the decision boundary. Explain why restarts, firmware changes, or waiting will not solve it. State that specialized expertise is required. Do NOT describe repair methods or tools.', minWords: 150 },
+        { id: 6, name: 'cta', h2: 'WhatsApp CTA', promptFocus: 'Output ONLY this exact line: "Chat with our ASIC repair team on WhatsApp to check repair feasibility." Nothing else.', minWords: 0 },
+    ],
+    support: [
+        { id: 1, name: 'problem_meaning', h2: 'What the Problem Means', promptFocus: 'Explain the issue at a system level.', minWords: 200 },
+        { id: 2, name: 'symptoms', h2: 'Symptoms You May Observe', promptFocus: 'Describe what the miner owner actually sees.', minWords: 160 },
+        { id: 3, name: 'root_causes', h2: 'Why This Happens', promptFocus: 'Explain causes at a concept level only.', minWords: 250 },
+        { id: 4, name: 'consequences', h2: 'What Happens If Ignored', promptFocus: 'Explain how the problem worsens over time.', minWords: 170 },
+        { id: 5, name: 'professional_repair', h2: 'When Professional Repair Is Required', promptFocus: 'Clearly define the decision boundary.', minWords: 170 },
+        { id: 6, name: 'cta', h2: 'WhatsApp CTA', promptFocus: 'Output ONLY the exact CTA line.', minWords: 0 },
+    ],
+    environmental: [
+        { id: 1, name: 'problem_meaning', h2: 'What the Problem Means', promptFocus: 'Explain the issue at a system level.', minWords: 220 },
+        { id: 2, name: 'symptoms', h2: 'Symptoms You May Observe', promptFocus: 'Describe what the miner owner actually sees.', minWords: 180 },
+        { id: 3, name: 'root_causes', h2: 'Why This Happens', promptFocus: 'Explain causes at a concept level only.', minWords: 280 },
+        { id: 4, name: 'consequences', h2: 'What Happens If Ignored', promptFocus: 'Explain how the problem worsens over time.', minWords: 190 },
+        { id: 5, name: 'professional_repair', h2: 'When Professional Repair Is Required', promptFocus: 'Clearly define the decision boundary.', minWords: 180 },
+        { id: 6, name: 'cta', h2: 'WhatsApp CTA', promptFocus: 'Output ONLY the exact CTA line.', minWords: 0 },
+    ],
+    repair_decision: [
+        { id: 1, name: 'problem_meaning', h2: 'What the Problem Means', promptFocus: 'Explain the issue at a system level.', minWords: 150 },
+        { id: 2, name: 'symptoms', h2: 'Symptoms You May Observe', promptFocus: 'Describe what the miner owner actually sees.', minWords: 120 },
+        { id: 3, name: 'root_causes', h2: 'Why This Happens', promptFocus: 'Explain causes at a concept level only.', minWords: 180 },
+        { id: 4, name: 'consequences', h2: 'What Happens If Ignored', promptFocus: 'Explain how the problem worsens over time.', minWords: 130 },
+        { id: 5, name: 'professional_repair', h2: 'When Professional Repair Is Required', promptFocus: 'Clearly define the decision boundary.', minWords: 130 },
+        { id: 6, name: 'cta', h2: 'WhatsApp CTA', promptFocus: 'Output ONLY the exact CTA line.', minWords: 0 },
+    ],
+};
+
+// --- HELPER: Validate Word Count ---
+export function validateWordCount(content: string, type: ArticleType): { valid: boolean; count: number; target: string; hardReject: number } {
+    const wordCount = content.split(/\s+/).filter(Boolean).length;
+    const targets = WORD_TARGETS[type];
+    return {
+        valid: wordCount >= targets.hardReject,
+        count: wordCount,
+        target: `${targets.target.min}-${targets.target.max}`,
+        hardReject: targets.hardReject,
+    };
+}
+
+// Kept for backward compatibility
+export const WORD_LIMITS = WORD_TARGETS;
+
+// --- THE COMPLETE SYSTEM PROMPT ---
+const getSystemPrompt = (model: string, problem: string) => `SYSTEM ROLE:
+You are an ASIC Repair Analyst, not a technician.
+
+Your role is to explain ASIC hardware failures clearly and help miner owners decide when professional repair is required.
+
+You must NEVER teach, demonstrate, or describe how repairs are done.
+
+CORE PURPOSE:
+Explain failure → explain risk → explain decision → guide to WhatsApp.
+Nothing else.
+
+HARD RULES (NON-NEGOTIABLE):
+- Do NOT explain repair steps
+- Do NOT mention tools, equipment, temperatures, soldering, reflow, microscopes, IPC standards
+- Do NOT give DIY advice or "what to try"
+- Do NOT decode logs line by line
+- Do NOT mention money, profit, ROI, revenue, or cost figures
+- Do NOT use sales language (free quote, best, guaranteed)
+- Do NOT add FAQs, tips, summaries, conclusions, or extra sections
+- Do NOT add any content outside the defined structure
+
+FINAL GOVERNING RULE:
+If the article helps someone fix a miner, it is wrong.
+If it helps someone decide to seek professional repair, it is correct.
+
+ARTICLE CONTEXT:
+Model: ${model}
+Problem: ${problem}
+
+LANGUAGE & TONE RULES:
+- Simple English
+- Calm, factual, authoritative
+- Write for a non-technical miner owner
+- No technical flexing
+
+QUALITY RULES:
+- Do NOT pad or repeat ideas
+- Each paragraph must add a new angle, condition, or implication
+- Prefer explanation depth over brevity`;
+
 // --- 1. SEO ARCHITECT ---
-async function runSeoArchitect(topic: string, researchContext: string): Promise<string> {
-    console.log("🏗️ [Architect] Llama 3.3 starting...");
+async function runSeoArchitect(topic: string, articleType: ArticleType): Promise<{ outline: string; meta: { title: string; h1: string; metaDescription: string } }> {
+    console.log("🏗️ [Architect] Generating SEO meta...");
     const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
-    // Groq Rate Limit Protection: Llama 3.3 has a strict 12k TPM limit.
-    // 20,000 chars is approx 5,000 tokens. + 2,000 output tokens = ~7,000 tokens. Safe.
-    const SAFE_GROQ_CONTEXT = 20000;
-    const truncatedContext = researchContext.substring(0, SAFE_GROQ_CONTEXT);
-
     const prompt = `
-    TOPIC: ${topic}
-    RESEARCH: ${truncatedContext} (Truncated for Groq Rate Limits)
+TOPIC: ${topic}
 
-    You are the SEO ARCHITECT.
-    Create a comprehensive BLOG OUTLINE.
-    
-    1. Define the H1.
-    2. Define H2s and H3s structure.
-    3. List target keywords for each section.
-    4. Define the Tone/Style.
-    
-    Return ONLY Markdown.
-    `;
+Generate SEO metadata for an ASIC repair article.
 
-    const chatCompletion = await groq.chat.completions.create({
-        messages: [{ role: "user", content: prompt }],
-        model: "llama-3.3-70b-versatile",
-        temperature: 0.7,
-        max_completion_tokens: 2048,
-    });
+RULES:
+- SEO Title format: [Model] [Problem] – ASIC Repair in India
+- H1: Just the topic name
+- Meta Description: max 160 characters, describe the problem and repair need (no sales language)
 
-    return chatCompletion.choices[0]?.message?.content || "";
+OUTPUT FORMAT (JSON only):
+{
+    "title": "...",
+    "h1": "...",
+    "metaDescription": "..."
 }
-
-// --- 2. FACT VERIFIER (RESILIENT) ---
-async function runFactVerifier(outline: string, researchContext: string): Promise<string> {
-    console.log("🕵️ [Verifier] Chimera R1 starting...");
-    const apiKey = process.env.OPENROUTER_API_KEY;
+`;
 
     try {
-        const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-            method: "POST",
-            headers: {
-                "Authorization": `Bearer ${apiKey}`,
-                "Content-Type": "application/json",
-                "HTTP-Referer": "https://asicrepair.in",
-                "X-Title": "ASIC Admin Verifier"
-            },
-            body: JSON.stringify({
-                "model": "tngtech/deepseek-r1t2-chimera:free",
-                "messages": [{
-                    "role": "user",
-                    "content": `Verify outline. Return "VERIFIED" or issues.\n\nCONTEXT: ${researchContext.substring(0, 5000)}\n\nOUTLINE: ${outline}`
-                }]
-            })
-        });
-
-        if (!response.ok) throw new Error(`Primary failed: ${response.status}`);
-        const data = await response.json();
-        return data.choices[0]?.message?.content || "Verified";
-
-    } catch (e) {
-        console.warn("Verifier Failed (Skipping to preserve flow):", e);
-        return "Verification Skipped (AI Provider Error). Proceeding with unverified outline.";
-    }
-}
-
-// --- 3. FINAL WRITER (GROQ MIGRATION) ---
-async function runFinalWriter(topic: string, outline: string, researchContext: string, verification: string): Promise<string> {
-    console.log("✍️ [Writer] Groq Llama 3.3 starting...");
-    const apiKey = process.env.GROQ_API_KEY;
-    if (!apiKey) throw new Error("Missing GROQ_API_KEY");
-
-    const groq = new Groq({ apiKey });
-
-    // STRICT RATE LIMIT PROTECTION
-    // Groq Limit: 12,000 Tokens/Minute.
-    // Goal: Use max ~6,000 Input Tokens to allow ~4,000 Output Tokens.
-    // 1 Token ~= 4 Chars. -> 6,000 Tokens ~= 24,000 Chars.
-    // Safety Buffer: Limit Context to 15,000 Chars (~3,750 Tokens).
-    const MAX_CONTEXT_CHARS = 15000;
-
-    const finalPrompt = `
-    You are the FINAL WRITER.
-    
-    TOPIC: ${topic}
-    OUTLINE: ${outline}
-    VERIFICATION NOTES: ${verification}
-    
-    RESEARCH DATA (Truncated for Rate Limits):
-    ${researchContext.substring(0, MAX_CONTEXT_CHARS)}
-    
-    TASK:
-    Write a High-Quality, Human-Like Blog Post (400 - 2000 words).
-    
-    STYLE & GOALS:
-    1. **REPAIR CENTRIC**: You are an Expert ASIC Technician. Use correct industry jargon (e.g., "logs", "hashboards", "soldering", "diagnostics"). Be authoritative.
-    2. **SEO FRIENDLY**: Naturally integrate keywords. Do not keyword stuff. Structure with clear H2/H3 for readability.
-    3. **HUMANIZED & SALES DRIVEN**: 
-       - ❌ Avoid AI fluff ("In the realm of...", "Unlock the potential...").
-       - ✅ Write like a human speaking to a customer.
-       - ✅ **GOAL**: Attract customers to our repair services/courses. solve their problem, then offer our help.
-    4. **LENGTH**: 400 - 2000 words (including space for human edits).
-    
-    STRUCTURE:
-    - **Hook**: Grab attention immediately (Repair problem/solution).
-    - **Body**: Technical steps, diagrams (described), or analysis.
-    - **Conclusion**: Summary + **Strong Call to Action** (Visit ASICREPAIR.IN).
-    
-    Synthesize the research. If research is thin, rely on your "Technician Persona" to fill gaps logically.
-    `;
-
-    try {
-        const chatCompletion = await groq.chat.completions.create({
-            messages: [{ role: "user", content: finalPrompt }],
+        const completion = await groq.chat.completions.create({
+            messages: [{ role: "user", content: prompt }],
             model: "llama-3.3-70b-versatile",
-            temperature: 0.7,
-            max_completion_tokens: 4096, // Allow long articles
+            temperature: 0.3,
+            max_completion_tokens: 256,
         });
 
-        return chatCompletion.choices[0]?.message?.content || "Failed to generate article content.";
-    } catch (e: any) {
-        console.error("Writer (Groq) Failed:", e);
-        // Fallback: If 70b fails (limit?), try 8b (faster/cheaper)
-        try {
-            console.log("⚠️ Switching to Llama 3.1 8b Fallback...");
-            const fallbackCompletion = await groq.chat.completions.create({
-                messages: [{ role: "user", content: finalPrompt }],
-                model: "llama-3.1-8b-instant",
-                temperature: 0.7,
-                max_completion_tokens: 4096,
-            });
-            return fallbackCompletion.choices[0]?.message?.content || "Failed to generate fallback article.";
-        } catch (fallbackErr) {
-            throw new Error(`Groq Writer Failed (Primary & Fallback): ${e.message}`);
-        }
-    }
-}
+        const rawContent = completion.choices[0]?.message?.content || "";
+        const jsonMatch = rawContent.match(/\{[\s\S]*\}/);
 
-// --- ORCHESTRATOR ---
-export async function runCommittee(topic: string, researchContext: string): Promise<CommitteeOutput> {
-    let outline = "";
-    let verification = "";
-
-    try {
-        // 1. Architect (Groq - Usually Reliable)
-        outline = await runSeoArchitect(topic, researchContext);
-
-        // 2. Verifier (Soft Fail)
-        verification = await runFactVerifier(outline, researchContext);
-
-        // 3. Writer (With Fallback)
-        const finalArticle = await runFinalWriter(topic, outline, researchContext, verification);
-
-        return { seoOutline: outline, verificationNotes: verification, finalArticle };
-
-    } catch (e: any) {
-        console.error("Committee Critical Failure:", e);
-
-        // RECOVERY: If we at least have the outline, return that!
-        if (outline) {
+        if (jsonMatch) {
+            const parsed = JSON.parse(jsonMatch[0]);
             return {
-                seoOutline: outline,
-                verificationNotes: verification || "Skipped",
-                finalArticle: `## ⚠️ AI Writer Quota Exceeded\n\n**The system generated the outline successfully, but the Writer AI is currently overloaded.**\n\n### Generated Outline:\n${outline}\n\n*Please copy this outline and use it manually, or try again in 10 minutes.*`,
-                error: "Writer Failed, Outline Preserved."
+                outline: SECTION_DEFINITIONS[articleType].map(s => `## ${s.h2}`).join('\n'),
+                meta: {
+                    title: parsed.title || `${topic} – ASIC Repair in India`,
+                    h1: parsed.h1 || topic,
+                    metaDescription: parsed.metaDescription || `Understanding ${topic}: symptoms, causes, and when professional repair is required.`,
+                },
             };
         }
 
-        return { seoOutline: "", verificationNotes: "", finalArticle: "", error: e.message };
+        return {
+            outline: SECTION_DEFINITIONS[articleType].map(s => `## ${s.h2}`).join('\n'),
+            meta: {
+                title: `${topic} – ASIC Repair in India`,
+                h1: topic,
+                metaDescription: `Understanding ${topic}: symptoms, causes, and when professional repair is required.`,
+            },
+        };
+    } catch (e: any) {
+        console.error("Architect failed:", e);
+        return {
+            outline: SECTION_DEFINITIONS[articleType].map(s => `## ${s.h2}`).join('\n'),
+            meta: {
+                title: `${topic} – ASIC Repair in India`,
+                h1: topic,
+                metaDescription: `Understanding ${topic}: symptoms, causes, and when professional repair is required.`,
+            },
+        };
     }
+}
+
+// --- 2. SECTION WRITER (DEPTH-FIRST with minimum word enforcement) ---
+async function generateSection(
+    sectionDef: SectionDefinition,
+    topic: string,
+    researchContext: string,
+    articleType: ArticleType,
+    useFallback: boolean = false
+): Promise<string> {
+    console.log(`✍️ [Writer] Generating Section ${sectionDef.id}: ${sectionDef.name} (min ${sectionDef.minWords} words)...`);
+
+    // CTA section - return exact line
+    if (sectionDef.name === 'cta') {
+        return 'Chat with our ASIC repair team on WhatsApp to check repair feasibility.';
+    }
+
+    const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+    const truncatedContext = researchContext.substring(0, 4000);
+
+    // Extract model and problem from topic for system prompt
+    const parts = topic.split(' ');
+    const model = parts.slice(0, 3).join(' '); // e.g., "Antminer S21 Pro"
+    const problem = parts.slice(3).join(' '); // e.g., "Hashboard Not Detected"
+
+    const prompt = `
+${getSystemPrompt(model, problem)}
+
+SECTION TO WRITE: ${sectionDef.h2}
+SECTION FOCUS: ${sectionDef.promptFocus}
+
+RESEARCH CONTEXT:
+${truncatedContext}
+
+WORD COUNT REQUIREMENT (MANDATORY):
+- This section MUST have at least ${sectionDef.minWords} words
+- Aim for ${Math.round(sectionDef.minWords * 1.2)} words for depth
+- Do NOT pad or repeat ideas - add new angles and implications
+- Each paragraph should add value
+
+TASK:
+Write ONLY the content for this section: "${sectionDef.h2}"
+Return ONLY the section content (no heading, no introduction, no conclusion).
+`;
+
+    try {
+        const model = useFallback ? "llama-3.1-8b-instant" : "llama-3.3-70b-versatile";
+        // Increase max tokens to accommodate longer sections
+        const maxTokens = Math.max(400, Math.round(sectionDef.minWords * 1.8));
+
+        const completion = await groq.chat.completions.create({
+            messages: [{ role: "user", content: prompt }],
+            model: model,
+            temperature: 0.6,
+            max_completion_tokens: maxTokens,
+        });
+
+        const content = completion.choices[0]?.message?.content?.trim() || "";
+
+        // Log word count for verification
+        const wordCount = content.split(/\s+/).filter(Boolean).length;
+        console.log(`   ↳ Generated ${wordCount} words (min: ${sectionDef.minWords})`);
+
+        return content;
+    } catch (e: any) {
+        console.error(`Section ${sectionDef.id} generation failed:`, e);
+        if (!useFallback) {
+            console.log("⚠️ Retrying with Llama 3.1 8b fallback...");
+            return generateSection(sectionDef, topic, researchContext, articleType, true);
+        }
+        throw new Error(`Section ${sectionDef.id} failed on both primary and fallback.`);
+    }
+}
+
+// --- MAIN ORCHESTRATOR ---
+export async function runCommittee(
+    topic: string,
+    researchContext: string,
+    articleType: ArticleType = 'model_problem'
+): Promise<CommitteeOutput> {
+    console.log("🚀 [Committee] Starting Production Blog Brain v3.0 (DEPTH-FIRST)...");
+    console.log(`📊 Target: ${WORD_TARGETS[articleType].target.min}-${WORD_TARGETS[articleType].target.max} words, Hard reject: ${WORD_TARGETS[articleType].hardReject}`);
+
+    try {
+        // 1. Get SEO meta
+        const { outline, meta } = await runSeoArchitect(topic, articleType);
+
+        // 2. Generate each section sequentially with minimum word enforcement
+        const sectionDefs = SECTION_DEFINITIONS[articleType];
+        const sections: string[] = [];
+
+        for (const sectionDef of sectionDefs) {
+            const sectionContent = await generateSection(sectionDef, topic, researchContext, articleType);
+            sections.push(sectionContent);
+        }
+
+        // 3. Assemble final article
+        const finalArticle = `# ${meta.h1}\n\n` +
+            sectionDefs.map((def, idx) => {
+                // For CTA, don't add heading - just the line
+                if (def.name === 'cta') {
+                    return sections[idx];
+                }
+                return `## ${def.h2}\n\n${sections[idx]}`;
+            }).join('\n\n');
+
+        // 4. Validate total word count
+        const validation = validateWordCount(finalArticle, articleType);
+        console.log(`📏 Final word count: ${validation.count} (target: ${validation.target}, hard reject: ${validation.hardReject})`);
+
+        if (!validation.valid) {
+            console.warn(`⚠️ WARNING: Article below hard reject threshold (${validation.count} < ${validation.hardReject})`);
+        }
+
+        return {
+            seoOutline: outline,
+            seoMeta: meta,
+            sections: sections,
+            finalArticle: finalArticle,
+        };
+
+    } catch (e: any) {
+        console.error("Committee Critical Failure:", e);
+        return {
+            seoOutline: "",
+            seoMeta: { title: "", h1: "", metaDescription: "" },
+            sections: [],
+            finalArticle: "",
+            error: e.message,
+        };
+    }
+}
+
+// --- LEGACY WRAPPER ---
+export async function runCommitteeLegacy(topic: string, researchContext: string): Promise<{
+    seoOutline: string;
+    verificationNotes: string;
+    finalArticle: string;
+    error?: string;
+}> {
+    const result = await runCommittee(topic, researchContext, 'model_problem');
+    return {
+        seoOutline: result.seoOutline,
+        verificationNotes: "Production Blog Brain v3.0 (DEPTH-FIRST) - Anti-DIY Enforced",
+        finalArticle: result.finalArticle,
+        error: result.error,
+    };
 }
