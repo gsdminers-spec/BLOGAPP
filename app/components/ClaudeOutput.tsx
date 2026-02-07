@@ -94,7 +94,7 @@ export default function ClaudeOutput() {
         setStatus('saving');
         setErrorMessage('');
 
-        const result = await saveArticle(selectedTopicId, selectedTopicTitle, content, undefined, 'draft');
+        const result = await saveArticle(selectedTopicId, selectedTopicTitle, content);
 
         if (result.success) {
             setStatus('saved');
