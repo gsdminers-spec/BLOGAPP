@@ -196,7 +196,15 @@ export default function BlogTree({ onSelectTopic }: BlogTreeProps) {
             <div className="flex flex-col gap-6">
                 <div className="flex justify-between items-center">
                     <h2 className="text-lg font-bold text-slate-800">📁 Content Roadmap (4 Phases)</h2>
-                    {renderHamburgerMenu('Phase')}
+                    <div className="flex gap-4 items-center">
+                        <button
+                            className="btn btn-primary text-sm py-2 px-4 shadow-md bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg flex items-center gap-2"
+                            onClick={() => handleCrudAction('add', 'Phase')}
+                        >
+                            ➕ Add Phase
+                        </button>
+                        {renderHamburgerMenu('Phase')}
+                    </div>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-6">
@@ -246,7 +254,15 @@ export default function BlogTree({ onSelectTopic }: BlogTreeProps) {
                 {renderBreadcrumb()}
                 <div className="flex justify-between items-center">
                     <h2 className="text-lg font-bold text-slate-800">📁 {selectedPhase.name}</h2>
-                    {renderHamburgerMenu('Category', selectedPhase.id)}
+                    <div className="flex gap-4 items-center">
+                        <button
+                            className="btn btn-primary text-sm py-2 px-4 shadow-md bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg flex items-center gap-2"
+                            onClick={() => handleCrudAction('add', 'Category', selectedPhase.id)}
+                        >
+                            ➕ Add Category
+                        </button>
+                        {renderHamburgerMenu('Category', selectedPhase.id)}
+                    </div>
                 </div>
 
                 <div className="flex flex-col gap-4">

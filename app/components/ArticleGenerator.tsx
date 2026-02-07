@@ -132,7 +132,7 @@ export default function ArticleGenerator({ initialData }: { initialData?: Prompt
     };
 
     return (
-        <div className="h-full grid md:grid-cols-2 gap-6">
+        <div className="md:h-full grid md:grid-cols-2 gap-6">
             {/* Input Column */}
             <div className="flex flex-col gap-6">
                 <div className="card">
@@ -213,7 +213,7 @@ export default function ArticleGenerator({ initialData }: { initialData?: Prompt
             </div>
 
             {/* Output Column */}
-            <div className="flex flex-col h-full">
+            <div className="flex flex-col md:h-full min-h-[500px]">
                 <div className="card flex-1 flex flex-col p-0 overflow-hidden border-indigo-200 shadow-md">
                     <div className="bg-indigo-50 p-3 border-b border-indigo-100 flex justify-between items-center">
                         <h3 className="font-bold text-indigo-900 text-sm">📄 Generated Article Draft</h3>

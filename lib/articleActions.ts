@@ -126,7 +126,8 @@ export async function fetchArticles(): Promise<Article[]> {
 export async function moveToPublish(
     articleId: string,
     scheduledDate?: string,
-    scheduledTime?: string
+    scheduledTime?: string,
+    category?: string
 ): Promise<{ success: boolean; error?: string; queueId?: string }> {
     // Check if already in queue
     const { data: existing } = await supabase
@@ -168,8 +169,13 @@ export async function moveToPublish(
         return { success: false, error: error.message };
     }
 
-    // Update article status
-    await supabase.from('articles').update({ status: 'scheduled' }).eq('id', articleId);
+    // Update article status AND category
+    const updateData: any = { status: 'scheduled' };
+    if (category) {
+        updateData.category = category;
+    }
+
+    await supabase.from('articles').update(updateData).eq('id', articleId);
 
     // Log activity
     await import('./logger').then(l => l.logActivity('UPDATE', 'Article', `Scheduled article for publishing: ${articleId}`));
@@ -178,7 +184,7 @@ export async function moveToPublish(
 }
 
 // Unpublish article - removes from public blog but keeps in admin
-export async function unpublishArticle(articleId: string): Promise<{ success: boolean; error?: string }> {
+export async function unpublishArticle(articleId: string): Promise<{ success: boolean; error?: string; deploymentTriggered?: boolean; deploymentError?: string | null }> {
     try {
         const response = await fetch('/api/articles/unpublish', {
             method: 'POST',
@@ -195,7 +201,11 @@ export async function unpublishArticle(articleId: string): Promise<{ success: bo
         // Log activity
         await import('./logger').then(l => l.logActivity('UPDATE', 'Article', `Unpublished article ID: ${articleId}`));
 
-        return { success: true };
+        return {
+            success: true,
+            deploymentTriggered: result.deploymentTriggered,
+            deploymentError: result.deploymentError
+        };
     } catch (err: any) {
         console.error('Error unpublishing article:', err);
         return { success: false, error: err.message };
@@ -260,7 +270,7 @@ export async function checkBucketExists(bucketName: string): Promise<boolean> {
 // Upload image to Supabase Storage
 export async function uploadImage(file: File): Promise<{ success: boolean; url?: string; error?: string }> {
     try {
-        const bucketName = 'blog-assets'; // Standardizing on 'blog-assets'
+        const bucketName = 'blog-images'; // Using the bucket user created
 
         // Generate unique filename
         const fileExt = file.name.split('.').pop();

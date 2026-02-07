@@ -56,6 +56,9 @@ export async function POST(request: NextRequest) {
         const repoName = process.env.GITHUB_REPO_NAME || 'asicrepair.in';
         const workflowFile = 'deploy.yml';
 
+        let deploymentTriggered = false;
+        let deploymentError: string | null = null;
+
         if (githubToken) {
             try {
                 const deployResponse = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/actions/workflows/${workflowFile}/dispatches`, {
@@ -70,20 +73,29 @@ export async function POST(request: NextRequest) {
                     }),
                 });
 
-                if (deployResponse.ok) {
+                if (deployResponse.ok || deployResponse.status === 204) {
                     console.log(`🚀 Rebuild triggered after unpublishing: ${article.title}`);
+                    deploymentTriggered = true;
                 } else {
                     const errorText = await deployResponse.text();
                     console.error(`⚠️ Failed to trigger rebuild after unpublish: ${deployResponse.status} ${errorText}`);
+                    deploymentError = `GitHub API returned ${deployResponse.status}: ${errorText}`;
                 }
             } catch (deployError) {
                 console.error('⚠️ Deployment trigger exception on unpublish:', deployError);
+                deploymentError = deployError instanceof Error ? deployError.message : 'Unknown error';
             }
         } else {
             console.log('ℹ️ GITHUB_PAT not found. Skipping automated rebuild trigger after unpublish.');
+            deploymentError = 'GITHUB_PAT environment variable not set';
         }
 
-        return NextResponse.json({ success: true, message: `Unpublished: ${article.title}` });
+        return NextResponse.json({
+            success: true,
+            message: `Unpublished: ${article.title}`,
+            deploymentTriggered,
+            deploymentError
+        });
 
     } catch (error: unknown) {
         const errorMessage = error instanceof Error ? error.message : 'Unknown error';

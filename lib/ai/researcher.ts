@@ -46,8 +46,8 @@ export async function mimoResearch(query: string, context: string): Promise<Rese
 
     try {
         const genAI = new GoogleGenerativeAI(apiKey);
-        // Switching back to 'gemini-2.0-flash-exp' as it is the ONLY one working in deep verification.
-        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp" });
+        // Switching to 'gemini-2.5-flash' (Stable, June 2025 Release)
+        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
         const result = await model.generateContent(prompt);
         const text = result.response.text();

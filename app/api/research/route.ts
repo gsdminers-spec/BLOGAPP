@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { searchTavily, searchSerper } from '@/lib/researchProviders';
 import { runCommittee } from '@/lib/ai/committee';
+import { mimoResearch } from '@/lib/ai/researcher';
 
 // Allow long running processes (up to 5 mins)
 export const maxDuration = 300;
@@ -62,18 +63,37 @@ export async function POST(req: Request) {
 
             console.log(`✅ Smart Feed Generated: ${qualityResults.length} filtered sources.`);
 
-            // 3. Mimo Analysis Bypass (Quota Pivot)
-            console.log("⚠️ Research Agent Bypass: Proceeding with Smart Feed (Raw Data Strategy).");
+            // 3. AI Synthesis (The "Research Agent")
+            console.log("🧠 [Research] Synthesizing Master Fact Sheet with Gemini 2.5...");
 
-            return NextResponse.json({
-                success: true,
-                data: {
-                    rawSources: allResults, // Keep full list for UI
-                    // The "Fact Sheet" is now the structured raw feed
-                    factSheet: rawData,
-                    reasoning: "AI Summary Bypassed. Using Structured Raw Feed (Quality Filtered) for maximum detail."
+            try {
+                const mimo = await mimoResearch(topic, rawData);
+
+                if (mimo.error) {
+                    throw new Error(mimo.error);
                 }
-            });
+
+                return NextResponse.json({
+                    success: true,
+                    data: {
+                        rawSources: allResults,
+                        factSheet: mimo.content, // AI Generated Summary
+                        reasoning: "Synthesized by Gemini 2.5 Flash"
+                    }
+                });
+
+            } catch (aiError: any) {
+                console.error("⚠️ Research Agent Failed, falling back to Raw Feed:", aiError);
+                // Fallback to Raw Data if AI fails
+                return NextResponse.json({
+                    success: true,
+                    data: {
+                        rawSources: allResults,
+                        factSheet: rawData + "\n\n> **Note:** AI Synthesis failed. Showing raw gathered data.",
+                        reasoning: "Fallback: AI Error"
+                    }
+                });
+            }
         }
 
         // --- STEP 2: DRAFT (The Studio) ---

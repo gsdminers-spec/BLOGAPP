@@ -53,22 +53,132 @@ export async function POST(request: Request) {
             .replace(/[^\w\s-]/g, '')
             .replace(/\s+/g, '-');
 
-        // marked.parse can be synchronous or return a Promise depending on options/extensions.
-        // Awaiting it is safe.
         const contentHtml = await marked.parse(articleData.content || '');
 
-        // Note: We store clean HTML - the public website has its own prose styling classes
+        // --- AUTO-CATEGORIZATION LOGIC ---
+        // We need to determine the Public Category based on the Phase.
+        // Logic: Article -> Topic -> Subcategory -> Category -> Phase -> Public Name
+
+        // Default fallback
+        let publicCategory = 'ASIC Repair Insights';
+
+        // 1. Prefer Existing Manual Category
+        if (articleData.category && articleData.category !== 'Uncategorized') {
+            publicCategory = articleData.category;
+            console.log(`ℹ️ Using Manual Category: ${publicCategory}`);
+        }
+        // 2. Auto-Detect if no manual category
+        else if (articleData.topic_id) {
+            try {
+                // 1. Get Topic -> Subcategory
+                const { data: topic } = await supabase
+                    .from('topics')
+                    .select('subcategory_id')
+                    .eq('id', articleData.topic_id)
+                    .single();
+
+                if (topic?.subcategory_id) {
+                    // 2. Get Subcategory -> Category
+                    const { data: subcat } = await supabase
+                        .from('subcategories')
+                        .select('category_id')
+                        .eq('id', topic.subcategory_id)
+                        .single();
+
+                    if (subcat?.category_id) {
+                        // 3. Get Category -> Phase
+                        const { data: cat } = await supabase
+                            .from('categories')
+                            .select('phase_id')
+                            .eq('id', subcat.category_id)
+                            .single();
+
+                        if (cat?.phase_id) {
+                            // 4. Get Phase Name
+                            const { data: phase } = await supabase
+                                .from('phases')
+                                .select('name')
+                                .eq('id', cat.phase_id)
+                                .single();
+
+                            if (phase?.name) {
+                                // 5. Map Phase Name to Public Category slug/name
+                                // Phase 1: Hashboard Not Detected -> "Hashboard Problems"
+                                // Phase 2: Repair Insights... -> "ASIC Repair Insights"
+                                // Phase 3: Seasonal... -> "Environmental Damage"
+                                // Phase 4: Repair Decisions... -> "Repair Decisions"
+
+                                const pName = phase.name.toLowerCase();
+                                if (pName.includes('hashboard') || pName.includes('phase 1')) {
+                                    publicCategory = 'Hashboard Problems';
+                                } else if (pName.includes('insight') || pName.includes('phase 2')) {
+                                    publicCategory = 'ASIC Repair Insights';
+                                } else if (pName.includes('seasonal') || pName.includes('environmental') || pName.includes('phase 3')) {
+                                    publicCategory = 'Environmental Damage';
+                                } else if (pName.includes('decision') || pName.includes('operation') || pName.includes('phase 4')) {
+                                    publicCategory = 'Repair Decisions';
+                                } else if (pName.includes('internal') || pName.includes('linking')) {
+                                    publicCategory = 'Internal Linking';
+                                }
+                                console.log(`🔍 Auto-Categorized: ${articleData.title} -> Phase: ${phase.name} -> Public: ${publicCategory}`);
+                            }
+                        }
+                    }
+                }
+            } catch (catError) {
+                console.error('Auto-categorization error (using fallback):', catError);
+            }
+        }
+
+        // --- EXTRACT META DESCRIPTION (FRONTMATTER) ---
+        let metaDescription = '';
+        let finalContent = articleData.content || '';
+
+        const frontmatterRegex = /^---\s*[\r\n]+([\s\S]*?)[\r\n]+---\s*[\r\n]+/;
+        const match = finalContent.match(frontmatterRegex);
+
+        if (match) {
+            const frontmatterBlock = match[1];
+            // Simple key-value parser for "description: ..."
+            const descMatch = frontmatterBlock.match(/description:\s*(["'])(.*?)\1/);
+            if (descMatch) {
+                metaDescription = descMatch[2];
+            } else {
+                // Try without quotes
+                const descMatchSimple = frontmatterBlock.match(/description:\s*(.*)/);
+                if (descMatchSimple) {
+                    metaDescription = descMatchSimple[1].trim();
+                }
+            }
+
+            // Remove Frontmatter from content before saving/rendering
+            finalContent = finalContent.replace(frontmatterRegex, '');
+            console.log(`📝 Extracted Meta Description: ${metaDescription.substring(0, 50)}...`);
+        } else {
+            // Fallback: Generate snippet from first paragraph
+            const plainText = finalContent.replace(/[#*`]/g, '').replace(/\n+/g, ' ').substring(0, 160).trim();
+            metaDescription = plainText + '...';
+        }
+
+        // Re-render HTML without Frontmatter
+        let cleanContentHtml = await marked.parse(finalContent);
+
+        // --- INJECT MID-ARTICLE CTA ---
+
+        // --- HARDCODED CTA REMOVED --- 
+        // User now manually injects CTAs via Link Studio.
+
+
         const { error: syncError } = await supabase
             .from('blog_articles')
             .upsert({
                 title: articleData.title,
                 slug: slug,
-                content: articleData.content,
-                content_html: contentHtml,
-                id: articleData.id, // Ensure we map ID if schema allows, or let it auto-gen/match by slug
-                // Note: If blog_articles schema has different ID, remove this line.
-                // Assuming upsert on 'slug' handles it.
-                category: articleData.category || 'Uncategorized',
+                content: finalContent, // Store CLEAN content
+                content_html: cleanContentHtml, // Store HTML WITH CTA
+                id: articleData.id,
+                category: publicCategory, // Use the Auto-Detected Category
+                excerpt: metaDescription, // Add excerpt from frontmatter
                 is_published: true,
                 published_date: new Date().toISOString(),
                 updated_date: new Date().toISOString()
@@ -85,10 +195,11 @@ export async function POST(request: Request) {
         const repoName = process.env.GITHUB_REPO_NAME || 'asicrepair.in';
         const workflowFile = 'deploy.yml';
 
+        let deploymentTriggered = false;
+        let deploymentError: string | null = null;
+
         if (githubToken) {
             try {
-                // We don't await this to keep the UI snappy - fire and forget (or await if you want confirmation)
-                // Better to await to catch errors, but keep it inside this try/catch block so DB success isn't blocked.
                 const deployResponse = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/actions/workflows/${workflowFile}/dispatches`, {
                     method: 'POST',
                     headers: {
@@ -97,24 +208,33 @@ export async function POST(request: Request) {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        ref: 'main', // The branch to deploy
+                        ref: 'main',
                     }),
                 });
 
-                if (deployResponse.ok) {
+                if (deployResponse.ok || deployResponse.status === 204) {
                     console.log(`🚀 Deployment triggered successfully for ${repoOwner}/${repoName}`);
+                    deploymentTriggered = true;
                 } else {
                     const errorText = await deployResponse.text();
                     console.error(`⚠️ Failed to trigger deployment: ${deployResponse.status} ${errorText}`);
+                    deploymentError = `GitHub API returned ${deployResponse.status}: ${errorText}`;
                 }
             } catch (deployError) {
                 console.error('⚠️ Deployment trigger exception:', deployError);
+                deploymentError = deployError instanceof Error ? deployError.message : 'Unknown error';
             }
         } else {
             console.log('ℹ️ GITHUB_PAT not found. Skipping automated deployment trigger.');
+            deploymentError = 'GITHUB_PAT environment variable not set';
         }
 
-        return NextResponse.json({ success: true, slug });
+        return NextResponse.json({
+            success: true,
+            slug,
+            deploymentTriggered,
+            deploymentError
+        });
 
     } catch (error: unknown) {
         const errorMessage = error instanceof Error ? error.message : 'Unknown error';

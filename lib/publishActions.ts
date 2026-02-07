@@ -38,7 +38,7 @@ export async function updateSchedule(id: string, date: string, time: string): Pr
 }
 
 // Publish immediately (via Server API to bypass RLS)
-export async function publishNow(queueId: string, articleId: string): Promise<{ success: boolean; error?: string }> {
+export async function publishNow(queueId: string, articleId: string): Promise<{ success: boolean; error?: string; deploymentTriggered?: boolean; deploymentError?: string | null }> {
     try {
         const response = await fetch('/api/publish', {
             method: 'POST',
@@ -52,7 +52,11 @@ export async function publishNow(queueId: string, articleId: string): Promise<{ 
             return { success: false, error: result.error || 'Failed to publish via API' };
         }
 
-        return { success: true };
+        return {
+            success: true,
+            deploymentTriggered: result.deploymentTriggered,
+            deploymentError: result.deploymentError
+        };
     } catch (err: any) {
         console.error('Error calling publish API:', err);
         return { success: false, error: err.message };

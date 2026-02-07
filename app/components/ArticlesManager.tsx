@@ -29,6 +29,7 @@ export default function ArticlesManager({ onNavigateToPublish }: { onNavigateToP
     const [schedulingArticle, setSchedulingArticle] = useState<Article | null>(null);
     const [scheduleDate, setScheduleDate] = useState('');
     const [scheduleTime, setScheduleTime] = useState('09:00');
+    const [selectedCategory, setSelectedCategory] = useState('ASIC Repair Insights');
 
     // Editing State
     const [editingArticle, setEditingArticle] = useState<Article | null>(null);
@@ -59,13 +60,14 @@ export default function ArticlesManager({ onNavigateToPublish }: { onNavigateToP
         setSchedulingArticle(article);
         setScheduleDate(getISTDateString());
         setScheduleTime('09:00');
+        setSelectedCategory(article.category && article.category !== 'Uncategorized' ? article.category : 'ASIC Repair Insights');
     };
 
     // Schedule for later
     const handleScheduleConfirm = async () => {
         if (!schedulingArticle) return;
 
-        const result = await moveToPublish(schedulingArticle.id, scheduleDate, scheduleTime);
+        const result = await moveToPublish(schedulingArticle.id, scheduleDate, scheduleTime, selectedCategory);
         if (result.success) {
             alert(`${schedulingArticle.title} scheduled for ${scheduleDate} at ${scheduleTime} IST!`);
             setSchedulingArticle(null);
@@ -80,8 +82,8 @@ export default function ArticlesManager({ onNavigateToPublish }: { onNavigateToP
     const handlePublishNowFromModal = async () => {
         if (!schedulingArticle) return;
 
-        // First move to queue, then publish immediately
-        const moveResult = await moveToPublish(schedulingArticle.id);
+        // First move to queue (with category), then publish immediately
+        const moveResult = await moveToPublish(schedulingArticle.id, undefined, undefined, selectedCategory);
         if (!moveResult.success || !moveResult.queueId) {
             alert(moveResult.error || 'Failed to move to publish queue');
             return;
@@ -91,16 +93,22 @@ export default function ArticlesManager({ onNavigateToPublish }: { onNavigateToP
         const publishResult = await publishNow(moveResult.queueId, schedulingArticle.id);
 
         if (publishResult.success) {
-            alert(`${schedulingArticle.title} has been successfully PUBLISHED! 🚀`);
+            let message = `${schedulingArticle.title} has been successfully PUBLISHED! 🚀`;
+            if (publishResult.deploymentTriggered) {
+                message += '\n\n✅ Website rebuild triggered! Changes will be live in ~3 minutes.';
+            } else if (publishResult.deploymentError) {
+                message += `\n\n⚠️ Website rebuild NOT triggered: ${publishResult.deploymentError}`;
+            }
+            alert(message);
             setSchedulingArticle(null);
             loadArticles();
             onNavigateToPublish();
         } else {
             alert(`Moved to queue, but immediate publish failed: ${publishResult.error}`);
+            setSchedulingArticle(null);
+            loadArticles();
+            onNavigateToPublish();
         }
-        setSchedulingArticle(null);
-        loadArticles();
-        onNavigateToPublish();
     };
 
     // Unpublish - remove from public blog but keep in admin
@@ -109,7 +117,13 @@ export default function ArticlesManager({ onNavigateToPublish }: { onNavigateToP
 
         const result = await unpublishArticle(article.id);
         if (result.success) {
-            alert(`${article.title} has been unpublished!`);
+            let message = `${article.title} has been unpublished!`;
+            if (result.deploymentTriggered) {
+                message += '\n\n🚀 Website rebuild triggered! Changes will be live in ~3 minutes.';
+            } else if (result.deploymentError) {
+                message += `\n\n⚠️ Website rebuild NOT triggered: ${result.deploymentError}`;
+            }
+            alert(message);
             setViewingArticle(null);
             loadArticles();
         } else {
@@ -347,8 +361,25 @@ export default function ArticlesManager({ onNavigateToPublish }: { onNavigateToP
                             {schedulingArticle.title}
                         </p>
 
-                        <div className="bg-slate-50 p-4 rounded-lg mb-4">
-                            <div className="grid grid-cols-2 gap-4 mb-4">
+                        <div className="bg-slate-50 p-4 rounded-lg mb-4 space-y-4">
+                            {/* Category Selector */}
+                            <div>
+                                <label className="block text-xs font-semibold text-slate-600 mb-1">
+                                    Publish Category (Public)
+                                </label>
+                                <select
+                                    className="form-select w-full"
+                                    value={selectedCategory}
+                                    onChange={(e) => setSelectedCategory(e.target.value)}
+                                >
+                                    <option value="ASIC Repair Insights">ASIC Repair Insights</option>
+                                    <option value="Hashboard Problems">Hashboard Problems</option>
+                                    <option value="Environmental Damage">Environmental Damage</option>
+                                    <option value="Repair Decisions">Repair Decisions</option>
+                                </select>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4">
                                 <div>
                                     <label className="block text-xs font-semibold text-slate-600 mb-1">
                                         Date (IST)

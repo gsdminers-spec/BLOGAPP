@@ -3,6 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import ResearchViewer from './ResearchViewer';
+import ReactMarkdown from 'react-markdown';
 import { SearchResult } from '@/lib/types';
 
 interface ResearchWorkspaceProps {
@@ -187,12 +188,20 @@ ${results.map((r, i) => `${i + 1}. ${r.title} - ${r.url}`).join('\n')}
                     {/* Right Col: AI Summary & Actions */}
                     <div className="flex flex-col gap-4">
                         {/* AI Summary Card */}
-                        <div className="card bg-indigo-50 border-indigo-100 flex-1">
-                            <h3 className="text-sm font-bold text-indigo-900 mb-2 flex items-center gap-2">
-                                🧠 AI Summary
+                        <div className="card bg-indigo-50 border-indigo-100 flex-1 overflow-visible">
+                            <h3 className="text-base font-bold text-indigo-900 mb-3 flex items-center gap-2">
+                                🧠 AI Master Fact Sheet
                             </h3>
-                            <div className="text-sm text-indigo-800 leading-relaxed">
-                                {aiSummary || 'Summary not available.'}
+                            <div className="text-sm text-indigo-900 leading-relaxed overflow-x-hidden">
+                                {aiSummary ? (
+                                    <div className="prose prose-sm prose-indigo max-w-none">
+                                        <ReactMarkdown>
+                                            {aiSummary}
+                                        </ReactMarkdown>
+                                    </div>
+                                ) : (
+                                    <span className="italic text-indigo-400">Analysis pending...</span>
+                                )}
                             </div>
                         </div>
 
