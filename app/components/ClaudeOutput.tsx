@@ -2,7 +2,8 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { fetchRecentTopics, saveArticle, uploadImage } from '@/lib/articleActions';
+import { useRouter } from 'next/navigation';
+import { uploadImage } from '@/lib/articleActions';
 import { fetchFullBlogTree } from '@/lib/blogTreeActions';
 import { Topic } from '@/lib/supabase';
 import { Skeleton } from './ui/Skeleton';
@@ -18,6 +19,7 @@ export default function ClaudeOutput() {
     const [lastSaved, setLastSaved] = useState<Date | null>(null);
 
     const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const router = useRouter();
 
     // Auto-save logic
     useEffect(() => {
@@ -89,27 +91,20 @@ export default function ClaudeOutput() {
         setContent('');
     };
 
-    const handleSave = async () => {
+    const handleSendToLinkStudio = () => {
         if (!selectedTopicId || !content) return;
-        setStatus('saving');
-        setErrorMessage('');
 
-        const result = await saveArticle(selectedTopicId, selectedTopicTitle, content);
+        // Store article data for Link Studio
+        const articleData = {
+            topicId: selectedTopicId,
+            title: selectedTopicTitle,
+            content: content
+        };
+        localStorage.setItem('linkStudioArticle', JSON.stringify(articleData));
+        localStorage.removeItem(`draft-${selectedTopicId}`);
 
-        if (result.success) {
-            setStatus('saved');
-            localStorage.removeItem(`draft-${selectedTopicId}`);
-            setTimeout(() => {
-                setStatus('idle');
-                setContent('');
-                setSelectedTopicId('');
-                setSelectedTopicTitle('');
-                loadTopics();
-            }, 2000);
-        } else {
-            setStatus('error');
-            setErrorMessage(result.error || 'Failed to save article');
-        }
+        // Navigate to Link Studio
+        router.push('/dashboard/link-studio');
     };
 
     return (
@@ -264,11 +259,11 @@ Content goes here..."
                         </div>
 
                         <button
-                            className={`btn ${status === 'saved' ? 'badge-green text-green-800' : 'btn-primary'} min-w-[200px]`}
-                            onClick={handleSave}
-                            disabled={!selectedTopicId || !content || status === 'saving'}
+                            className="btn btn-primary min-w-[200px] bg-indigo-600 hover:bg-indigo-700"
+                            onClick={handleSendToLinkStudio}
+                            disabled={!selectedTopicId || !content}
                         >
-                            {status === 'saving' ? '💾 Saving...' : status === 'saved' ? '✅ Sent to SEO!' : '📥 Add to SEO Staging'}
+                            🔗 Send to Link Studio
                         </button>
                     </div>
                 </div>

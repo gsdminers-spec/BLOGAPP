@@ -26,7 +26,6 @@ export default function DashboardLayout({
         { href: '/dashboard/generate', icon: '✨', label: 'Writer Studio' },
         { href: '/dashboard/claude', icon: '📋', label: 'Final Output' },
         { href: '/dashboard/link-studio', icon: '🔗', label: 'Link Studio' },
-        { href: '/dashboard/seo-links', icon: '🎯', label: 'SEO Links' },
         { href: '/dashboard/articles', icon: '📝', label: 'Articles' },
         { href: '/dashboard/publish', icon: '🚀', label: 'Publish Hub' },
         { href: '/dashboard/keywords', icon: '🔑', label: 'Keywords' },
