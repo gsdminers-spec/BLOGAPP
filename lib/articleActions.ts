@@ -1,5 +1,5 @@
-import { supabase } from './supabase';
-import { Topic, Article } from './supabase';
+import { supabase, Topic, Article } from './supabase';
+import { slugify } from './utils';
 
 // Fetch recent topics (History + Pending) for the Claude Output dropdown
 // Fetch topics for the dropdown: ALL Pending/In-Progress + Last 50 History
@@ -52,7 +52,8 @@ export async function saveArticle(
         title,
         content,
         category,
-        status: 'ready'
+        status: 'ready',
+        slug: slugify(title) // Generate slug from title
     };
 
     // Add SEO fields if provided
