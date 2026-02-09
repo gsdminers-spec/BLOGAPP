@@ -3,7 +3,6 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   basePath: '/admin',
   trailingSlash: true,
-  output: 'export',
   images: {
     unoptimized: true,
     remotePatterns: [

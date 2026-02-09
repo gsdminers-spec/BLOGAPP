@@ -187,7 +187,7 @@ export async function moveToPublish(
 // Unpublish article - removes from public blog but keeps in admin
 export async function unpublishArticle(articleId: string): Promise<{ success: boolean; error?: string; deploymentTriggered?: boolean; deploymentError?: string | null }> {
     try {
-        const response = await fetch('/api/articles/unpublish', {
+        const response = await fetch('/admin/api/articles/unpublish', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ articleId })
@@ -216,7 +216,7 @@ export async function unpublishArticle(articleId: string): Promise<{ success: bo
 // Delete article completely - removes from admin, queue, and public blog
 export async function deleteArticle(articleId: string): Promise<{ success: boolean; error?: string }> {
     try {
-        const response = await fetch('/api/articles/delete', {
+        const response = await fetch('/admin/api/articles/delete', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ articleId })

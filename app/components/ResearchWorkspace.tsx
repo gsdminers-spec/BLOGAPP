@@ -56,7 +56,7 @@ export default function ResearchWorkspace({ initialTopic = '', onNavigateToPromp
         setHasSearched(false);
 
         try {
-            const res = await fetch('/api/scraper/search', {
+            const res = await fetch('/admin/api/scraper/search', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ query: topic }),

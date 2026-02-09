@@ -40,7 +40,7 @@ export async function updateSchedule(id: string, date: string, time: string): Pr
 // Publish immediately (via Server API to bypass RLS)
 export async function publishNow(queueId: string, articleId: string): Promise<{ success: boolean; error?: string; deploymentTriggered?: boolean; deploymentError?: string | null }> {
     try {
-        const response = await fetch('/api/publish', {
+        const response = await fetch('/admin/api/publish', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ queueId, articleId })
@@ -85,7 +85,7 @@ export async function cancelSchedule(queueId: string, articleId: string): Promis
 // Trigger GitHub Deployment
 export async function triggerDeployment(): Promise<{ success: boolean; message?: string; error?: string }> {
     try {
-        const response = await fetch('/api/deploy', {
+        const response = await fetch('/admin/api/deploy', {
             method: 'POST',
         });
 
