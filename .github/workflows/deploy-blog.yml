@@ -24,6 +24,21 @@ jobs:
     - name: Install Dependencies
       run: npm install
 
+    - name: Check Secrets
+      env:
+        SUPA_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+        SUPA_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+      run: |
+        if [ -z "$SUPA_URL" ]; then
+          echo "::error::Secret NEXT_PUBLIC_SUPABASE_URL is not set!"
+          exit 1
+        fi
+        if [ -z "$SUPA_KEY" ]; then
+          echo "::error::Secret NEXT_PUBLIC_SUPABASE_ANON_KEY is not set!"
+          exit 1
+        fi
+        echo "Secrets are present."
+
     - name: Build Static Site
       run: npm run build
       env:
