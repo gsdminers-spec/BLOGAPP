@@ -61,7 +61,7 @@ jobs:
           port: 21
           timeout: 600000 
           local-dir: ./out/
-          server-dir: ./
+          server-dir: ./admin/
           exclude: |
             **/.git*
             **/.git*/**
