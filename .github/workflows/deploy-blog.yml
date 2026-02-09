@@ -42,7 +42,6 @@ jobs:
         timeout: 600000 
         local-dir: ./out/
         server-dir: ./
-        dangerous-clean-slate: true 
         exclude: |
           **/.git*
           **/.git*/**
