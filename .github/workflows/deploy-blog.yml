@@ -51,20 +51,6 @@ jobs:
           find out -name "__*" -type f -delete
           find out -name "*$*" -type f -delete
 
-      - name: FTP Deploy
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftp
-          port: 21
-          timeout: 600000 
-          local-dir: ./out/
-          server-dir: ./admin/
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-            **/__*
-            **/*$*
+      # FTP Deploy removed because App uses Dynamic Routes (Node.js)
+      # Deployment is handled by Vercel or VPS.
+
