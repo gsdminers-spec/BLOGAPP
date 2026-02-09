@@ -11,60 +11,60 @@ jobs:
     timeout-minutes: 15
     
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
-    - name: Install Dependencies
-      run: npm install
+      - name: Install Dependencies
+        run: npm install
 
-    - name: Check Secrets
-      env:
-        SUPA_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-        SUPA_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-      run: |
-        if [ -z "$SUPA_URL" ]; then
-          echo "::error::Secret NEXT_PUBLIC_SUPABASE_URL is not set!"
-          exit 1
-        fi
-        if [ -z "$SUPA_KEY" ]; then
-          echo "::error::Secret NEXT_PUBLIC_SUPABASE_ANON_KEY is not set!"
-          exit 1
-        fi
-        echo "Secrets are present."
+      - name: Check Secrets
+        env:
+          SUPA_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPA_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+        run: |
+          if [ -z "$SUPA_URL" ]; then
+            echo "::error::Secret NEXT_PUBLIC_SUPABASE_URL is not set!"
+            exit 1
+          fi
+          if [ -z "$SUPA_KEY" ]; then
+            echo "::error::Secret NEXT_PUBLIC_SUPABASE_ANON_KEY is not set!"
+            exit 1
+          fi
+          echo "Secrets are present."
 
-    - name: Build Static Site
-      run: npm run build
-      env:
-        # Add any necessary env vars here
-        NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+      - name: Build Static Site
+        run: npm run build
+        env:
+          # Add any necessary env vars here
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
 
-    - name: Clean Output
-      run: |
-        find out -name "__*" -type f -delete
-        find out -name "*$*" -type f -delete
+      - name: Clean Output
+        run: |
+          find out -name "__*" -type f -delete
+          find out -name "*$*" -type f -delete
 
-    - name: FTP Deploy
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-      with:
-        server: ${{ secrets.FTP_SERVER }}
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
-        protocol: ftp
-        port: 21
-        timeout: 600000 
-        local-dir: ./out/
-        server-dir: ./
-        exclude: |
-          **/.git*
-          **/.git*/**
-          **/node_modules/**
-          **/__*
-          **/*$*
+      - name: FTP Deploy
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          port: 21
+          timeout: 600000 
+          local-dir: ./out/
+          server-dir: ./
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/__*
+            **/*$*
