@@ -37,7 +37,7 @@ export async function POST(request: Request) {
             .from('articles')
             .update({
                 status: 'published',
-                publish_date: new Date().toISOString()
+                published_date: new Date().toISOString()
             })
             .eq('id', articleId)
             .select('*')

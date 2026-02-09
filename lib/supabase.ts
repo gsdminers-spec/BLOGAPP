@@ -55,7 +55,7 @@ export interface Article {
   category?: string;
   status: 'draft' | 'ready' | 'scheduled' | 'published';
   created_at?: string;
-  publish_date?: string;
+  published_date?: string;
 }
 
 export interface Keyword {

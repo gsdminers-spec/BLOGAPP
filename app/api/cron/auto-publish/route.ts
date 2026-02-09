@@ -158,7 +158,7 @@ export async function GET(request: NextRequest) {
                     .from('articles')
                     .update({
                         status: 'published',
-                        publish_date: new Date().toISOString()
+                        published_date: new Date().toISOString()
                     })
                     .eq('id', article.id);
 

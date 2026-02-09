@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
         // 3. Update article status back to 'ready'
         await supabaseAdmin
             .from('articles')
-            .update({ status: 'ready', publish_date: null })
+            .update({ status: 'ready', published_date: null })
             .eq('id', articleId);
 
         // 4. Remove from publish_queue if exists
