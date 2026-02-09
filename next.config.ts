@@ -1,10 +1,11 @@
 import type { NextConfig } from "next";
 
-basePath: '/admin',
+const nextConfig: NextConfig = {
+  basePath: '/admin',
   trailingSlash: true,
-    output: 'export',
-      images: {
-  unoptimized: true,
+  output: 'export',
+  images: {
+    unoptimized: true,
     remotePatterns: [
       { protocol: 'https', hostname: 'images.unsplash.com' },
       { protocol: 'https', hostname: 'horizons-cdn.hostinger.com' },
@@ -13,4 +14,3 @@ basePath: '/admin',
 };
 
 export default nextConfig;
-
