@@ -14,7 +14,7 @@ export default function PromptStudio({ initialData }: { initialData?: PromptData
         if (!topic) return;
         setLoading(true);
         try {
-            const res = await fetch('/admin/api/prompt/generate', {
+            const res = await fetch('/api/prompt/generate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

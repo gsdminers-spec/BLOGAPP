@@ -45,7 +45,7 @@ function ResearchLabContent() {
             addLog(`Starting Tri-Engine Search for: "${topic}"`);
 
             // Call API Action: Research
-            const res = await fetch('/admin/api/research', {
+            const res = await fetch('/api/research', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ action: 'research', topic })
