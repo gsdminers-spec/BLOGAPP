@@ -179,6 +179,8 @@ export async function POST(request: Request) {
                 id: articleData.id,
                 category: publicCategory, // Use the Auto-Detected Category
                 excerpt: metaDescription, // Add excerpt from frontmatter
+                author_name: articleData.author_name,
+                author_url: articleData.author_url,
                 is_published: true,
                 published_date: new Date().toISOString(),
                 updated_date: new Date().toISOString()

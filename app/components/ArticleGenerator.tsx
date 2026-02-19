@@ -10,6 +10,8 @@ export default function ArticleGenerator({ initialData }: { initialData?: Prompt
     const [topic, setTopic] = useState(initialData?.topic || '');
     const [selectedTopicId, setSelectedTopicId] = useState<string | null>(null);
     const [preferences, setPreferences] = useState('');
+    const [authorName, setAuthorName] = useState('ASICREPAIR.in Team');
+    const [authorUrl, setAuthorUrl] = useState('https://asicrepair.in');
     const [generatedArticle, setGeneratedArticle] = useState('');
     const [loading, setLoading] = useState(false);
 
@@ -114,7 +116,10 @@ export default function ArticleGenerator({ initialData }: { initialData?: Prompt
             return;
         }
 
-        const res = await saveArticle(selectedTopicId, topic, generatedArticle);
+        const res = await saveArticle(selectedTopicId, topic, generatedArticle, undefined, {
+            authorName,
+            authorUrl
+        });
         if (res.success) {
             alert('Article saved to Database! Topic marked as Done. ✅');
             // Clear state after save
@@ -186,6 +191,29 @@ export default function ArticleGenerator({ initialData }: { initialData?: Prompt
                             value={preferences}
                             onChange={(e) => setPreferences(e.target.value)}
                         />
+                    </div>
+
+                    {/* SEO / Meta Details */}
+                    <div className="mb-4 p-3 bg-slate-50 border border-slate-200 rounded">
+                        <h4 className="text-xs font-bold text-slate-500 uppercase mb-2">SEO Metadata</h4>
+                        <div className="grid grid-cols-2 gap-2">
+                            <div>
+                                <label className="block text-xs font-medium text-slate-600 mb-1">Author Name</label>
+                                <input
+                                    className="form-input w-full text-xs"
+                                    value={authorName}
+                                    onChange={(e) => setAuthorName(e.target.value)}
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-xs font-medium text-slate-600 mb-1">Author URL</label>
+                                <input
+                                    className="form-input w-full text-xs"
+                                    value={authorUrl}
+                                    onChange={(e) => setAuthorUrl(e.target.value)}
+                                />
+                            </div>
+                        </div>
                     </div>
 
                     <div className="bg-blue-50 p-3 rounded text-xs text-blue-700 mb-4 border border-blue-100">

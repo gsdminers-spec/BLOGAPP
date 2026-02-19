@@ -44,7 +44,13 @@ export async function saveArticle(
     title: string,
     content: string,
     category?: string,
-    seoMeta?: { title?: string; h1?: string; metaDescription?: string }
+    seoMeta?: {
+        title?: string;
+        h1?: string;
+        metaDescription?: string;
+        authorName?: string;
+        authorUrl?: string;
+    }
 ): Promise<{ success: boolean; articleId?: string; error?: string }> {
     // 1. Insert article with optional SEO fields
     const insertData: any = {
@@ -61,6 +67,8 @@ export async function saveArticle(
         if (seoMeta.title) insertData.seo_title = seoMeta.title;
         if (seoMeta.h1) insertData.seo_h1 = seoMeta.h1;
         if (seoMeta.metaDescription) insertData.seo_meta_description = seoMeta.metaDescription;
+        if (seoMeta.authorName) insertData.author_name = seoMeta.authorName;
+        if (seoMeta.authorUrl) insertData.author_url = seoMeta.authorUrl;
     }
 
     const { data: articleData, error: articleError } = await supabase
@@ -99,12 +107,16 @@ export async function saveArticleWithSEO(
     seoTitle: string,
     seoH1: string,
     seoMetaDescription: string,
-    category?: string
+    category?: string,
+    authorName?: string,
+    authorUrl?: string
 ): Promise<{ success: boolean; articleId?: string; error?: string }> {
     return saveArticle(topicId, title, content, category, {
         title: seoTitle,
         h1: seoH1,
-        metaDescription: seoMetaDescription
+        metaDescription: seoMetaDescription,
+        authorName,
+        authorUrl
     });
 }
 
