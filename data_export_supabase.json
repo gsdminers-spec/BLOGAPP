@@ -1,0 +1,1231 @@
+﻿{
+    "articles":  {
+                     "value":  [
+                                   {
+                                       "id":  "635c53a0-52aa-4dcd-9e02-e0e7ef3c416c",
+                                       "topic_id":  "b9ecd415-f803-4bc4-bb73-f71b4e0e41b1",
+                                       "title":  "Antminer S19 Hydro Chain Not Detected",
+                                       "content":  "# Antminer S19j Pro Hashboard Slot Empty: A Deep Dive Analysis and Repair Guide\n## Introduction to Antminer S19j Pro Hashboard Issues\n### Understanding the Importance of the Hashboard in Cryptocurrency Mining\n\nThe Antminer S19j Pro is a powerful cryptocurrency mining device that relies heavily on the hashboard to perform complex cryptographic calculations. The hashboard is a critical component, and its failure can significantly impact the overall performance of the miner. In this article, we will delve into the root causes of hashboard failures, provide a comprehensive repair guide, and offer expert \"Pro Tips\" to help troubleshoot and repair the Antminer S19j Pro hashboard.\n\n## Root Causes of Hashboard Failures\n### Manufacturing Defects and Their Impact on Hashboard Performance\n\nManufacturing defects can lead to missing or incomplete chips on the hashboard, resulting in reduced performance or complete failure of the hashboard. It is essential to inspect the hashboard for any signs of physical damage or defects before attempting to repair it.\n\n### Power Supply Issues and Voltage Fluctuations\n\nThe power supply unit (PSU) failure can cause voltage fluctuations, leading to damage to the hashboard components. Ensure that the PSU is functioning correctly and providing a stable voltage supply to the hashboard.\n\n### Overheating: Causes and Effects on Hashboard Components\n\nOverheating can cause the hashboard to malfunction or fail. Dust, poor air flow, or clogged heat sinks can lead to overheating. Regularly clean the hashboard and heat sink to ensure proper heat dissipation.\n\n### Electromagnetic Interference (EMI) and Firmware Issues\n\nElectromagnetic interference (EMI) can cause the hashboard to malfunction, leading to errors or complete failure. Firmware corruption or outdated firmware can also cause the hashboard to malfunction or fail. Regularly check for firmware updates and ensure that the firmware is up-to-date.\n\n## Diagnostics\n### Identifying Symptoms of Hashboard Failure\n\nCommon symptoms of hashboard failure include:\n\n* Reduced mining performance\n* Error messages or warnings\n* Overheating\n* Physical damage to the hashboard or components\n\n### Using Diagnostic Tools for Troubleshooting\n\nUse diagnostic tools such as a multimeter, logic analyzer, or signal generator to troubleshoot the hashboard. These tools can help identify the root cause of the failure and provide valuable insights into the hashboard\u0027s operation.\n\n## Tools Needed for Repair\n### Essential Equipment for Hashboard Repair and Maintenance\n\n* Multimeter\n* Logic analyzer\n* Signal generator\n* Thermal imaging camera\n* Soldering iron and solder\n* Wire strippers and crimpers\n\n### Optional Tools for Advanced Troubleshooting\n\n* Oscilloscope\n* Spectrum analyzer\n* Network analyzer\n* Firmware update tools\n\n## Step-by-Step Repair Guide\n### Preparation and Safety Precautions\n\nBefore attempting to repair the hashboard, ensure that you have:\n\n* A thorough understanding of the hashboard\u0027s operation and components\n* The necessary tools and equipment\n* A safe and well-ventilated workspace\n* A backup of the firmware and configuration settings\n\n### Disassembly and Inspection of the Hashboard\n\n1. Remove the hashboard from the miner\n2. Inspect the hashboard for any signs of physical damage or defects\n3. Check the voltage domains for any signs of short circuits or open circuits\n4. Use a multimeter to test the voltage of specific test points (e.g., 1V2 and RO)\n\n### Repairing or Replacing Damaged Components\n\n1. Replace any damaged or defective components\n2. Resolder any loose or damaged connections\n3. Clean the hashboard and heat sink to ensure proper heat dissipation\n\n### Reassembly and Testing of the Hashboard\n\n1. Reassemble the hashboard and miner\n2. Test the hashboard\u0027s operation and performance\n3. Verify that the firmware is up-to-date and functioning correctly\n\n## Pro Tips for Troubleshooting and Repair\n### Using a Thermal Imaging Camera for Heat-Related Issues\n\nUse a thermal imaging camera to inspect the hashboard and heat sink for any signs of overheating or heat-related issues.\n\n### Checking for Firmware Updates and Ensuring Compatibility\n\nRegularly check for firmware updates and ensure that the firmware is compatible with the hashboard and miner.\n\n### Utilizing a Signal Generator for Input Signal Simulation\n\nUse a signal generator to simulate the input signals to the hashboard, which can help identify issues with the hashboard\u0027s input circuitry.\n\n### Performing a Thorough Visual Inspection for Physical Damage\n\nPerform a thorough visual inspection of the hashboard, paying attention to signs of physical damage, such as burnt components or broken solder joints.\n\n## Theory of Operation: Understanding the Hashboard\u0027s Functionality\n### Power Supply and Voltage Regulation\n\nThe power supply unit (PSU) provides power to the hashboard, which is then regulated by the voltage domains to provide the required voltage levels.\n\n### Signal Processing and Cryptographic Calculations\n\nThe hashboard receives input signals from the control board, which are then processed by the PIC and other components. The hashboard performs the cryptographic calculations, using the input signals and the firmware, to generate the hash values.\n\n### Data Transmission and Network Communication\n\nThe hashboard transmits the generated hash values to the control board, which then transmits the data to the network.\n\n## Conclusion: Successful Repair and Maintenance of the Antminer S19j Pro Hashboard\n### Recap of Key Points and Best Practices\n\n* Regularly inspect the hashboard for signs of physical damage or defects\n* Ensure that the PSU is functioning correctly and providing a stable voltage supply\n* Clean the hashboard and heat sink to ensure proper heat dissipation\n* Regularly check for firmware updates and ensure that the firmware is up-to-date\n* Use diagnostic tools to troubleshoot and repair the hashboard\n\n## Frequently Asked Questions (FAQ)\n### What are the common causes of hashboard failure in the Antminer S19j Pro?\n\nCommon causes of hashboard failure include manufacturing defects, power supply issues, overheating, electromagnetic interference (EMI), and firmware issues.\n\n### How do I troubleshoot a hashboard issue without specialized tools?\n\nUse a multimeter to test the voltage of specific test points (e.g., 1V2 and RO). Inspect the hashboard for any signs of physical damage or defects. Check the firmware for any updates or issues.\n\n### Can I repair the hashboard myself, or should I seek professional help?\n\nIf you have experience with electronics repair and troubleshooting, you can attempt to repair the hashboard yourself. However, if you are unsure or uncomfortable with the repair process, it is recommended to seek professional help from a qualified technician.\n\n\u003e **Need Professional Help?**  \n\u003e [Chat with us on WhatsApp](https://wa.me/918208752205) for instant repair quotes. 🛠️\n\n\n\n🛒 **Need Parts?** Check out our [Stabilizers for ASIC Miners](/stabilizers) for quality replacements.\n\n",
+                                       "category":  "ASIC Repair Insights",
+                                       "status":  "published",
+                                       "created_at":  "2026-02-09T11:25:19.420976+00:00",
+                                       "publish_date":  "2026-02-09T11:25:41.211+00:00",
+                                       "seo_title":  null,
+                                       "seo_h1":  null,
+                                       "seo_meta_description":  null,
+                                       "slug":  "antminer-s19-hydro-chain-not-detected",
+                                       "author_name":  "ASICREPAIR.in Team",
+                                       "author_url":  "https://asicrepair.in"
+                                   },
+                                   {
+                                       "id":  "111b0326-9763-4ee0-b52d-3514427c4517",
+                                       "topic_id":  null,
+                                       "title":  "Antminer S21 Hydro \"0 ASIC Chip\" Error",
+                                       "content":  "# Antminer S21 Hydro \"0 ASIC Chip\" Error: Diagnosis \u0026 Repair Guide\n\n\u003e **TL;DR:** The **Antminer S21 Hydro \"0 ASIC Chip\" error** occurs when the control board fails to communicate with the BM1368 ASIC chips over the serial transmission line (RI/RO signals). Common root causes include **coolant pressure loss leading to thermal shutoff**, **corroded LDO voltage regulators (1.8V/0.8V rail collapse)**, or a **blown PIC microcontroller**. Professional chip-level testing with a PicoBT PT3 fixture is required to trace the exact faulty chip.\n\n---\n\n## What Is the Antminer S21 Hydro 0 ASIC Chip Error?\n\nThe **Antminer S21 Hydro 0 ASIC Chip Error** is a critical hardware fault where the miner\u0027s control board initializes the hashboard domain but receives zero responses during the initial ASIC detection protocol. \n\nIn normal operation, the control board sends a reset pulse (RST) and clock signal (CLK) down the chain of 108+ BM1368 ASIC chips. If the return signal (RO / Read Out) is severed at chip #1 or at a failed LDO regulator, the kernel log outputs \"error: 0 ASIC found on chain [X]\" and halts power to prevent thermal runaway.\n\n---\n\n## Key Symptoms Observed in the Field\n\nWhen an S21 Hydro experiences zero chip detection, mining operators in India typically observe the following symptoms:\n\n* **Kernel Log Alert:** Log displays \"chain [0] only 0 ASIC\" or \"Init ASIC logic failed\".\n* **Zero Hashrate Output:** Dashboard status shows \"0.00 TH/s\" with red LED error indicator.\n* **Coolant Loop Mismatch:** Hydro manifold inlet pressure drops below 0.15 MPa or temperature differential exceeds 15°C between inlet and outlet.\n* **Pump Shutdown:** Water pump speeds fluctuate erratically as control logic attempts thermal protection resets.\n\n---\n\n## Deep Technical Causes \u0026 Diagnostic Flowchart\n\nOur repair technicians at the Akola (Maharashtra) lab have analyzed dozens of hydro-cooled hashboards. The fault breakdown follows three primary electrical domains:\n\n| Failure Mode | Hardware Component | Diagnostic Threshold | Primary Root Cause |\n| :--- | :--- | :--- | :--- |\n| **Domain Power Collapse** | MP8869 Voltage Regulator / Inductor | Voltage \u003c 0.8V across VDD_CORE | Surge spike or overheating DC-DC converter |\n| **Signal Line Severance** | RI/RO line between ASIC #1 \u0026 #2 | Resistance to ground \u003c 10Ω | Corrosion from coolant moisture leakage |\n| **PIC Logic Lockup** | PIC16F1704 Microcontroller | No signal on PIC TX pin | Corrupted firmware state or 3.3V rail dip |\n| **Thermal Protection Trip** | NTC Thermistor Sensor | Resistance out of range (\u003e100kΩ) | Air pocket trapped in hydro block cavity |\n\n### 1. LDO Voltage Regulator Failure\nEach group of BM1368 chips relies on local Low Dropout (LDO) regulators providing 1.8V for I/O logic and 0.8V for core operations. In Indian mining environments, summer ambient temperatures reaching 45°C stress these miniature LDOs. If the 1.8V LDO feeding Chip #1 fails, the entire return line dies.\n\n### 2. Coolant Cavity Leakage \u0026 Micro-Corrosion\nUnlike air-cooled S19 models, the S21 Hydro utilizes liquid cold plates. If non-deionized water or low-quality glycol coolant is used, micro-electrolysis forms copper oxide bridges across SMD capacitors adjacent to the ASIC pins, pulling signal lines to ground.\n\n---\n\n## Step-by-Step Technical Repair Process\n\n\u003e **Note:** Hydro hashboards operate under high DC currents (up to 240A across domain series). Only trained technicians using ESD-safe rework stations should attempt component replacement.\n\n```\n[1. Pressure Leak Test] ──\u003e [2. Signal Tracing (PicoBT)] ──\u003e [3. BGA Rework (350°C)] ──\u003e [4. Hydro Bench Run]\n```\n\n1. **Hydro Plate Pressure Verification:** Connect the hashboard to a 0.3 MPa pneumatic leak tester for 15 minutes to verify internal manifold integrity.\n2. **PicoBT Signal Tracing:** Connect the hashboard to a [PicoBT PT3 test fixture](https://asicrepair.in/control-board-repair/). Measure signal pins (CLK, CO, RI, RO, RST) starting from ASIC #1.\n3. **LDO \u0026 Component Replacement:** If RI voltage drops below 1.6V at chip #14, use a hot-air rework station calibrated to **345°C - 350°C** with non-corrosive rosin flux to replace the LDO IC.\n4. **ASIC BGA Re-balling:** If the BM1368 chip itself is shorted, replace it using a preheated bottom plate (150°C) and leaded SAC305 solder balls.\n5. **Thermal Gel Application:** Apply premium 6.0 W/mK thermal interface material across cold-plate contact zones before re-torquing stainless steel enclosure bolts.\n\n---\n\n## Preventive Care for Indian Hydro Mining Facilities\n\n1. **Water Quality Control:** Maintain coolant electrical conductivity strictly below **5 µS/cm** using deionized fluid.\n2. **Dedicated Voltage Stabilization:** Indian power grids frequently experience voltage sags (180V-260V fluctuations). Always pair S21 Hydro setups with a [3-phase servo voltage stabilizer](https://asicrepair.in/stabilizers/).\n3. **Seasonal Radiator Flushing:** Clean external cooling tower radiators every 60 days to prevent dust-clogged heat exchangers during dry summer months.\n\n---\n\n## Frequently Asked Questions (FAQ)\n\n### Q: Can I run an S21 Hydro with 1 hashboard disconnected?\nA: No. Bitmain S21 Hydro control boards enforce 3-chain detection. If one chain returns 0 ASIC, the power supply (APW17) immediately shuts off output for safety.\n\n### Q: Why does kernel log show 0 ASIC after changing coolant?\nA: An air pocket is likely trapped near the NTC thermal sensor. Tilt the hydro chassis 30 degrees while running the external pump to bleed trapped air bubbles.\n\n### Q: What is the normal operating voltage for BM1368 ASIC chips?\nA: Core voltage ranges from 0.72V to 0.85V depending on power mode, while I/O communication operates on a strict 1.8V LDO rail.\n\n### Q: How do I know if my S21 Hydro problem is the control board or hashboard?\nA: Swap the signal ribbon cable to a known-good slot on the control board. If \"0 ASIC\" stays on the same physical chain, the fault is on the hashboard.\n\n### Q: Where can I get professional S21 Hydro hashboard repair in India?\nA: You can send your hashboard directly to our specialized chip-level facility at [ASICREPAIR.in](https://asicrepair.in/hashboard-repair/). We offer 48-hour turnaround with genuine BM1368 chips and pressure-tested hydro bench validation.",
+                                       "category":  "Antminer Repair",
+                                       "status":  "published",
+                                       "created_at":  "2026-07-24T13:04:38.53149+00:00",
+                                       "publish_date":  "2026-07-24T13:04:38.266+00:00",
+                                       "seo_title":  "Antminer S21 Hydro \"0 ASIC Chip\" Error – Technical Repair Guide",
+                                       "seo_h1":  "Antminer S21 Hydro \"0 ASIC Chip\" Error",
+                                       "seo_meta_description":  "Complete technical repair guide for Antminer S21 Hydro 0 ASIC Chip error. Learn root causes, LDO voltage checks, PicoBT testing, and repair steps.",
+                                       "slug":  "antminer-s21-hydro-0-asic-chip-error",
+                                       "author_name":  "ASICREPAIR.in Technical Team",
+                                       "author_url":  "https://asicrepair.in"
+                                   },
+                                   {
+                                       "id":  "61f5b943-c779-48be-86a6-9d49487e644c",
+                                       "topic_id":  null,
+                                       "title":  "Monsoon Mining: Protecting ASIC Miners from Humidity in India",
+                                       "content":  "# Monsoon Mining: Protecting ASIC Miners from High Humidity in India\n\n\u003e **TL;DR:** High relative humidity (\u003e75% RH) during the Indian monsoon season causes **dendrite growth**, **PCB copper corrosion**, and **short circuits** on Antminer and Whatsminer hashboards. To protect your mining farm, maintain ambient humidity between **40%–65% RH**, install inline exhaust duct shutters, apply conformal coating, and use [industrial voltage stabilizers](https://asicrepair.in/stabilizers/) to survive monsoon grid surges.\n\n---\n\n## What Is the Impact of Monsoon Humidity on ASIC Miners?\n\n**Monsoon mining risk** refers to the rapid degradation of electronic components in crypto mining hardware caused by high moisture, salt condensation, and ambient relative humidity exceeding 75% RH across India between June and September.\n\nWhen high humidity mixes with airborne dust inside an ASIC miner running at 6,000 RPM, it forms a conductive slurry across 0402 SMD resistors and 12V power rails. This leads to **electrochemical migration (dendrite formation)**, causing instant short circuits and burned PCB substrate.\n\n---\n\n## Key Corrosion \u0026 Humidity Indicators\n\nLook out for these classic symptoms on your Antminer S19/S21 or Whatsminer M30/M50 series during monsoon months:\n\n* **Greenish-White PCB Crust:** Oxidation buildup around ASIC chip pins, domain inductors, and busbar connections.\n* **Kernel Log Voltage Drops:** Log displays \"power low\", \"voltage domain abnormal\", or \"PIC sensor error\".\n* **Random Miner Restarts:** Miner reboots every 10–30 minutes as thermal sensors register false high-temperature spikes due to moisture shorts.\n* **Tripping ELCB / MCB Breakers:** Earth leakage circuit breakers trip due to micro-current leakage from moist PSU components to the grounded metal chassis.\n\n---\n\n## Technical Comparison: Air-Cooled vs. Hydro vs. Immersion in Monsoon\n\n| Mining Setup | Humidity Sensitivity | Primary Risk Factor | Recommended Protection |\n| :--- | :--- | :--- | :--- |\n| **Air-Cooled (Std)** | 🔴 Very High | Moisture + Dust Slurry on Hashboards | Dehumidifiers + Intake Air Filters + Conformal Spray |\n| **Hydro-Cooled** | 🟡 Medium | Condensation on Cold Plates | Maintain Coolant Temp Above Ambient Dew Point |\n| **Immersion Cooling** | 🟢 Immune | Zero Exposure to Air/Humidity | Sealed Tank with Dielectric Fluid |\n\n---\n\n## 5-Step Monsoon Protection Protocol for Indian Mining Farms\n\n```\n[1. Positive Pressure Intake] ──\u003e [2. Dew Point Control] ──\u003e [3. Conformal Coating] ──\u003e [4. Surge Suppression]\n```\n\n### 1. Maintain Positive Air Pressure\nEnsure your container or mining facility uses intake fans with MERV 8 / G4 dust filters that push clean air *out* of structural gaps, preventing moist outside air from seeping in through unsealed wall cracks.\n\n### 2. Dew Point Management\nNever allow inlet air temperature to drop below the local dew point. If cold nighttime rain drops intake air to 22°C while indoor humidity is 90%, water droplets will instantly condense on hot 70°C hashboard heatsinks. Keep intake air pre-heated slightly above 28°C.\n\n### 3. Conformal Coating Spray for Hashboards\nDuring routine maintenance, clean hashboards with 99.9% Isopropyl Alcohol (IPA), dry thoroughly in a thermal chamber at 60°C, and apply a thin layer of **silicone-based conformal coating** across SMD components (avoiding heat sink contact pads).\n\n### 4. Grid Surge Protection During Electrical Storms\nIndian monsoon thunderstorms bring severe grid transients. Ensure your farm is protected by:\n* Class II Surge Protection Devices (SPD) at the main LT panel.\n* Dedicated grounding / earthing pit with resistance under **2 Ohms**.\n* Industrial [servo voltage stabilizers](https://asicrepair.in/stabilizers/) to regulate 180V–260V fluctuations.\n\n### 5. Ultrasonic Cleaning for Corroded Boards\nIf a board is already exposed to monsoon moisture, do not power it on. Send it for [ultrasonic cleaning and baking](https://asicrepair.in/maintenance/), which strips oxidation without lifting tiny 0201 SMD components.\n\n---\n\n## Frequently Asked Questions (FAQ)\n\n### Q: What is the ideal humidity level for ASIC mining in India?\nA: Relative humidity should ideally stay between **40% and 65% RH**. Anything above 70% RH drastically increases corrosion risk, while under 30% RH increases static electricity (ESD) hazards.\n\n### Q: Can I run a household dehumidifier in my mining room?\nA: Standard residential dehumidification units cannot keep up with high-CFM airflow in mining rooms. You must control intake air temperature and use positive-pressure fan management instead.\n\n### Q: Why does my Bitmain PSU trip the main breaker during heavy rain?\nA: Moisture accumulation inside the APW12 / APW17 power supply reduces insulation resistance between AC live input capacitors and the metal casing, tripping Earth Leakage Circuit Breakers (ELCB).\n\n### Q: Is immersion cooling better for coastal areas like Mumbai or Goa?\nA: Yes. Immersion cooling completely isolates hashboards in dielectric oil, eliminating 100% of humidity and salty coastal air corrosion risks.\n\n### Q: Where can I restore monsoon-damaged hashboards in India?\nA: Our repair laboratory in Akola, Maharashtra specializes in [chip-level hashboard restoration](https://asicrepair.in/hashboard-repair/) including ultrasonic de-oxidation, BGA re-balling, and conformal sealing.",
+                                       "category":  "Maintenance",
+                                       "status":  "published",
+                                       "created_at":  "2026-07-24T13:04:39.447512+00:00",
+                                       "publish_date":  "2026-07-24T13:04:38.266+00:00",
+                                       "seo_title":  "Monsoon Mining: Protecting ASIC Miners from Humidity in India",
+                                       "seo_h1":  "Monsoon Mining: Protecting ASIC Miners from High Humidity in India",
+                                       "seo_meta_description":  "Protect your crypto mining farm during Indian monsoon season. Prevents PCB corrosion, dendrite growth, grid surges, and hashboard short circuits.",
+                                       "slug":  "monsoon-mining-protecting-asic-miners-humidity-india",
+                                       "author_name":  "ASICREPAIR.in Technical Team",
+                                       "author_url":  "https://asicrepair.in"
+                                   },
+                                   {
+                                       "id":  "003a05d8-9d51-46fb-8502-93c0dc10a757",
+                                       "topic_id":  null,
+                                       "title":  "Antminer APW12 Power Supply Failure - Common Faults \u0026 Fixes",
+                                       "content":  "# Antminer APW12 Power Supply Failure: Common Faults \u0026 Repair Guide\n\n\u003e **TL;DR:** The **Bitmain APW12 PSU** fails primarily due to **PFC MOSFET breakdown**, **blown 12V/15V auxiliary power ICs**, or **damaged PFC feedback optocouplers** caused by Indian grid voltage spikes (\u003e260V AC). Diagnosis requires measuring 400V DC across main bus capacitors. Component-level repair involves replacing MOSFETs, PWM control ICs, and high-speed cooling fans.\n\n---\n\n## What Is an APW12 Power Supply Failure?\n\nAn **APW12 Power Supply Failure** occurs when the dual-channel AC-to-DC power converter used in Bitmain Antminer S19, S19 Pro, S19j Pro, and T19 series fails to deliver stable DC output (12V-15V variable logic \u0026 200V-300V high-voltage DC for hashboards).\n\nThe APW12 utilizes active Power Factor Correction (PFC) and an LLC resonant converter topology. When an internal fault occurs, the PSU enters self-protection mode, outputting 0V or fluctuating voltage that causes hashboard detection errors.\n\n---\n\n## Common Symptoms of APW12 Failure\n\n* **No Power / No Fan Spin:** PSU green LED is completely off; internal 80mm cooling fans do not rotate when AC power is applied.\n* **Red LED Blinking / Protection Lock:** Green LED stays solid for 3 seconds then switches to a flashing red state.\n* **Low Output Voltage:** Multimeter reads 8.5V DC instead of the required 12.0V–15.0V on output busbars.\n* **Hashboard Drops Under Load:** Miner boots normally, but as soon as hashrate ramps up, the PSU clicks off and reboots the control board.\n\n---\n\n## Technical Fault Breakdown \u0026 Voltage Rail Analysis\n\nOur power electronics bench at [ASICREPAIR.in](https://asicrepair.in/psu-repair/) categorizes APW12 failures into 4 distinct circuit stages:\n\n| Stage | Circuit Section | Key Components | Typical Failure Symptom |\n| :--- | :--- | :--- | :--- |\n| **Stage 1** | AC Input \u0026 EMI Filter | Varistor (MOV), NTC Thermistor, 25A Fuse | PSU dead, main breaker trips instantly |\n| **Stage 2** | Active PFC Boost Stage | 600V Power MOSFETs, Diode Bridge | DC Bus voltage stuck at 310V instead of 400V |\n| **Stage 3** | Auxiliary Power Rail | VIPer22A / L6599 PWM Controller | Control board won\u0027t turn on (No 12V aux) |\n| **Stage 4** | Synchronous Rectifier | High-Current Low-RDS(on) MOSFETs | Output short circuit (multimeter beeps on DC rails) |\n\n---\n\n## Component-Level Diagnostic Sequence\n\n\u003e **DANGER:** High-voltage capacitors in the APW12 store up to **420V DC** even after AC power is disconnected. Discharge capacitors safely through a 1kΩ 10W resistor before touching internal components.\n\n```\n[1. AC Fuse Check] ──\u003e [2. 400V PFC Bus Test] ──\u003e [3. Aux 12V Rail Check] ──\u003e [4. Output Rectifier Test]\n```\n\n1. **Input Fuse \u0026 Bridge Rectifier:** Check continuity across the main 25A ceramic fuse. Test the AC bridge rectifier pins for shorts.\n2. **PFC Capacitor Voltage Test:** Apply 230V AC input. Measure DC voltage across the dual 450V 560µF electrolytic capacitors. It MUST read **390V – 410V DC**. If it reads ~310V, the PFC boost circuit is dead.\n3. **Auxiliary Power Supply Inspection:** Inspect the auxiliary circuit transformer and VIPer IC generating 12V for the internal cooling fans and control board logic.\n4. **MOSFET Gate Driver Check:** Check gate resistors (typically 10Ω 0805) feeding the power MOSFETs. Blown MOSFETs almost always destroy their gate resistors and driver ICs.\n\n---\n\n## Repair vs. Replacement Decision Guide\n\n1. **Replace Fan Only:** If the PSU thermal trips after 5 minutes because one 80mm Nidec fan is dead, replacing the fan restores full function.\n2. **Component Repair:** Blown MOSFETs, bridge rectifiers, capacitors, and diodes can be repaired at component level for **60% less cost** than buying a new PSU.\n3. **Full PSU Replacement:** If the PCB substrate is charred or copper traces are vaporized due to an arc flash, full replacement is recommended.\n\n---\n\n## Protecting APW12 PSUs in Indian Mining Environments\n\n* **Line Voltage Regulation:** Never run APW12 supplies directly on raw Indian grid power. Fluctuations above 265V AC blow the PFC MOSFETs instantly. Install a [servo voltage stabilizer](https://asicrepair.in/stabilizers/).\n* **Dust Filtration:** Clean internal PSU heatsinks every 90 days. Dust buildup restricts fan airflow, pushing internal temperatures past the 105°C thermal shutdown threshold.\n\n---\n\n## Frequently Asked Questions (FAQ)\n\n### Q: Can I use an APW12 1215 PSU on an Antminer S19 Pro?\nA: Yes, APW12 1215a, 1215b, and 1215c variants are compatible across the S19, S19 Pro, and T19 series, provided voltage ratings match control board specs.\n\n### Q: Why does my APW12 output 15V instead of 12V?\nA: Modern Bitmain APW12 power supplies use software-controlled variable voltage. The control board sends an I2C command to adjust output voltage between 12V and 15V based on hashing mode.\n\n### Q: What causes the APW12 \"pop\" sound when plugging in?\nA: A loud pop accompanied by a tripped breaker indicates a shorted PFC MOSFET or shorted primary bridge rectifier.\n\n### Q: How long does an APW12 PSU repair take at ASICREPAIR.in?\nA: Standard PSU repairs take 24–48 hours at our Akola facility, including full load testing on an electronic load bank.\n\n### Q: Where can I get APW12 power supply repair in India?\nA: You can send your faulty APW12 or APW17 power supply directly to our specialist technicians at [ASICREPAIR.in PSU Repair Center](https://asicrepair.in/psu-repair/).",
+                                       "category":  "PSU Repair",
+                                       "status":  "published",
+                                       "created_at":  "2026-07-24T13:04:40.042638+00:00",
+                                       "publish_date":  "2026-07-24T13:04:38.266+00:00",
+                                       "seo_title":  "Antminer APW12 Power Supply Failure – Diagnostics \u0026 Fixes",
+                                       "seo_h1":  "Antminer APW12 Power Supply Failure: Common Faults \u0026 Repair Guide",
+                                       "seo_meta_description":  "Diagnose and fix Bitmain APW12 power supply failures. Learn PFC MOSFET testing, 400V DC rail checks, auxiliary 12V troubleshooting, and repair tips.",
+                                       "slug":  "antminer-apw12-power-supply-failure-common-faults-fixes",
+                                       "author_name":  "ASICREPAIR.in Technical Team",
+                                       "author_url":  "https://asicrepair.in"
+                                   },
+                                   {
+                                       "id":  "5a06d96e-672c-4e8b-abe2-b875fb35d482",
+                                       "topic_id":  null,
+                                       "title":  "How to Use PicoBT/PT3 Tester for Antminer Hashboard Diagnosis",
+                                       "content":  "# How to Use PicoBT / PT3 Tester for Antminer Hashboard Diagnosis\n\n\u003e **TL;DR:** The **PicoBT (PT3) test fixture** is an essential diagnostic tool for chip-level ASIC repair. It isolates faulty BM1397/BM1398/BM1366 chips by sending direct serial commands (RST, CLK, CI, CO, RI, RO) and displaying the exact failed chip index on its OLED screen. This guide details setup, voltage pinout testing, and reading error logs for Antminer S19 and S21 series.\n\n---\n\n## What Is a PicoBT (PT3) Tester?\n\nA **PicoBT PT3 Tester** is a specialized, micro-processor-controlled hardware diagnostic tool used by ASIC repair engineers to communicate directly with Bitmain, Whatsminer, and Avalon hashboards without requiring a full miner assembly.\n\nBy bypassing the main miner control board, the PicoBT supplies logic voltage, generates clock signals, and reads signal responses across individual voltage domains. It pinpoint-identifies dead ASIC chips, broken EEPROM data, and domain LDO failures in seconds.\n\n---\n\n## Technical Specifications \u0026 Pinout Signals Tested\n\nWhen connected to an Antminer S19 or S19 Pro hashboard, the PicoBT reads 5 primary signal lines:\n\n| Signal | Full Name | Signal Direction | Normal Voltage (Ref to GND) |\n| :--- | :--- | :--- | :--- |\n| **CLK** | Clock Line | Control Board ──\u003e ASIC #1...#108 | ~0.8V - 0.9V AC/DC |\n| **CO** | Command Out | Control Board ──\u003e ASIC #1...#108 | ~1.6V - 1.8V DC |\n| **RI** | Reset In | Control Board ──\u003e ASIC #1...#108 | ~1.8V DC (Active High) |\n| **RO** | Read Out | ASIC #108...#1 ──\u003e Control Board | ~1.6V - 1.8V DC |\n| **BI / BO** | Busy In / Out | Bidirectional Handshake | ~0.0V - 1.8V DC |\n\n---\n\n## Step-by-Step Diagnostic Procedure Using PicoBT PT3\n\n```\n[1. Connect 12V \u0026 Ribbon Cable] ──\u003e [2. Select Model on OLED] ──\u003e [3. Run ASIC Count Test] ──\u003e [4. Locate Fault Index]\n```\n\n### Step 1: Power \u0026 Cable Hookup\n1. Connect a clean 12V 5A DC power adapter to the PicoBT tester.\n2. Connect the 18-pin or 24-pin data ribbon cable from the PicoBT test port to the hashboard IO header.\n3. Attach the DC power supply lead from your bench PSU (set to 14.0V, current-limited to 10A) to the hashboard power busbars.\n\n### Step 2: Select Miner Profile\nUsing the PicoBT navigation wheel, select the exact miner model:\nMenu ──\u003e Antminer ──\u003e S19 Pro (BM1398)\n\n### Step 3: Execute Single Test Run\nPress the **TEST** button. The PicoBT will execute the following automated sequence:\n1. Powers on EEPROM and reads board serial / calibration data.\n2. Applies domain boost voltage.\n3. Sends RST pulse and counts responding ASIC chips from #1 to #108.\n\n### Step 4: Interpret Screen Results\n\n* **Result 1: ASIC COUNT: 108 / 108 [OK]** ──\u003e Hashboard logic and communication are 100% functional.\n* **Result 2: ASIC COUNT: 0 / 108 [FAIL]** ──\u003e Total failure at Chip #1, LDO #1, or main RST line shorted.\n* **Result 3: ASIC COUNT: 43 / 108 [FAULT AT CHIP 44]** ──\u003e Signal transmits cleanly through Chip #43 but stops at Chip #44.\n\n---\n\n## How to Locate the Physical Chip from Index Number\n\nAntminer hashboard chips are arranged in serpentine voltage domains. Use this quick reference:\n\n```\n[IO Header] ──\u003e Chip #1 ──\u003e Chip #2 ──\u003e Chip #3 ... (Domain 1)\n                                             │\nChip #6 \u003c── Chip #5 \u003c── Chip #4 \u003c────────────┘ (Domain 2)\n```\n\nWhen the PicoBT reports **\"Fault at Chip 44\"**, inspect:\n1. **Chip #44** (Possible dead ASIC chip).\n2. **Chip #43** (Failed CO output pin).\n3. **LDO Regulator between Domain 14 \u0026 15** (Missing 1.8V supply).\n\n---\n\n## Professional Tips for Repair Engineers\n\n* **Always Check LDO Voltages First:** Before replacing a chip identified as faulty by PicoBT, use a multimeter to check the 1.8V and 0.8V test points next to the chip. If 1.8V is missing, replace the LDO IC, not the expensive ASIC chip!\n* **Use Heat Preheating:** When replacing BM1397/BM1398 chips, preheat the bottom of the PCB to **150°C** before applying 350°C hot air from above to prevent PCB delamination.\n\n---\n\n## Frequently Asked Questions (FAQ)\n\n### Q: Can PicoBT test Whatsminer hashboards?\nA: Yes, the PicoBT PT3 supports MicroBT Whatsminer M20, M30, and M50 series hashboards using dedicated Whatsminer adapter cables.\n\n### Q: Why does PicoBT show \"EEPROM Read Error\"?\nA: The 24C02 EEPROM chip near the IO header is corrupted or missing 3.3V power. Re-flash the EEPROM bin file using the PicoBT software.\n\n### Q: Is PicoBT better than Bitmain official test fixture?\nA: PicoBT is faster, more portable, supports multi-brand (Antminer, Whatsminer, Avalon), and does not require complex TF card flashing for every model swap.\n\n### Q: Can I buy a PicoBT tester or diagnostic service in India?\nA: Yes. At [ASICREPAIR.in](https://asicrepair.in/), we use PicoBT PT3 and oscilloscope setups for all repairs. You can send your boards to our [Akola repair lab](https://asicrepair.in/contact/) for expert diagnosis.",
+                                       "category":  "Diagnostics",
+                                       "status":  "published",
+                                       "created_at":  "2026-07-24T13:04:40.633814+00:00",
+                                       "publish_date":  "2026-07-24T13:04:38.266+00:00",
+                                       "seo_title":  "How to Use PicoBT/PT3 Tester for Antminer Hashboard Diagnosis",
+                                       "seo_h1":  "How to Use PicoBT / PT3 Tester for Antminer Hashboard Diagnosis",
+                                       "seo_meta_description":  "Complete guide on using the PicoBT PT3 diagnostic test fixture for Antminer S19/S21 hashboards. Learn signal pinouts, error codes, and chip indexing.",
+                                       "slug":  "how-to-use-picobt-pt3-tester-antminer-hashboard-diagnosis",
+                                       "author_name":  "ASICREPAIR.in Technical Team",
+                                       "author_url":  "https://asicrepair.in"
+                                   },
+                                   {
+                                       "id":  "02d9082d-673e-4e10-8148-9be9b1df8e44",
+                                       "topic_id":  null,
+                                       "title":  "Thermal Paste Replacement Guide for ASIC Miners - Step-by-Step",
+                                       "content":  "# Thermal Paste Replacement Guide for ASIC Miners: Step-by-Step\n\n\u003e **TL;DR:** Replacing dried thermal paste on Antminer and Whatsminer hashboards every **12–18 months** reduces ASIC chip temperatures by **8°C–14°C** and restores lost hashrate. This guide details proper cleaning using 99.9% IPA, applying high-performance thermal paste (≥6.0 W/mK conductivity), and torque-sequencing heatsink screws to prevent chip cracking.\n\n---\n\n## Why Is Thermal Paste Replacement Critical for ASIC Miners?\n\n**Thermal paste degradation** is the primary cause of thermal throttling, high fan speed warnings, and chip failures in ASIC miners operating in hot climates like India.\n\nOver time, continuous 70°C–85°C heat bakes standard factory thermal interface material (TIM) into a dry, chalky solid. Dry TIM develops micro-air gaps that trap heat inside the ASIC silicon die, causing individual chips to exceed **105°C junction temperature** while heatsinks remain lukewarm.\n\n---\n\n## Key Signs Your Miner Needs New Thermal Paste\n\n* **High Chip Temp Delta:** Dashboard shows board temperature at 65°C but chip temperatures spiking above 88°C (Delta \u003e 20°C).\n* **FANS at 100% RPM Constant:** Cooling fans spin at maximum speed (6,500+ RPM) even when ambient room temperature is under 28°C.\n* **Frequent Thermal Shutdowns:** Kernel logs record \"Over max temp, shutdown!\" or \"Temp sensor error\".\n* **Hashrate Degradation:** S19 Pro automatically throttles from 110 TH/s down to 85 TH/s to prevent silicon burnout.\n\n---\n\n## Thermal Material Comparison Matrix\n\n| Property | Standard CPU Paste | High-Performance ASIC Paste | Thermal Pads | Liquid Metal |\n| :--- | :--- | :--- | :--- | :--- |\n| **Thermal Conductivity** | 1.5 – 3.0 W/mK | **6.0 – 12.5 W/mK** | 3.0 – 6.0 W/mK | 73 W/mK |\n| **Viscosity** | Low (Pump-out risk) | **High (Thick / Non-curing)** | Solid sheet | Liquid (Conductive!) |\n| **Electrical Conductive?** | ❌ No | ❌ No | ❌ No | ⚠️ **YES (Dangerous!)** |\n| **Longevity in 24/7 Mining** | 3–6 Months | **18–24 Months** | 12–18 Months | Not Recommended |\n\n\u003e **CAUTION:** Never use liquid metal (Galinstan) on aluminum ASIC heatsinks! Liquid metal instantly corrodes aluminum through gallium amalgams, destroying the heatsink in hours.\n\n---\n\n## Step-by-Step Thermal Paste Replacement Protocol\n\n```\n[1. Disassemble Heatsink] ──\u003e [2. Clean Old Paste (IPA)] ──\u003e [3. Apply Pea-Sized Dots] ──\u003e [4. X-Pattern Cross Torque]\n```\n\n### 1. Disassembly \u0026 Safety\n1. Disconnect all power and signal cables.\n2. Unscrew heatsink mounting spring screws in a diagonal cross-pattern to relieve uneven pressure across the PCB.\n3. Gently twist the heatsink to break the bond of dried paste before lifting. Do NOT pull straight up forcefully.\n\n### 2. Deep Cleaning\n1. Spray 99.9% Pure Isopropyl Alcohol (IPA) onto the heatsink contact surface and ASIC top plates.\n2. Let sit for 60 seconds to soften baked thermal paste.\n3. Wipe clean using lint-free microfiber cloths. Use a soft nylon brush to remove residual paste around SMD capacitors.\n\n### 3. Application Method\n1. Apply a small, pea-sized dot (approx. 2mm diameter) of **TF8 or Shin-Etsu thermal paste** onto the center of each ASIC chip die.\n2. For single large aluminum heatsink plates (e.g., Whatsminer M30S), spread an even 0.2mm layer across the entire contact surface using a plastic spatula.\n\n### 4. Re-assembly \u0026 Torque Sequence\n1. Lower the heatsink alignment pins into position.\n2. Tighten spring screws gradually using an **X-pattern torque sequence** (Center ──\u003e Corners) to ensure flat, bubble-free spread pressure across all 108 chips.\n\n---\n\n## Expected Results After Service\n\nAfter applying fresh high-conductivity paste and cleaning heatsinks, expect:\n* **Temperature Drop:** 8°C to 14°C reduction in peak ASIC chip temperatures.\n* **Fan Speed Reduction:** Fans slow from 100% (6,500 RPM) to ~65% (4,200 RPM), reducing noise by 12 dB.\n* **Hashrate Stability:** Zero thermal throttling dips; steady, continuous hash rate output.\n\n---\n\n## Frequently Asked Questions (FAQ)\n\n### Q: How often should I change thermal paste on ASIC miners in India?\nA: In Indian ambient conditions (especially summer heat), replace thermal paste every **12 to 18 months**. In dusty environments, service every 9 to 12 months alongside deep cleaning.\n\n### Q: Can I use MX-4 or Noctua NT-H1 thermal paste?\nA: Yes, Arctic MX-4 and Noctua NT-H1 work well, but specialized industrial pastes like **Thermalright TF8** or **Shin-Etsu 7783** offer higher viscosity, preventing thermal \"pump-out\" under 24/7 heat cycles.\n\n### Q: Should I use thermal paste or thermal pads for Antminer S19 Pro?\nA: Use high-conductivity thermal paste for the ASIC chip dies and high-density 1.0mm thermal pads for voltage regulator (MOSFET) cooling tracks.\n\n### Q: What happens if I put too much thermal paste?\nA: Excess paste squeezes out onto surrounding SMD components. While non-conductive paste won\u0027t short the board, it attracts dust slurry that can trap moisture during monsoons.\n\n### Q: Where can I buy genuine ASIC thermal paste and supplies in India?\nA: You can purchase high-conductivity thermal paste, pads, and cleaning supplies directly from [ASICREPAIR.in Spare Parts Store](https://asicrepair.in/thermal-paste/) or send your miners to our [Akola maintenance center](https://asicrepair.in/maintenance/) for full servicing.",
+                                       "category":  "Maintenance",
+                                       "status":  "published",
+                                       "created_at":  "2026-07-24T13:04:41.282557+00:00",
+                                       "publish_date":  "2026-07-24T13:04:38.266+00:00",
+                                       "seo_title":  "Thermal Paste Replacement Guide for ASIC Miners – Step-by-Step",
+                                       "seo_h1":  "Thermal Paste Replacement Guide for ASIC Miners: Step-by-Step",
+                                       "seo_meta_description":  "Learn how to replace dried thermal paste on Antminer \u0026 Whatsminer hashboards. Step-by-step IPA cleaning, thermal paste selection, and torque sequencing.",
+                                       "slug":  "thermal-paste-replacement-guide-asic-miners-step-by-step",
+                                       "author_name":  "ASICREPAIR.in Technical Team",
+                                       "author_url":  "https://asicrepair.in"
+                                   },
+                                   {
+                                       "id":  "25fec97e-c1b0-4eeb-857a-cdf529a66ecc",
+                                       "topic_id":  "392a31a1-e480-4e73-b341-2f99f20f7db3",
+                                       "title":  "WhatsMiner M50S++ \"Incomplete Chip Report\"",
+                                       "content":  "# WhatsMiner M50S++ \"Incomplete Chip Report\": A Deep Dive Analysis\n## Introduction to the Issue\nThe WhatsMiner M50S++ is a cryptocurrency mining device that has been reported to have issues with incomplete chip reports, hash board faults, ASIC chip failures, powering problems, and overheating. As a technician, it is essential to understand the root cause of these failures and identify the most effective diagnostic and repair steps.\n\n### Overview of the WhatsMiner M50S++\nThe WhatsMiner M50S++ is a high-performance cryptocurrency mining device that uses ASIC chips to perform complex mathematical calculations. The device consists of multiple hash boards, each containing multiple ASIC chips. The technical specifications of the Whatsminer M50S are as follows:\n* Hashrate: 126 Th/s\n* Power consumption: 3,276 W\n* Energy efficiency: 26 J/TH\n* Availability date: Q3 2022\n\n### Importance of Resolving the Incomplete Chip Report\nResolving the incomplete chip report issue is crucial to ensure the optimal performance and longevity of the WhatsMiner M50S++. An incomplete chip report can lead to reduced hashrates, increased power consumption, and decreased device lifespan.\n\n## Understanding the WhatsMiner M50S++ \n### Theory of Operation\nThe WhatsMiner M50S++ operates as follows:\n1. **Power-On and Initialization**: The device is powered on, and the control board initializes the ASIC chips and hash boards.\n2. **Communication Between ASIC Chips and Control Board**: The ASIC chips communicate with the control board through signal lines, transmitting data and control signals.\n3. **Calculation and Hashing Process**: The ASIC chips perform complex mathematical calculations, such as SHA-256, to solve cryptocurrency algorithms. The calculated data is hashed and transmitted to the control board, which verifies the results.\n4. **Cooling System**: The device\u0027s cooling system, such as fans or heat sinks, dissipates heat generated by the ASIC chips and other components.\n\n## Diagnostics\n### Identifying the Root Cause of the Issue\nThe common failure points of the WhatsMiner M50S++ include:\n1. **Incomplete Chip Report**\n2. **Hash Board Faults**\n3. **ASIC Chip Failure**\n4. **Powering Issues of the Hash Board**\n5. **Overheating Problems**\n\nTo diagnose the issue, the following steps can be taken:\n1. **Incomplete Chip Report**: Measure the RXD and TXD signal voltages of the first and last chips.\n2. **Hash Board Faults**: Use the Whatsminer M30 M50 test fixture to detect and locate hash board faults.\n3. **ASIC Chip Failure**: Check the powering of the hash board and perform a general test (test-readchipid) and a performance test (test-hashboard).\n4. **Powering Issues of the Hash Board**: Measure the powering of the hash board and check the voltage regulators.\n5. **Overheating Problems**: Check the cooling system and ensure that it is functioning correctly.\n\n## Tools Needed\n### Essential Diagnostic Tools\nThe following tools are essential for diagnosing and repairing the WhatsMiner M50S++:\n1. **Multimeter**: For measuring signal voltages and powering of the hash board.\n2. **Thermal Camera**: For identifying hotspots and overheating issues.\n3. **Power Supply Tester**: For testing the power supply and voltage regulators.\n\n## Step-by-Step Repair\n### Visual Inspection and Preparation\nBefore starting the repair process, perform a visual inspection of the device to identify any physical damage, dust buildup, or signs of overheating.\n\n### Diagnostic Steps\n1. **Measuring RXD and TXD Signal Voltages**: Measure the RXD and TXD signal voltages of the first and last chips.\n2. **Checking Power Supply and Voltage Regulators**: Check the powering of the hash board and measure the voltage regulators.\n3. **Inspecting Cooling System**: Check the cooling system and ensure that it is functioning correctly.\n4. **Using the Whatsminer M30 M50 Test Fixture**: Use the test fixture to detect and locate hash board faults.\n\n### Repair and Replacement of Faulty Components\nOnce the faulty component has been identified, replace it with a new one and reassemble the device.\n\n## Logical Gaps in the Repair Steps\nThe following logical gaps were identified in the repair steps:\n1. **Lack of Visual Inspection**: The diagnostic steps do not include a visual inspection of the device, which can help identify any physical damage, dust buildup, or signs of overheating.\n2. **No Thermal Imaging**: Thermal imaging can help identify hotspots on the device, which can indicate overheating problems or faulty components.\n3. **No Power Supply Testing**: The diagnostic steps do not include testing of the power supply, which can help identify any power-related issues.\n4. **No Firmware Updates**: The diagnostic steps do not include checking for firmware updates, which can help resolve any software-related issues.\n\n## Pro Tips for Enhanced Repair and Diagnostic Process\n1. **Using a Thermal Camera**: Use a thermal camera to identify hotspots on the device, which can help diagnose overheating problems or faulty components.\n2. **Checking for Firmware Updates**: Regularly check for firmware updates to ensure that the device is running with the latest software.\n3. **Using a Power Supply Tester**: Use a power supply tester to identify any power-related issues, such as voltage drops or current fluctuations.\n4. **Performing a Visual Inspection**: Perform a visual inspection of the device to identify any physical damage, dust buildup, or signs of overheating.\n\n## Frequently Asked Questions\n### What are the common causes of the incomplete chip report?\nThe common causes of the incomplete chip report include communication failures between the ASIC chips and the control board, hash board faults, ASIC chip failure, powering issues of the hash board, and overheating problems.\n\n### How can I prevent overheating problems in my WhatsMiner M50S++?\nTo prevent overheating problems, ensure that the cooling system is functioning correctly, and the device is operated in a well-ventilated area. Regularly clean the device and ensure that the air vents are not blocked.\n\n### What are the benefits of using a thermal camera in the diagnostic process?\nUsing a thermal camera can help identify hotspots on the device, which can indicate overheating problems or faulty components. This can help diagnose issues more efficiently and effectively.\n\n### How often should I check for firmware updates?\nIt is recommended to check for firmware updates regularly, ideally every 2-3 months, to ensure that the device is running with the latest software and to resolve any software-related issues.",
+                                       "category":  null,
+                                       "status":  "published",
+                                       "created_at":  "2026-01-23T14:23:06.02611+00:00",
+                                       "publish_date":  "2026-01-26T10:32:17.002+00:00",
+                                       "seo_title":  null,
+                                       "seo_h1":  null,
+                                       "seo_meta_description":  null,
+                                       "slug":  "whatsminer-m50s-incomplete-chip-report-",
+                                       "author_name":  "ASICREPAIR.in Team",
+                                       "author_url":  "https://asicrepair.in"
+                                   },
+                                   {
+                                       "id":  "7b270a1c-257d-439d-a61c-c8cf3bc19a46",
+                                       "topic_id":  "9f54afb0-59b6-450e-8844-42e8009c10a9",
+                                       "title":  "ASIC Miner PSU Not Starting – Complete Diagnosis Guide",
+                                       "content":  "# ASIC Miner PSU Not Starting – Complete Diagnosis Guide\n## Introduction to ASIC Miner PSU Issues\n### Understanding the Importance of PSU in ASIC Miners\nThe Power Supply Unit (PSU) is a critical component of an Application-Specific Integrated Circuit (ASIC) miner, responsible for providing the necessary power to the miner\u0027s components. A failure in the PSU can lead to significant downtime and revenue loss. The Antminer series of ASIC miners, including the S19, L7, S19j Pro, and S19e XP Hydro, rely on high-power PSUs to operate efficiently.\n\n### Overview of Common Failure Points\nCommon failure points in ASIC miner PSUs include power supply issues, thermal management problems, and component failures. These failures can be caused by a variety of factors, including overvoltage or undervoltage conditions, inadequate current supply, poor power quality, inadequate cooling or airflow, and component quality issues.\n\n## Diagnosing ASIC Miner PSU Issues\n### Root Cause Analysis\nThe root cause of an ASIC miner PSU failure can be complex and multifaceted. A thorough analysis of the failure is necessary to identify the underlying cause and develop an effective repair strategy.\n\n#### Power Supply Issues\nPower supply issues can be caused by a variety of factors, including:\n##### Overvoltage and Undervoltage Conditions\nOvervoltage or undervoltage conditions can cause the PSU to malfunction or shut down. This can be due to a faulty voltage regulator, a malfunctioning transformer, or a problem with the input power supply.\n##### Inadequate Current Supply\nInadequate current supply can lead to overheating or component failure. This can be due to a faulty current regulator, a malfunctioning transformer, or a problem with the input power supply.\n##### Poor Power Quality\nPoor power quality, such as high-frequency noise or voltage spikes, can damage the PSU or other components. This can be due to a faulty power supply, a malfunctioning transformer, or a problem with the input power supply.\n\n#### Thermal Management Problems\nThermal management problems can be caused by a variety of factors, including:\n##### Inadequate Cooling and Airflow\nInadequate cooling or airflow can cause components to overheat, leading to premature failure. This can be due to a faulty fan, a blocked air vent, or a problem with the heat sink.\n##### Blocked or Clogged Fans, Heat Sinks, or Air Vents\nBlocked or clogged fans, heat sinks, or air vents can exacerbate thermal issues. This can be due to a buildup of dust or debris, a malfunctioning fan, or a problem with the heat sink.\n\n#### Component Failures\nComponent failures can be caused by a variety of factors, including:\n##### Component Quality Issues\nComponent quality issues can affect the PSU\u0027s reliability and lifespan. This can be due to a faulty capacitor, a malfunctioning resistor, or a problem with the IC.\n##### Manufacturing Defects\nManufacturing defects, such as soldering issues or PCB defects, can cause component failure. This can be due to a problem with the manufacturing process, a faulty component, or a problem with the PCB.\n\n## Diagnostics\n### Identifying Symptoms of PSU Failure\nSymptoms of PSU failure can include:\n* The PSU does not turn on\n* The PSU produces a burning smell\n* The PSU produces a loud noise\n* The PSU is overheating\n* The miner is not producing the expected hash rate\n\n### Using Diagnostic Tools\nDiagnostic tools, such as thermal imaging cameras, power quality analyzers, and multimeters, can be used to identify the root cause of the failure.\n\n#### Thermal Imaging Cameras\nThermal imaging cameras can be used to identify thermal hotspots and potential issues.\n#### Power Quality Analyzers\nPower quality analyzers can be used to monitor the input power and identify any issues that may be affecting the PSU or other components.\n#### Multimeters and Oscilloscopes\nMultimeters and oscilloscopes can be used to test the voltage, current, and power factor of the PSU.\n\n## Tools Needed for Repair\n### Essential Tools\nEssential tools for repair include:\n#### Screwdrivers and Pliers\nScrewdrivers and pliers are necessary for disassembling the PSU and accessing the internal components.\n#### Wire Strippers and Cutters\nWire strippers and cutters are necessary for repairing or replacing damaged wires.\n#### Thermal Imaging Camera\nA thermal imaging camera is necessary for identifying thermal hotspots and potential issues.\n\n### Optional Tools\nOptional tools for repair include:\n#### Power Quality Analyzer\nA power quality analyzer is useful for monitoring the input power and identifying any issues that may be affecting the PSU or other components.\n#### Multimeter and Oscilloscope\nA multimeter and oscilloscope are useful for testing the voltage, current, and power factor of the PSU.\n\n## Step-by-Step Repair\n### Preparing for Repair\nBefore starting the repair, it is necessary to:\n#### Safety Precautions\nTake safety precautions, such as wearing protective gear and ensuring the PSU is disconnected from the power source.\n#### Grounding and Anti-Static Measures\nTake grounding and anti-static measures, such as using an anti-static wrist strap and ensuring the work surface is grounded.\n\n### Repairing Power Supply Issues\nTo repair power supply issues:\n#### Replacing Faulty Components\nReplace faulty components, such as capacitors or resistors.\n#### Adjusting Voltage and Current Settings\nAdjust the voltage and current settings to ensure the PSU is operating within the recommended range.\n\n### Repairing Thermal Management Problems\nTo repair thermal management problems:\n#### Cleaning and Replacing Fans and Heat Sinks\nClean and replace fans and heat sinks to ensure proper airflow and cooling.\n#### Applying Thermal Paste and Pads\nApply thermal paste and pads to ensure proper heat transfer.\n\n### Repairing Component Failures\nTo repair component failures:\n#### Replacing Capacitors and Resistors\nReplace faulty capacitors and resistors.\n#### Replacing ICs and Other Components\nReplace faulty ICs and other components.\n\n## Pro Tips for Maintenance and Troubleshooting\n### Regular Maintenance Tasks\nRegular maintenance tasks include:\n#### Cleaning and Inspecting the PSU\nClean and inspect the PSU to ensure proper airflow and cooling.\n#### Monitoring Power Quality\nMonitor the power quality to identify any issues that may be affecting the PSU or other components.\n\n### Troubleshooting Common Issues\nCommon issues include:\n#### Overheating and Thermal Issues\nOverheating and thermal issues can be caused by a variety of factors, including inadequate cooling or airflow, blocked or clogged fans, heat sinks, or air vents.\n#### Power Supply Problems and Component Failures\nPower supply problems and component failures can be caused by a variety of factors, including faulty components, manufacturing defects, or power quality issues.\n\n## Theory of Operation\n### Input Power and Filtering\nThe PSU receives input power from the mains, which is then filtered and rectified to produce a high-voltage DC output.\n### Power Conversion and Output\nThe DC output is then converted to a lower-voltage DC output using a DC-DC converter, such as a buck or boost converter.\n### Control and Monitoring\nThe PSU is controlled and monitored by the control board, which regulates the output voltage, current, and power factor.\n\n## Component-Level Theory of Operation\n### Transformer and Rectifier\nThe transformer steps up or steps down the input voltage to the desired output voltage. The rectifier converts the AC output from the transformer to a DC output.\n### Filter Capacitors and DC-DC Converter\nThe filter capacitors smooth out the DC output and reduce ripple voltage. The DC-DC converter converts the high-voltage DC output to a lower-voltage DC output.\n### Control IC and Protection Circuits\nThe control IC regulates the output voltage, current, and power factor, and provides protection against overvoltage, undervoltage, and overcurrent conditions.\n\n## Frequently Asked Questions\n### What are the common causes of ASIC miner PSU failure?\nCommon causes of ASIC miner PSU failure include power supply issues, thermal management problems, and component failures.\n### How can I prevent PSU failure and minimize downtime?\nTo prevent PSU failure and minimize downtime, it is necessary to perform regular maintenance tasks, such as cleaning and inspecting the PSU, and monitoring power quality.\n### What are the best practices for repairing and maintaining the ASIC miner PSU?\nBest practices for repairing and maintaining the ASIC miner PSU include taking safety precautions, using diagnostic tools, and following proper repair procedures.\n\nBy following this guide, technicians can diagnose and repair issues with the ASIC miner PSU, minimizing downtime and optimizing performance. Remember to always take safety precautions and use diagnostic tools to identify the root cause of the failure. Regular maintenance tasks, such as cleaning and inspecting the PSU, and monitoring power quality, can help prevent PSU failure and minimize downtime.[Stabilizers](/parts/stabilizers)[Power Supplies (PSU)](/parts/power-supplies)",
+                                       "category":  "ASIC Repair Insights",
+                                       "status":  "published",
+                                       "created_at":  "2026-01-29T11:08:05.152272+00:00",
+                                       "publish_date":  "2026-01-29T11:08:50.183+00:00",
+                                       "seo_title":  null,
+                                       "seo_h1":  null,
+                                       "seo_meta_description":  null,
+                                       "slug":  "asic-miner-psu-not-starting-complete-diagnosis-guide",
+                                       "author_name":  "ASICREPAIR.in Team",
+                                       "author_url":  "https://asicrepair.in"
+                                   }
+                               ],
+                     "Count":  8
+                 },
+    "topics":  {
+                   "value":  [
+                                 {
+                                     "id":  "1ead9172-a741-4438-9234-41ebce72f499",
+                                     "subcategory_id":  "bee35d68-3103-4659-a899-80455052cc1c",
+                                     "title":  "Antminer S17 Pro Hashboard Failure",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "4a43fb75-e3ff-4db2-b757-b5eb0af8c80e",
+                                     "subcategory_id":  "bee35d68-3103-4659-a899-80455052cc1c",
+                                     "title":  "Antminer S9 Hashboard Dead",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "0ec814ce-a745-4901-b9c5-2c6ea63c1b61",
+                                     "subcategory_id":  "3be5a032-cac7-4777-b55f-35203d97e3ab",
+                                     "title":  "Antminer T21 Hashboard Not Responding",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "ab3c6925-7053-4ae5-aa8a-2fac2530f51d",
+                                     "subcategory_id":  "3be5a032-cac7-4777-b55f-35203d97e3ab",
+                                     "title":  "Antminer T19 \"0 Hashrate\" on Chain 2",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "83beed00-8758-4682-9cde-58ea62f6e7c0",
+                                     "subcategory_id":  "8fc3c70c-c467-4877-99bc-f61fb0cac769",
+                                     "title":  "Antminer KA3 Hashboard Error",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "42cafb79-5837-4335-b236-af722b330d36",
+                                     "subcategory_id":  "8fc3c70c-c467-4877-99bc-f61fb0cac769",
+                                     "title":  "Antminer K7 Board Not Detected",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "48d1aa8a-9a28-4ebd-83d3-76939a0a81e4",
+                                     "subcategory_id":  "459f2def-4d4c-4dd2-8d20-dc103eeecd9e",
+                                     "title":  "Antminer D9 Hashboard Failure",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "3766dd31-214a-4c1f-acf4-0d3181f8c4b7",
+                                     "subcategory_id":  "459f2def-4d4c-4dd2-8d20-dc103eeecd9e",
+                                     "title":  "Antminer D7 \"ASICNG\" Error",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "48d02157-7581-433d-a61d-f0b76f933c90",
+                                     "subcategory_id":  "302fa86f-5a95-4642-900b-e8c992f4dd45",
+                                     "title":  "WhatsMiner M60S Hashboard Not Detected",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "2f208595-b46d-499c-a7b6-b220562bfd0a",
+                                     "subcategory_id":  "302fa86f-5a95-4642-900b-e8c992f4dd45",
+                                     "title":  "WhatsMiner M50S Hashboard Error 202/250",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "5dccf2f9-ebee-4871-9e62-6e2923b78bf9",
+                                     "subcategory_id":  "302fa86f-5a95-4642-900b-e8c992f4dd45",
+                                     "title":  "WhatsMiner M30S++ Chain Missing",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "0b22e1de-ea5d-4fdf-86c5-49d88520f6f9",
+                                     "subcategory_id":  "302fa86f-5a95-4642-900b-e8c992f4dd45",
+                                     "title":  "WhatsMiner M30S+ Zero Hashrate",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "4084f5e3-bc95-4d86-9877-9fea617fc514",
+                                     "subcategory_id":  "302fa86f-5a95-4642-900b-e8c992f4dd45",
+                                     "title":  "WhatsMiner M30S Hashboard Slot Empty",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "3cae4575-9a09-49ea-9932-6d1551e4a77f",
+                                     "subcategory_id":  "302fa86f-5a95-4642-900b-e8c992f4dd45",
+                                     "title":  "WhatsMiner M31S \"Low Hash Rate\"",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "c923b25e-9aa3-438d-b966-311fcb143d06",
+                                     "subcategory_id":  "302fa86f-5a95-4642-900b-e8c992f4dd45",
+                                     "title":  "WhatsMiner M21S Hashboard Failure",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "6da482f9-cef6-4ae6-82d6-d5f81d90c047",
+                                     "subcategory_id":  "302fa86f-5a95-4642-900b-e8c992f4dd45",
+                                     "title":  "WhatsMiner M20S Board Not Working",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "6855e9fa-2f23-467f-8bd3-422af193fd7b",
+                                     "subcategory_id":  "302fa86f-5a95-4642-900b-e8c992f4dd45",
+                                     "title":  "WhatsMiner M50 Series Test Fixture Guide",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "6cbbf535-5ac0-4d12-b411-5ec7da919209",
+                                     "subcategory_id":  "302fa86f-5a95-4642-900b-e8c992f4dd45",
+                                     "title":  "WhatsMiner M30 Series Hashboard Repair Sequence",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "8555aa28-a5d1-405b-8bf2-707f377bb47f",
+                                     "subcategory_id":  "302fa86f-5a95-4642-900b-e8c992f4dd45",
+                                     "title":  "WhatsMiner Control Board Issues",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "972a4627-8b20-4579-bcfb-dd025e7e82ce",
+                                     "subcategory_id":  "302fa86f-5a95-4642-900b-e8c992f4dd45",
+                                     "title":  "WhatsMiner Error Codes 540/541/542",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "1be981af-d5f8-4875-abac-df38f4db68fc",
+                                     "subcategory_id":  "302fa86f-5a95-4642-900b-e8c992f4dd45",
+                                     "title":  "WhatsMiner Thermal Interface Material (TIM) Failure",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "7ec2288b-4695-4c91-885b-39bab063aed0",
+                                     "subcategory_id":  "302fa86f-5a95-4642-900b-e8c992f4dd45",
+                                     "title":  "WhatsMiner D1 Decred Miner Hashboard Fix",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "1da5da21-48d2-47cc-9bf0-99fefa392bb9",
+                                     "subcategory_id":  "d4188711-35d1-43f8-9b7d-78ecf28b51d1",
+                                     "title":  "Avalon A1366 Chain Missing",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "31bf01a5-84e5-412e-8019-3e190ce26f8d",
+                                     "subcategory_id":  "d4188711-35d1-43f8-9b7d-78ecf28b51d1",
+                                     "title":  "Avalon A1246 \"0 ASIC\" Error",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "a91de77e-d70e-456e-a006-bf2dc0a6c564",
+                                     "subcategory_id":  "d4188711-35d1-43f8-9b7d-78ecf28b51d1",
+                                     "title":  "Avalon A1166 Pro Hashboard Dead",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "9d5a759c-a05b-4bf4-8ac3-7f28e7182518",
+                                     "subcategory_id":  "d4188711-35d1-43f8-9b7d-78ecf28b51d1",
+                                     "title":  "Avalon Miner AUC Controller Issues",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "a00373dd-32eb-405a-aaad-b5f9c248cd3d",
+                                     "subcategory_id":  "dbe85f57-7afa-455f-bf8f-8b17021b20d7",
+                                     "title":  "Antminer S21/S19 Thermal Shutdown – Causes \u0026 Solutions",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "dea75b40-5097-43d5-ab3a-4fbf2fa73f60",
+                                     "subcategory_id":  "dbe85f57-7afa-455f-bf8f-8b17021b20d7",
+                                     "title":  "WhatsMiner M50/M30 High Temp Warning – Fan \u0026 Airflow Optimization",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "c4730f1b-a28c-42a8-b371-5825e4e41f50",
+                                     "subcategory_id":  "dbe85f57-7afa-455f-bf8f-8b17021b20d7",
+                                     "title":  "ASIC Miner Dust Cleaning – Compressed Air vs Ultrasonic Methods",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "b46085c4-865c-499a-a978-7234a2faaf07",
+                                     "subcategory_id":  "dbe85f57-7afa-455f-bf8f-8b17021b20d7",
+                                     "title":  "Mining Farm Cooling Solutions India – AC, Evaporative, Immersion",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "58d92e6b-07f5-435d-b134-7dd1309f5b4a",
+                                     "subcategory_id":  "dbe85f57-7afa-455f-bf8f-8b17021b20d7",
+                                     "title":  "Fan Replacement Guide: Antminer vs WhatsMiner vs Avalon",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "4b696636-eb73-4328-b235-69311c88e16a",
+                                     "subcategory_id":  "dbe85f57-7afa-455f-bf8f-8b17021b20d7",
+                                     "title":  "Overclocking Gone Wrong – When Mining Profits Turn to Smoke",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "6358976b-39b5-4f75-83bf-38852ef6f2a3",
+                                     "subcategory_id":  "dbe85f57-7afa-455f-bf8f-8b17021b20d7",
+                                     "title":  "Heatsink Damage Recognition – When to Replace vs Repair",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "4d2008ca-4e9d-43a2-890b-571b69ad680c",
+                                     "subcategory_id":  "dbe85f57-7afa-455f-bf8f-8b17021b20d7",
+                                     "title":  "ASIC Miner Temperature Monitoring – Tools \u0026 Alert Systems",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "4efec864-3f85-41e2-936e-6a263775e03d",
+                                     "subcategory_id":  "dbe85f57-7afa-455f-bf8f-8b17021b20d7",
+                                     "title":  "Immersion Cooling for ASIC Miners – Is It Worth It in India?",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "347993da-5017-497e-8800-3b5494bf1291",
+                                     "subcategory_id":  "dbe85f57-7afa-455f-bf8f-8b17021b20d7",
+                                     "title":  "Case Study: Mining Farm Fire Prevention After Overheating Incident",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "ab56acfa-0a5b-430b-8f52-7e07effc7a1e",
+                                     "subcategory_id":  "c3d435c7-fb8b-4cef-8d56-a23fbbf09d3d",
+                                     "title":  "ASIC Miner Low Hashrate Diagnosis – Complete Troubleshooting Flowchart",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "977ffda0-5887-4652-ae8f-3a9e1778839c",
+                                     "subcategory_id":  "c3d435c7-fb8b-4cef-8d56-a23fbbf09d3d",
+                                     "title":  "Antminer S19/S21 Dropping Hashrate – Thermal Throttling Detection",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "cb43b054-fbec-4e3e-a40c-95d13bb30747",
+                                     "subcategory_id":  "c3d435c7-fb8b-4cef-8d56-a23fbbf09d3d",
+                                     "title":  "WhatsMiner M50 Unstable Hashrate – Firmware \u0026 Voltage Checks",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "e2fdc9a4-5a6f-403b-84d4-60a6de046221",
+                                     "subcategory_id":  "c3d435c7-fb8b-4cef-8d56-a23fbbf09d3d",
+                                     "title":  "High Reject Rate on Mining Pool – Network vs Hardware Issues",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "755a39e4-0ece-4aee-b0b3-a66a5a2a476d",
+                                     "subcategory_id":  "c3d435c7-fb8b-4cef-8d56-a23fbbf09d3d",
+                                     "title":  "Power Supply Causing Low Hashrate – Voltage Fluctuation Guide",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "3721f4a4-4d77-4aca-9fb5-11d97af67f14",
+                                     "subcategory_id":  "c3d435c7-fb8b-4cef-8d56-a23fbbf09d3d",
+                                     "title":  "Hashboard Running at 50% Capacity – Partial Chip Failure Diagnosis",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "a4b8a2da-a565-419e-a2f8-81ca2079b53e",
+                                     "subcategory_id":  "c3d435c7-fb8b-4cef-8d56-a23fbbf09d3d",
+                                     "title":  "Mining Pool Stratum Connection Issues – Firewall \u0026 Port Settings India",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "e9b60cd6-a924-4f46-aea0-41a4b86ae00b",
+                                     "subcategory_id":  "c3d435c7-fb8b-4cef-8d56-a23fbbf09d3d",
+                                     "title":  "ASIC Miner Firmware Corruption – Recovery \u0026 Reflashing Guide",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "f0cf8e79-da79-4335-aade-e325c9485d4e",
+                                     "subcategory_id":  "c3d435c7-fb8b-4cef-8d56-a23fbbf09d3d",
+                                     "title":  "Aging ASIC Components – When Capacitors \u0026 Resistors Fail",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "392a31a1-e480-4e73-b341-2f99f20f7db3",
+                                     "subcategory_id":  "302fa86f-5a95-4642-900b-e8c992f4dd45",
+                                     "title":  "WhatsMiner M50S++ \"Incomplete Chip Report\"",
+                                     "status":  "done",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "41bdaba0-d1ac-44a1-8942-33aef7eb95d6",
+                                     "subcategory_id":  "28b2fe9c-e0d5-4113-be80-a34458e4ad13",
+                                     "title":  "Antminer L7 Hashboard Detection Failed",
+                                     "status":  "done",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "f938d1f7-7eb1-4593-af93-01d60a540c38",
+                                     "subcategory_id":  "bee35d68-3103-4659-a899-80455052cc1c",
+                                     "title":  "Antminer S19 XP Hashboard Missing",
+                                     "status":  "done",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "5eaf55d5-dd7c-47bd-97df-634930fdb5a0",
+                                     "subcategory_id":  "bee35d68-3103-4659-a899-80455052cc1c",
+                                     "title":  "Antminer S19 Pro \"Find 0 ASIC\"",
+                                     "status":  "done",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "ee9c1bc4-8f1b-4d82-b286-9e5ebc2caeae",
+                                     "subcategory_id":  "bee35d68-3103-4659-a899-80455052cc1c",
+                                     "title":  "Antminer S17+ \"Missing Chain\" Error",
+                                     "status":  "done",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "f3d97199-8ea5-4133-ac57-a4a75a0fe892",
+                                     "subcategory_id":  "28b2fe9c-e0d5-4113-be80-a34458e4ad13",
+                                     "title":  "Antminer L3+ Hashboard Not Working",
+                                     "status":  "done",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "159d61d5-7c50-4017-ad7a-f884000a3d54",
+                                     "subcategory_id":  "c805a7a5-d1d1-4a30-8761-5e3308896e70",
+                                     "title":  "Antminer E9 Pro Hashboard Dead",
+                                     "status":  "done",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "3ea32de8-a043-4eea-8533-55f2097ae6aa",
+                                     "subcategory_id":  "28b2fe9c-e0d5-4113-be80-a34458e4ad13",
+                                     "title":  "Antminer L3++ Chain Missing",
+                                     "status":  "done",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "5a952664-e367-493d-a149-002ada9824f3",
+                                     "subcategory_id":  "d4188711-35d1-43f8-9b7d-78ecf28b51d1",
+                                     "title":  "Avalon A1466 Hashboard Not Detected",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "3c255c52-482a-4b78-9abe-16e9ac336699",
+                                     "subcategory_id":  "bee35d68-3103-4659-a899-80455052cc1c",
+                                     "title":  "Antminer S19j Pro Hashboard Slot Empty",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "b9ecd415-f803-4bc4-bb73-f71b4e0e41b1",
+                                     "subcategory_id":  "bee35d68-3103-4659-a899-80455052cc1c",
+                                     "title":  "Antminer S19 Hydro Chain Not Detected",
+                                     "status":  "done",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "1be526b1-b513-4a4c-9815-15cc589b20e1",
+                                     "subcategory_id":  "bee35d68-3103-4659-a899-80455052cc1c",
+                                     "title":  "Antminer S21 Hydro \"0 ASIC Chip\" Error",
+                                     "status":  "done",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "e7c9fa85-7863-4924-883d-1dc2c1af9a55",
+                                     "subcategory_id":  "0e3d7441-82a0-43fd-845d-fb7070b19308",
+                                     "title":  "How to Use PicoBT/PT3 Tester for Antminer Hashboard Diagnosis",
+                                     "status":  "done",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "7f04961e-24ce-4dd4-9fd8-a7862e8a2c9c",
+                                     "subcategory_id":  "dbe85f57-7afa-455f-bf8f-8b17021b20d7",
+                                     "title":  "Thermal Paste Replacement Guide for ASIC Miners – Step-by-Step",
+                                     "status":  "done",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "ef0b9fad-192c-4118-b980-987a57ff3a12",
+                                     "subcategory_id":  "c3d435c7-fb8b-4cef-8d56-a23fbbf09d3d",
+                                     "title":  "Case Study: Restoring S19 Pro from 80 TH/s to 110 TH/s",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "2281c870-0847-4098-a9f3-635cb3d69018",
+                                     "subcategory_id":  "670e0d85-3d30-4e80-be87-8b61ddeaafb2",
+                                     "title":  "Power Surge Damage to ASIC Miners – Prevention \u0026 Recovery India",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "1fd985e3-a95a-425e-b7ac-2538fb33f6db",
+                                     "subcategory_id":  "670e0d85-3d30-4e80-be87-8b61ddeaafb2",
+                                     "title":  "Voltage Stabilizer Selection for Mining Farm – India Power Grid",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "52894cc3-679a-4082-8c79-5561ba0e42a7",
+                                     "subcategory_id":  "670e0d85-3d30-4e80-be87-8b61ddeaafb2",
+                                     "title":  "UPS for ASIC Miners – Is It Necessary? Cost-Benefit Analysis",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "9730a404-3ebb-488c-9698-bcc3521b5919",
+                                     "subcategory_id":  "670e0d85-3d30-4e80-be87-8b61ddeaafb2",
+                                     "title":  "PSU Fan Failure Leading to Miner Shutdown – Early Warning Signs",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "da1a6ff6-a0bc-4afb-9d78-2ae26ed64eb0",
+                                     "subcategory_id":  "670e0d85-3d30-4e80-be87-8b61ddeaafb2",
+                                     "title":  "Replacing Bitmain PSU with Third-Party – Compatibility Guide",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "635e98ad-2ace-4a0f-b22b-13d5441647bc",
+                                     "subcategory_id":  "670e0d85-3d30-4e80-be87-8b61ddeaafb2",
+                                     "title":  "Case Study: Mining Farm Power Infrastructure Setup in Gujarat",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "ea873dc9-5fdd-47ff-84ef-76af625983d8",
+                                     "subcategory_id":  "87aba6a6-7fd9-41e8-bb00-636bfc3760a4",
+                                     "title":  "Summer Mining Guide: Keeping Miners Cool in 45°C Heat",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "a8461b46-68f7-4ea4-a55a-b044bb3bbe81",
+                                     "subcategory_id":  "87aba6a6-7fd9-41e8-bb00-636bfc3760a4",
+                                     "title":  "Winter Mining Advantages in North India – Optimal Cooling Season",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "71b6409c-d97f-4167-b8a4-2698f6c1ea43",
+                                     "subcategory_id":  "87aba6a6-7fd9-41e8-bb00-636bfc3760a4",
+                                     "title":  "Dust Storm Damage to Mining Equipment – Rajasthan \u0026 Desert Areas",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "1767947b-7bee-4270-a5a1-7b3079967ac6",
+                                     "subcategory_id":  "87aba6a6-7fd9-41e8-bb00-636bfc3760a4",
+                                     "title":  "Power Outage Recovery: Restarting Mining Farm After Grid Failure",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "647f4baf-3bd7-4ce5-936d-1ee3cdf8c6a7",
+                                     "subcategory_id":  "87aba6a6-7fd9-41e8-bb00-636bfc3760a4",
+                                     "title":  "Lightning Strike Protection for Mining Farms – Grounding \u0026 Surge",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "1feaf851-798d-4699-8e2c-ccfb76d3f474",
+                                     "subcategory_id":  "87aba6a6-7fd9-41e8-bb00-636bfc3760a4",
+                                     "title":  "Corrosion on ASIC Hashboards – Coastal Area Mining Challenges",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "475ca6db-807f-46dd-a821-5385af1830d8",
+                                     "subcategory_id":  "87aba6a6-7fd9-41e8-bb00-636bfc3760a4",
+                                     "title":  "Post-Flood Miner Recovery – Water Damage Assessment \u0026 Repair",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "4e063b18-c508-4c14-a9c0-b86ed3cc3140",
+                                     "subcategory_id":  "87aba6a6-7fd9-41e8-bb00-636bfc3760a4",
+                                     "title":  "Bitcoin Halving Impact on Repair Decisions – 2024/2028 Planning",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "5f669796-2556-40d5-a802-d061dc6430aa",
+                                     "subcategory_id":  "92585bcb-3ec9-4a25-be33-3cf8a92b2078",
+                                     "title":  "Repair vs Replace: When to Fix ASIC Miners \u0026 When to Sell for Parts",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "729b1c4d-3e59-42e6-9c75-7830d0e0784b",
+                                     "subcategory_id":  "92585bcb-3ec9-4a25-be33-3cf8a92b2078",
+                                     "title":  "ASIC Miner Repair Cost Breakdown India – What to Expect",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "b8198ba3-d754-46e9-b3d7-23de93b958bf",
+                                     "subcategory_id":  "92585bcb-3ec9-4a25-be33-3cf8a92b2078",
+                                     "title":  "Finding Reliable ASIC Repair Services in India – Red Flags to Avoid",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "05929956-c1a1-4703-aa7a-9804955b8086",
+                                     "subcategory_id":  "92585bcb-3ec9-4a25-be33-3cf8a92b2078",
+                                     "title":  "ASIC Miner Spare Parts Sourcing in India – Trusted Suppliers",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "491f109e-746e-4b2a-8fd6-8e21be09e524",
+                                     "subcategory_id":  "92585bcb-3ec9-4a25-be33-3cf8a92b2078",
+                                     "title":  "Warranty Considerations: Bitmain, MicroBT \u0026 Canaan Policies",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "d65e3655-8fde-4a68-8e6f-75784b11650a",
+                                     "subcategory_id":  "92585bcb-3ec9-4a25-be33-3cf8a92b2078",
+                                     "title":  "Setting Up an ASIC Repair Lab – Essential Tools \u0026 Equipment",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "53ca9462-5a7b-4c1d-b64d-c506c1d845b6",
+                                     "subcategory_id":  "92585bcb-3ec9-4a25-be33-3cf8a92b2078",
+                                     "title":  "Bulk Miner Repair for Mining Farms – Turnaround Time Optimization",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "0ff6fcf1-e58e-4718-8baa-081200f47df0",
+                                     "subcategory_id":  "92585bcb-3ec9-4a25-be33-3cf8a92b2078",
+                                     "title":  "Selling Broken Miners: Salvage Value \u0026 Parts Marketplace",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "708c0819-1801-4926-aa99-65975c80792b",
+                                     "subcategory_id":  "92585bcb-3ec9-4a25-be33-3cf8a92b2078",
+                                     "title":  "Case Study: ASICREPAIR.IN – Our Repair Process \u0026 Success Stories",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "9f54afb0-59b6-450e-8844-42e8009c10a9",
+                                     "subcategory_id":  "670e0d85-3d30-4e80-be87-8b61ddeaafb2",
+                                     "title":  "ASIC Miner PSU Not Starting – Complete Diagnosis Guide",
+                                     "status":  "done",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "cf589565-e136-4ff3-beba-b19fb2fbeddb",
+                                     "subcategory_id":  "2445a8fb-c3f3-42f5-9a3b-ab723f3c60db",
+                                     "title":  "When Hashboard Not Detected Needs Professional Repair",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-02-06T13:43:59.744878+00:00",
+                                     "updated_at":  "2026-02-06T13:43:59.744878+00:00"
+                                 },
+                                 {
+                                     "id":  "8690d282-1a9e-4a04-8268-93a5811cdcf0",
+                                     "subcategory_id":  "2445a8fb-c3f3-42f5-9a3b-ab723f3c60db",
+                                     "title":  "How ASIC Repair Diagnostics Are Done at Chip Level",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-02-06T13:44:00.350311+00:00",
+                                     "updated_at":  "2026-02-06T13:44:00.350311+00:00"
+                                 },
+                                 {
+                                     "id":  "2d8ed671-1052-41a2-b06d-5a903a881fbb",
+                                     "subcategory_id":  "2445a8fb-c3f3-42f5-9a3b-ab723f3c60db",
+                                     "title":  "Why Rebooting Does Not Fix Hardware ASIC Issues",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-02-06T13:44:00.936951+00:00",
+                                     "updated_at":  "2026-02-06T13:44:00.936951+00:00"
+                                 },
+                                 {
+                                     "id":  "f6125ddf-b6d5-4071-b3af-cc28cdb11ad7",
+                                     "subcategory_id":  "2445a8fb-c3f3-42f5-9a3b-ab723f3c60db",
+                                     "title":  "Common Misdiagnoses in ASIC Miner Failures",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-02-06T13:44:01.591523+00:00",
+                                     "updated_at":  "2026-02-06T13:44:01.591523+00:00"
+                                 },
+                                 {
+                                     "id":  "132e2c9d-c170-4dd1-8be7-cd920bcc56c0",
+                                     "subcategory_id":  "2445a8fb-c3f3-42f5-9a3b-ab723f3c60db",
+                                     "title":  "Difference Between Software Errors and Hardware Damage in ASIC Miners",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-02-06T13:44:02.171675+00:00",
+                                     "updated_at":  "2026-02-06T13:44:02.171675+00:00"
+                                 },
+                                 {
+                                     "id":  "8baf7137-efe2-4cb8-a519-232538856b0a",
+                                     "subcategory_id":  "2445a8fb-c3f3-42f5-9a3b-ab723f3c60db",
+                                     "title":  "How Voltage Fluctuation Affects ASIC Hashboards",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-02-06T13:44:03.289771+00:00",
+                                     "updated_at":  "2026-02-06T13:44:03.289771+00:00"
+                                 },
+                                 {
+                                     "id":  "689c27bc-5498-4b96-bd2a-fb11737a029e",
+                                     "subcategory_id":  "2445a8fb-c3f3-42f5-9a3b-ab723f3c60db",
+                                     "title":  "Why ASIC Hashboards Fail After Power Outages",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-02-06T13:44:03.848407+00:00",
+                                     "updated_at":  "2026-02-06T13:44:03.848407+00:00"
+                                 },
+                                 {
+                                     "id":  "78a61cb6-486f-4ab5-97ce-978c172e7088",
+                                     "subcategory_id":  "2445a8fb-c3f3-42f5-9a3b-ab723f3c60db",
+                                     "title":  "How PSU Issues Lead to Hashboard Failure",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-02-06T13:44:04.260831+00:00",
+                                     "updated_at":  "2026-02-06T13:44:04.260831+00:00"
+                                 },
+                                 {
+                                     "id":  "e5bd1926-a34b-4395-958c-3c153470cf94",
+                                     "subcategory_id":  "2445a8fb-c3f3-42f5-9a3b-ab723f3c60db",
+                                     "title":  "Early Signs of Hashboard Failure Miners Often Ignore",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-02-06T13:44:04.696487+00:00",
+                                     "updated_at":  "2026-02-06T13:44:04.696487+00:00"
+                                 },
+                                 {
+                                     "id":  "51cdf55a-0a8b-4054-9aee-9bc9a21f53e3",
+                                     "subcategory_id":  "2445a8fb-c3f3-42f5-9a3b-ab723f3c60db",
+                                     "title":  "How ASIC Control Boards Detect Hashboards",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-02-06T13:44:05.279859+00:00",
+                                     "updated_at":  "2026-02-06T13:44:05.279859+00:00"
+                                 },
+                                 {
+                                     "id":  "53e5fe36-0eb8-455d-aa9a-013febfed13b",
+                                     "subcategory_id":  "2445a8fb-c3f3-42f5-9a3b-ab723f3c60db",
+                                     "title":  "Why a Hashboard Can Be Intermittently Detected",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-02-06T13:44:06.129122+00:00",
+                                     "updated_at":  "2026-02-06T13:44:06.129122+00:00"
+                                 },
+                                 {
+                                     "id":  "dcf20870-c4f0-4494-bbbc-1c8326e41214",
+                                     "subcategory_id":  "2445a8fb-c3f3-42f5-9a3b-ab723f3c60db",
+                                     "title":  "What Causes Hashboard Communication Failure",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-02-06T13:44:06.671126+00:00",
+                                     "updated_at":  "2026-02-06T13:44:06.671126+00:00"
+                                 },
+                                 {
+                                     "id":  "9a3c5009-37cd-40de-96b0-be981e2f4ab0",
+                                     "subcategory_id":  "2445a8fb-c3f3-42f5-9a3b-ab723f3c60db",
+                                     "title":  "Why One Hashboard Fails While Others Work",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-02-06T13:44:07.266983+00:00",
+                                     "updated_at":  "2026-02-06T13:44:07.266983+00:00"
+                                 },
+                                 {
+                                     "id":  "4040c935-f0b0-4cdc-95d5-fa4d2907d47c",
+                                     "subcategory_id":  "2445a8fb-c3f3-42f5-9a3b-ab723f3c60db",
+                                     "title":  "What Happens During Professional ASIC Hashboard Repair",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-02-06T13:44:07.796685+00:00",
+                                     "updated_at":  "2026-02-06T13:44:07.796685+00:00"
+                                 },
+                                 {
+                                     "id":  "95ce3157-6999-4699-bbaa-2780f4034241",
+                                     "subcategory_id":  "2445a8fb-c3f3-42f5-9a3b-ab723f3c60db",
+                                     "title":  "Repairable vs Non-Repairable ASIC Hashboard Damage",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-02-06T13:44:08.352452+00:00",
+                                     "updated_at":  "2026-02-06T13:44:08.352452+00:00"
+                                 },
+                                 {
+                                     "id":  "890688dd-4922-44b5-bbab-b63c1f630e08",
+                                     "subcategory_id":  "2445a8fb-c3f3-42f5-9a3b-ab723f3c60db",
+                                     "title":  "Why Delayed ASIC Repair Increases Cost",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-02-06T13:44:08.975703+00:00",
+                                     "updated_at":  "2026-02-06T13:44:08.975703+00:00"
+                                 },
+                                 {
+                                     "id":  "a1b4d4cc-6a84-4b8c-acda-3d63e6f5f33a",
+                                     "subcategory_id":  "2445a8fb-c3f3-42f5-9a3b-ab723f3c60db",
+                                     "title":  "How Repeated Restarts Can Worsen Hardware Damage",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-02-06T13:44:09.509713+00:00",
+                                     "updated_at":  "2026-02-06T13:44:09.509713+00:00"
+                                 },
+                                 {
+                                     "id":  "009b5431-d6b8-41d3-9b6b-ed68dd696917",
+                                     "subcategory_id":  "1f7f6e70-c687-40d6-a2c3-7442317a0570",
+                                     "title":  "ASIC Repair vs Replacement: How to Decide",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-02-07T12:54:22.97604+00:00",
+                                     "updated_at":  "2026-02-07T12:54:22.97604+00:00"
+                                 },
+                                 {
+                                     "id":  "12aee4c3-893a-49b8-8c44-3ab89376a07a",
+                                     "subcategory_id":  "1f7f6e70-c687-40d6-a2c3-7442317a0570",
+                                     "title":  "When ASIC Hashboard Repair Is Worth It",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-02-07T12:54:23.499032+00:00",
+                                     "updated_at":  "2026-02-07T12:54:23.499032+00:00"
+                                 },
+                                 {
+                                     "id":  "d7fa29e2-c1b8-4e00-b648-2b9d8ea58a22",
+                                     "subcategory_id":  "1f7f6e70-c687-40d6-a2c3-7442317a0570",
+                                     "title":  "When Replacing an ASIC Miner Makes More Sense",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-02-07T12:54:24.298743+00:00",
+                                     "updated_at":  "2026-02-07T12:54:24.298743+00:00"
+                                 },
+                                 {
+                                     "id":  "a89800e6-1853-4b13-8c4e-bcb1b68d11c9",
+                                     "subcategory_id":  "1f7f6e70-c687-40d6-a2c3-7442317a0570",
+                                     "title":  "Cost Impact of Ignoring Early ASIC Failure Signs",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-02-07T12:54:24.792787+00:00",
+                                     "updated_at":  "2026-02-07T12:54:24.792787+00:00"
+                                 },
+                                 {
+                                     "id":  "51330d31-4c4a-4d55-a9a3-8bf5917c7857",
+                                     "subcategory_id":  "1f7f6e70-c687-40d6-a2c3-7442317a0570",
+                                     "title":  "How to Reduce Downtime With Timely ASIC Repair",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-02-07T12:54:25.358681+00:00",
+                                     "updated_at":  "2026-02-07T12:54:25.358681+00:00"
+                                 },
+                                 {
+                                     "id":  "309d7f95-dfe5-4e36-acae-dea7de6b529f",
+                                     "subcategory_id":  "7bb10f88-3ecb-4fee-8060-a237e75b0bc1",
+                                     "title":  "ASIC Overheating Problems in Indian Summers",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-02-07T12:55:27.160417+00:00",
+                                     "updated_at":  "2026-02-07T12:55:27.160417+00:00"
+                                 },
+                                 {
+                                     "id":  "cf587fa1-1f23-48cd-a5b0-8a4e738d1525",
+                                     "subcategory_id":  "7bb10f88-3ecb-4fee-8060-a237e75b0bc1",
+                                     "title":  "How Dust Build-Up Causes ASIC Hardware Failure",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-02-07T12:55:27.613789+00:00",
+                                     "updated_at":  "2026-02-07T12:55:27.613789+00:00"
+                                 },
+                                 {
+                                     "id":  "adf46e4a-6339-484e-a8ea-63f239867d97",
+                                     "subcategory_id":  "7bb10f88-3ecb-4fee-8060-a237e75b0bc1",
+                                     "title":  "Moisture and Humidity Damage in ASIC Mining Environments",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-02-07T12:55:28.067169+00:00",
+                                     "updated_at":  "2026-02-07T12:55:28.067169+00:00"
+                                 },
+                                 {
+                                     "id":  "bb437b6f-d17f-403c-89d0-7716fefbc3d3",
+                                     "subcategory_id":  "7bb10f88-3ecb-4fee-8060-a237e75b0bc1",
+                                     "title":  "Voltage Fluctuation Damage in Indian Mining Setup",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-02-07T12:55:28.538794+00:00",
+                                     "updated_at":  "2026-02-07T12:55:28.538794+00:00"
+                                 },
+                                 {
+                                     "id":  "f46b808a-6995-494b-b745-df3bead3f1c2",
+                                     "subcategory_id":  "2445a8fb-c3f3-42f5-9a3b-ab723f3c60db",
+                                     "title":  "How Overheating Damages ASIC Hashboards",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-02-06T13:44:02.707969+00:00",
+                                     "updated_at":  "2026-02-06T13:44:02.707969+00:00"
+                                 },
+                                 {
+                                     "id":  "257bc42d-17e6-4a62-98bc-a22beb473d3c",
+                                     "subcategory_id":  "92585bcb-3ec9-4a25-be33-3cf8a92b2078",
+                                     "title":  "DIY vs Professional Repair – Skill Requirements \u0026 Tool Investment",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "55170b84-1a05-467b-b583-9b90c87411ec",
+                                     "subcategory_id":  "87aba6a6-7fd9-41e8-bb00-636bfc3760a4",
+                                     "title":  "Monsoon Mining: Protecting ASIC Miners from Humidity in India",
+                                     "status":  "done",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "d90f7c80-1d71-4ce5-a67b-78295f4fd098",
+                                     "subcategory_id":  "670e0d85-3d30-4e80-be87-8b61ddeaafb2",
+                                     "title":  "Antminer APW12 Power Supply Failure – Common Faults \u0026 Fixes",
+                                     "status":  "done",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "f417b614-a2bb-41b8-90b1-2ebc2342bcb9",
+                                     "subcategory_id":  "7bb10f88-3ecb-4fee-8060-a237e75b0bc1",
+                                     "title":  "Why Monsoon Season Increases ASIC Failure Rates",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-02-07T12:55:29.002468+00:00",
+                                     "updated_at":  "2026-02-07T12:55:29.002468+00:00"
+                                 },
+                                 {
+                                     "id":  "89c6e82b-27e7-422d-a19c-eb9b0384b596",
+                                     "subcategory_id":  "bee35d68-3103-4659-a899-80455052cc1c",
+                                     "title":  "Antminer S21 Pro Hashboard Not Detected",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "de1c70f4-2047-483d-a90e-a706df481c13",
+                                     "subcategory_id":  "87aba6a6-7fd9-41e8-bb00-636bfc3760a4",
+                                     "title":  "Pest Damage to Mining Equipment – Rodents \u0026 Insects Prevention",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 },
+                                 {
+                                     "id":  "01611c40-f5df-4016-87ea-1d7d929c72ff",
+                                     "subcategory_id":  "dbe85f57-7afa-455f-bf8f-8b17021b20d7",
+                                     "title":  "ASIC Miner Overheating in Indian Summer – Complete Prevention Guide",
+                                     "status":  "pending",
+                                     "research_data":  null,
+                                     "created_at":  "2026-01-19T14:32:53.84412+00:00",
+                                     "updated_at":  "2026-01-19T14:32:53.84412+00:00"
+                                 }
+                             ],
+                   "Count":  118
+               },
+    "publish_queue":  {
+                          "value":  [
+                                        {
+                                            "id":  "be57e91a-17c8-4012-a664-6ea097243db8",
+                                            "article_id":  "25fec97e-c1b0-4eeb-857a-cdf529a66ecc",
+                                            "scheduled_date":  "2026-01-27",
+                                            "scheduled_time":  "09:00:00",
+                                            "status":  "published",
+                                            "created_at":  "2026-01-26T10:32:14.18561+00:00"
+                                        },
+                                        {
+                                            "id":  "bd494571-2399-4ecc-8072-7460932ce626",
+                                            "article_id":  "7b270a1c-257d-439d-a61c-c8cf3bc19a46",
+                                            "scheduled_date":  "2026-01-30",
+                                            "scheduled_time":  "09:00:00",
+                                            "status":  "published",
+                                            "created_at":  "2026-01-29T11:08:47.094654+00:00"
+                                        },
+                                        {
+                                            "id":  "c2b91dfa-e8c1-4bfa-a579-6f620bb6acce",
+                                            "article_id":  "635c53a0-52aa-4dcd-9e02-e0e7ef3c416c",
+                                            "scheduled_date":  "2026-02-10",
+                                            "scheduled_time":  "09:00:00",
+                                            "status":  "published",
+                                            "created_at":  "2026-02-09T11:25:39.048624+00:00"
+                                        }
+                                    ],
+                          "Count":  3
+                      }
+}
