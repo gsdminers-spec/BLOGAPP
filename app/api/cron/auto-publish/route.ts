@@ -39,14 +39,13 @@ export async function GET(request: NextRequest) {
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
     try {
-        // Optional: Verify cron secret for security
-        // const { searchParams } = new URL(request.url);
-        // const secret = searchParams.get('secret');
+        // Verify cron secret for security
+        const { searchParams } = new URL(request.url);
+        const secret = searchParams.get('secret');
 
-        // Uncomment this to enable secret verification
-        // if (secret !== process.env.CRON_SECRET) {
-        //     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-        // }
+        if (process.env.CRON_SECRET && secret !== process.env.CRON_SECRET) {
+            return NextResponse.json({ error: 'Unauthorized: Invalid cron secret' }, { status: 401 });
+        }
 
         // Get current time in IST (GMT+5:30)
         const now = new Date();

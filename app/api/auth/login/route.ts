@@ -10,13 +10,17 @@ import { logActivity } from '@/lib/logger';
 // But for simplicity in this demo, we'll compare string directly OR compute hash.
 // Let's do simple string compare for now per user request context (admin tool).
 // Ideally: Use bcrypt/argon2.
-const CORRECT_PASSWORD = process.env.ADMIN_PASSWORD || 'Ashmira@143';
-
 export async function POST(request: Request) {
     try {
         const { password } = await request.json();
+        const adminPassword = process.env.ADMIN_PASSWORD;
 
-        if (password === CORRECT_PASSWORD) {
+        if (!adminPassword) {
+            console.error('❌ ADMIN_PASSWORD is not configured in environment variables!');
+            return NextResponse.json({ success: false, error: 'Server authentication configuration missing' }, { status: 500 });
+        }
+
+        if (password === adminPassword) {
             await createSession();
             await logActivity('LOGIN', 'System', 'Admin logged in');
             return NextResponse.json({ success: true });
