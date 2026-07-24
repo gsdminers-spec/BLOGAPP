@@ -1,0 +1,119 @@
+{
+  "version": "1.0.0",
+  "updated_at": "2026-07-24",
+  "oem_manufacturers": {
+    "bitmain_antminer": {
+      "models": {
+        "S19_Series": {
+          "models": ["Antminer S19", "Antminer S19 Pro", "Antminer S19j Pro", "Antminer S19 XP"],
+          "asic_chips": ["BM1397", "BM1398"],
+          "chip_count_per_board": 76,
+          "voltage_domains": {
+            "main_input_dc": "12.0V - 15.0V",
+            "ldo_vdd_io": "1.80V ± 0.05V",
+            "ldo_vdd_core": "0.80V ± 0.02V",
+            "pic_control_voltage": "3.3V"
+          },
+          "signals": [
+            { "name": "CLK", "full_name": "Clock Signal", "freq": "50MHz", "nominal_voltage": "0.9V AC/DC" },
+            { "name": "CO", "full_name": "Command Out", "nominal_voltage": "1.8V" },
+            { "name": "RI", "full_name": "Reset In", "nominal_voltage": "1.8V" },
+            { "name": "RO", "full_name": "Read Out", "nominal_voltage": "1.8V" },
+            { "name": "BO", "full_name": "Busy Out", "nominal_voltage": "0V - 1.8V" }
+          ],
+          "common_kernel_errors": [
+            "Hashboard 0 slot empty",
+            "J:0:0: chain missing",
+            "ERROR_SOC_INIT: failed to init ASIC chip"
+          ]
+        },
+        "S21_Series": {
+          "models": ["Antminer S21", "Antminer S21 Pro", "Antminer S21 Hydro"],
+          "asic_chips": ["BM1366", "BM1368"],
+          "chip_count_per_board": 108,
+          "voltage_domains": {
+            "main_input_dc": "13.5V - 15.2V",
+            "ldo_vdd_io": "1.80V ± 0.03V",
+            "ldo_vdd_core": "0.75V ± 0.02V",
+            "pic_control_voltage": "3.3V"
+          },
+          "signals": [
+            { "name": "CLK", "full_name": "Clock Signal", "freq": "60MHz", "nominal_voltage": "0.9V" },
+            { "name": "CO", "full_name": "Command Out", "nominal_voltage": "1.8V" },
+            { "name": "RI", "full_name": "Reset In", "nominal_voltage": "1.8V" },
+            { "name": "RO", "full_name": "Read Out", "nominal_voltage": "1.8V" }
+          ],
+          "common_kernel_errors": [
+            "0 ASIC Chip detected on chain 1",
+            "High temperature alarm > 95C",
+            "LDO output voltage abnormal"
+          ]
+        },
+        "Hydro_Specialty": {
+          "models": ["S19 Hydro", "S21 Hydro"],
+          "coolant": "Deionized water / Glycol mix (50/50)",
+          "operating_temp_range": "20C - 65C",
+          "common_faults": ["Coolant flow sensor lockout", "Bubble cavitation in copper plates", "Corrosion on G1/4 fittings"]
+        }
+      },
+      "power_supplies": {
+        "APW12": {
+          "input_voltage": "200V - 240V AC",
+          "output_voltage": "12.0V - 15.0V DC adjustable",
+          "max_power": "3600W",
+          "common_faults": [
+            "PFC MOSFET Q1/Q2 short circuit (causes breaker trip)",
+            "Auxiliary 12V VCC power chip MP1470 blown",
+            "Main 400V bulk electrolytic capacitor leakage"
+          ]
+        }
+      }
+    },
+    "microbt_whatsminer": {
+      "models": {
+        "M30_M50_M60_Series": {
+          "models": ["M20S", "M21S", "M30S", "M30S++", "M31S", "M50S", "M50S++", "M60S"],
+          "asic_chips": ["KF1921", "KF1930", "KF1950", "KF1968", "KF1988"],
+          "error_codes": [
+            { "code": "202", "meaning": "Hashboard communication failure / 0 hashboard detected" },
+            { "code": "250", "meaning": "Hashboard chip count incomplete (e.g. 102/105 chips responding)" },
+            { "code": "350", "meaning": "Control board supply voltage out of safe operating range" },
+            { "code": "540", "meaning": "High temperature sensor threshold exceeded (> 85C intake)" },
+            { "code": "541", "meaning": "Temperature sensor disconnection / I2C bus error" },
+            { "code": "542", "meaning": "Fan speed lower than target RPM / fan lock" }
+          ],
+          "power_supplies": ["P221C", "P21D"],
+          "psu_output": "12.5V / 14.5V DC"
+        }
+      }
+    },
+    "canaan_avalon": {
+      "models": {
+        "A11_A14_Series": {
+          "models": ["Avalon A1166 Pro", "Avalon A1246", "Avalon A1366", "Avalon A1466"],
+          "asic_chips": ["A3206", "A3207", "A3208"],
+          "controllers": ["AUC3 USB Bridge", "AUC4 Controller"],
+          "common_faults": ["AUC3 SPI communication timeout", "Hashboard voltage domain imbalance", "MM control unit fan fail alert"]
+        }
+      }
+    }
+  },
+  "diagnostic_equipment": {
+    "PicoBT_PT3": {
+      "purpose": "Hardware test fixture for indexing broken ASIC chips on Antminer & Whatsminer hashboards",
+      "signal_tests": ["CLK frequency", "RI voltage", "RO signal return", "EEPROM read/write"],
+      "baud_rate": "115200"
+    },
+    "rework_tools": {
+      "hot_air_station": "Atten ST-862D (Set to 380C, 60% airflow for BGA chip desoldering)",
+      "multimeter": "Fluke 87V Industrial Multimeter",
+      "flux": "Kester 951 No-Clean Liquid Flux",
+      "solder": "Chip Quik Low Temperature BGA Alloy (138C melting point)"
+    }
+  },
+  "indian_climate_factors": {
+    "summer": { "ambient_temp": "40C - 48C", "risk": "Thermal throttling, thermal paste drying in 3-6 months" },
+    "monsoon": { "relative_humidity": "85% - 98%", "risk": "PCB copper oxidation, dendrite short circuits between 1.8V and GND" },
+    "grid_power": { "voltage_swings": "170V AC - 280V AC", "risk": "PFC MOSFET destruction, auxiliary chip burnout without voltage stabilizers" }
+  }
+}
